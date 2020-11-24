@@ -1,11 +1,11 @@
 # DS-Algo
 Solving leetcode questions and learning
 
-# Date Created
+## Date Created
 2020, November, 2020
 
-# Contributors
+## Contributors
 Amrit Raj
 
-# License and Copyright
+## License and Copyright
 MIT License
