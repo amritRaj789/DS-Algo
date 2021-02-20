@@ -182,6 +182,22 @@ let mergeTwoLists = function (l1, l2){
 
 }
 
+/*24. Swap Nodes in Pairs
+Given a linked list, swap every two adjacent nodes and return its head
+*/
+var swapPairs = function (head){
+	let currNode = head;
+	while(currNode !== null && currNode.next !== null){
+		let tempVal = currNode.val;
+		currNode.val = currNode.next.val;
+		currNode.next.val = tempVal;
+		currNode = currNode.next.next;
+	}
+	return head;
+}
+
+
+
 /*76. Minimum window substring
 
 Given two strings s and t, return the minimum window in s which will contain all the characters in t. If there is no such window in s that covers all characters in t, return the empty string "".
