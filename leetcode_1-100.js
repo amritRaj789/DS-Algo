@@ -21,12 +21,24 @@ var twoSum = function(nums, target) {
 You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
 You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 */
-let addTwoNumbers = function(l1, l2){
-	let node1 = l1;
-	let node1 = l2;
-	
-
-}
+var addTwoNumbers = function(l1, l2) {
+	let result = new ListNode();
+	let resultHead = result;
+	let carryOver = 0;
+	while(l1 !== null || l2 !== null){
+		val1 = (l1 === null) ? 0 : l1.val;
+		val2 = (l2 === null) ? 0 : l2.val;
+		sum = val1 + val2 + carryOver;
+		carryOver = Math.floor(sum/10);
+		result.next = new ListNode(sum%10);
+		l1 = l1===null ? null : l1.next;
+		l2 = l2===null ? null : l2.next;
+		result = result.next;
+	}
+    if(carryOver)
+        result.next = new ListNode(1);
+	return resultHead.next
+};
 
 
 // 3. Longest substring without repeating characters.
