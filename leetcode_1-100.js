@@ -81,6 +81,30 @@ function maxWater (height){
 	return maxVolWater;
 }
 
+/*19. Remove Nth Node from End of List
+Given the head of a linked list, remove the nth node from the end of the list and return its head
+*/
+var removeNthFromEnd = function (head, n){
+	let slow = head;
+	let fast = head;
+	while(n > 0){
+		fast = fast.next;
+		n--;
+	}
+	if(fast === null){
+		return head.next;
+	}
+	while(fast.next !== null){
+		slow = slow.next;
+		fast = fast.next;
+	}
+	let temp = slow.next.next;
+	slow.next = temp;
+	return head;
+}
+10 -> 5 -> 6 -> 7 -> 12 -> 30, n = 6
+
+
 // 20. Valid Parentheses
 /*
 Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
