@@ -81,6 +81,10 @@ function maxWater (height){
 	return maxVolWater;
 }
 
+
+
+
+
 /*19. Remove Nth Node from End of List
 Given the head of a linked list, remove the nth node from the end of the list and return its head
 */
@@ -196,6 +200,32 @@ var swapPairs = function (head){
 	return head;
 }
 
+/*61. Rotate List
+Given the head of a linked list, rotate the list to the right by k places
+*/
+var rotateRight = function (head, k){
+	if(head==null || head.next == null)
+		return head;
+	let node = head;
+	let length = 1;
+	while(node.next !== null){
+		length++;
+		node = node.next;
+	}
+	let n = k%length;
+	if(n===0)
+		return head;
+	let curr = head;
+	let count = length-n;
+	while(count > 1){
+		curr = curr.next;
+		count--;
+	}
+	let tempNode = curr.next;
+	node.next = head;
+	curr.next = null;
+	return tempNode;
+}
 
 
 /*76. Minimum window substring
