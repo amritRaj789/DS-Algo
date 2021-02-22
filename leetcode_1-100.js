@@ -259,6 +259,26 @@ var rotateRight = function (head, k){
 	return tempNode;
 }
 
+/*71. Simplify Path
+Given a string path, which is an absolute path (starting with a slash '/') to a file or directory in a Unix-style file system, convert it to the simplified canonical path.
+In a Unix-style file system, a period '.' refers to the current directory, a double period '..' refers to the directory up a level, and any multiple consecutive slashes (i.e. '//') are treated as a single slash '/'. For this problem, any other format of periods such as '...' are treated as file/directory names.
+*/var simplifyPath = function(path) {
+	let stack = [];
+	let splitted = path.split("/");
+	for(let str of splitted){
+		if(str === "" || str === ".")
+			continue;
+		else if(str === ".."){
+			stack.pop();
+		}
+		else {
+			stack.push(str);
+		}
+	}
+	const result = "/" + stack.join("/");
+	return result;
+}
+
 
 /*76. Minimum window substring
 
@@ -325,37 +345,4 @@ function deleteDuplicates (head){
 	}
 	return head;
 }
-
-
-function threeSum (nums) {
-	let sol = [];
-	let twoSum = function(arr, target){
-		let array = [...arr];
-		array.sort((a, b) => a-b);
-		let left = 0;
-		let right = array.length-1;
-		let result = [];
-		while(left < right){
-			if(array[left] + array[right] > target)
-				right--;
-			else if( array[left] + array[right] < target)
-				left++;
-			else
-				result.push([array[left], array[right]]);
-		}
-		return result;
-	}
-
-	for(let i = 0; i < nums.length-2; i++){
-		let resultant = twoSum(nums.splice(i+1), -nums[i]);
-		if(resultant.length > 0){
-			for(let pair of resultant){
-				sol.push([nums[i], ...pair]);
-			}
-		}
-	}
-
-	return sol;
-}
-
 
