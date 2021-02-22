@@ -345,4 +345,3 @@ function deleteDuplicates (head){
 	}
 	return head;
 }
-

@@ -15,6 +15,36 @@ var hasCycle = function (head){
 	}
 	return false
 }
+
+/*150 Evaluate Reverse Polish Notation
+*/
+var evalRPN = function(tokens) {
+    let stack = [];
+	let math = {
+		'+' : (x,y) => x+y,
+		'-' : (x,y) => x-y,
+		'*' : (x,y) => x*y,
+		'/' : (x,y) => {
+				if(x < 0 || y < 0)
+					return Math.ceil(x/y)
+				else
+					return Math.floor(x/y)
+			},
+	}
+	for(let i = 0; i < tokens.length; i++){
+		if(!isNaN(tokens[i])){
+			stack.push(parseInt(tokens[i]));
+		}
+		else{
+			let t1 = stack.pop();
+			let t2 = stack.pop();
+			stack.push(math[tokens[i]](t2, t1));
+		}
+	}
+	
+	return stack.pop();
+};
+
 /*155. Min Stack
 	Design a stack that supports push, pop, top and retreiving the minimum element in constant time
 */
