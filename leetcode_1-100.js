@@ -115,7 +115,41 @@ function twoSum (arr, left, target, result){
 	}
 }
 
-
+/*18. 4Sum
+Given an array nums of n integers and an integer target, are there elements a, b, c, and d in nums such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.
+Notice that the solution set must not contain duplicate quadruplets.
+*/
+const fourSum = function(nums, target) {
+  let quadruplets = [];
+  nums.sort((a, b) => a-b);
+  for(let i = 0; i < nums.length-3; i++){
+  	if(i >= 1 && nums[i] === nums[i-1])
+  		continue;
+  	for(let j = i+1; j < nums.length-2; j++){
+  		if(j >= i+2 && nums[j] === nums[j-1])
+  			continue;
+  		let left = j+1; 
+  		let right = nums.length-1;
+  		while(left < right){
+  			sum = nums[i] + nums[j] + nums[left] + nums[right];
+  			if(sum < target)
+  				left++;
+  			else if(sum > target)
+  				right--;
+  			else{
+  				quadruplets.push([nums[i], nums[j], nums[left], nums[right]]);
+  				left++;
+  				right--;
+                while(left < right && nums[left] === nums[left-1])
+				    left++
+			    while(left < right && nums[right] === nums[right+1])
+				    right--;
+  			}
+  		}
+  	}
+  }
+  return quadruplets;
+};
 
 /*19. Remove Nth Node from End of List
 Given the head of a linked list, remove the nth node from the end of the list and return its head

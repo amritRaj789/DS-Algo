@@ -56,3 +56,96 @@ var minOperations = function (boxes){
 }
 
 console.log(minOperations("001011"))
+
+// 1770. Maximum Score from Performing Multiplication Operations
+//Unfinished
+var maximumScore = function (nums, multipliers){
+
+}
+
+dp[i] = Math.max(multiplier[i]*nums[left], multiplier[i]*nums[right])
+
+
+
+//By Recursion
+var maximumScore = function (nums, multipliers){
+	const length = multipliers.length;
+	const maxValue = maxScore(nums, 0);
+	function maxScore (arr, i){
+		if(i === length-1)
+			return Math.max(multipliers[i]*arr[0], multipliers[i]*arr[arr.length-1])
+		else{
+			return Math.max(multipliers[i]*arr[0] + maxScore(arr.slice(1), i+1) , multipliers[i]*arr[arr.length-1] + maxScore(arr.slice(0, arr.length-1), i+1))
+		}
+	}
+	return maxValue;
+}
+
+console.log(maximumScore([-5,-3,-3,-2,7,1], [-10,-5,3,4,6]))
+
+// Recursion with memoization
+var maximumScore = function (nums, multipliers){
+	const length = multipliers.length;
+	let memo = {};
+	const maxScore = function (arr, i){
+		if(i === length-1){
+			memo[[i, 0]] = multipliers[i]*arr[0];
+			memo[[i,1]] = multipliers[i]*arr[arr.length-1];
+			return Math.max(memo[[i, 0]], memo[[i, 1]]);
+		}
+		else{
+			memo[[i, 0]] = multipliers[i]*arr[0] + maxScore(arr.slice(1), i+1);
+			memo[[i, 1]] = multipliers[i]*arr[arr.length-1] + maxScore(arr.slice(0, arr.length-1), i+1);
+			return Math.max(memo[[i, 0]] , memo[[i, 1]]);
+		}
+	}
+	const maxValue = maxScore(nums, 0);
+	return maxValue;
+}
+console.log(maximumScore([-5,-3,-3,-2,7,1], [-10,-5,3,4,6]))
+
+
+
+// Better memoization
+var maximumScore = function (nums, multipliers){
+	const length = multipliers.length;
+	let memo = {};
+	const maxScore = function (arr, i){
+		if(i === length-1){
+			memo[[i, 0]] = multipliers[i]*arr[0];
+			memo[[i,1]] = multipliers[i]*arr[arr.length-1];
+			return Math.max(memo[[i, 0]], memo[[i, 1]]);
+		}
+		else{
+			memo[[i, 0]] = multipliers[i]*arr[0] + maxScore(arr.slice(1), i+1);
+			memo[[i, 1]] = multipliers[i]*arr[arr.length-1] + maxScore(arr.slice(0, arr.length-1), i+1);
+			return Math.max(memo[[i, 0]] , memo[[i, 1]]);
+		}
+	}
+	const maxValue = maxScore(nums, 0);
+	return maxValue;
+}
+console.log(maximumScore([-5,-3,-3,-2,7,1], [-10,-5,3,4,6]))
+
+var maximumScore = function (nums, multipliers){
+	const length = multipliers.length;
+	let memo = new Array(length+1);
+	for(let i = 0 ; i <= length; i++){
+		memo[i] = new Array(nums.length);
+	}
+	//n_ind : index of nums array, m_ind : index of multipliers array
+	const maxScore = function (arr, i, start, end){
+		if(i === length-1){
+			return Math.max(multipliers[i]*arr[0], multipliers[i]*arr[arr.length-1])
+		}
+		else{
+			memo[start+1][end] = maxScore(arr.slice(1), i+1, start+1, end);
+			memo[start][end-1] = maxScore(arr.slice(0, arr.length-1), i+1, start, end-1);
+			return Math.max(multipliers[i]*arr[0] + memo[start+1][end], multipliers[i]*arr[arr.length-1] + memo[start][end-1]);
+		}
+	}
+	return maxScore(nums, 0, 0, length-1);
+}
+console.log(maximumScore([-5,-3,-3,-2,7,1], [-10,-5,3,4,6]));
+
+
