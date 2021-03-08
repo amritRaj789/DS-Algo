@@ -293,8 +293,30 @@ var merge = function(intervals) {
     return merged;
 };
 
+/*57. Insert Intervals
+Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if necessary).
+You may assume that the intervals were initially sorted according to their start times
+
+*/
+var insert = function(intervals, newInterval) {
+    let i = 0;
+    while(i < intervals.length && intervals[i][1] < newInterval[0]){
+        i++;
+    }
+	const start = i;    
+    while(i < intervals.length && intervals[i][0] <= newInterval[1]){
+        newInterval[0] = Math.min(intervals[i][0], newInterval[0]);
+        newInterval[1] = Math.max(intervals[i][1], newInterval[1]);
+        i++;
+    }
+    intervals.splice(start, i-start, newInterval);
+    
+    return intervals;
+};
+// In place and O(N);
 
 /*61. Rotate List
+
 Given the head of a linked list, rotate the list to the right by k places
 */
 var rotateRight = function (head, k){
@@ -322,6 +344,7 @@ var rotateRight = function (head, k){
 }
 
 /*71. Simplify Path
+
 Given a string path, which is an absolute path (starting with a slash '/') to a file or directory in a Unix-style file system, convert it to the simplified canonical path.
 In a Unix-style file system, a period '.' refers to the current directory, a double period '..' refers to the directory up a level, and any multiple consecutive slashes (i.e. '//') are treated as a single slash '/'. For this problem, any other format of periods such as '...' are treated as file/directory names.
 */var simplifyPath = function(path) {
