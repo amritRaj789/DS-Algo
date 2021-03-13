@@ -1,4 +1,6 @@
-/*978. Longest Turbulent SubArray
+/*
+978. Longest Turbulent SubArray
+
 Given an integer array arr, return the length of a maximum size turbulent subarray of arr.
 A subarray is turbulent if the comparison sign flips between each adjacent pair of elements in the subarray.*/
 
@@ -44,6 +46,63 @@ function longestOnes (A, K){
 	return maxLength;
 }
 console.log(longestOnes([1,1,1,0,0,0,1,1,1,1,0], 2));
+
+/*
+986. Interval List Intersections
+
+You are given two lists of closed intervals, firstList and secondList, where firstList[i] = [starti, endi] and secondList[j] = [startj, endj]. Each list of intervals is pairwise disjoint and in sorted order.
+Return the intersection of these two interval lists.
+*/
+// My solution
+var intervalIntersection = function(firstList, secondList) {
+    let result = [];
+    let i = 0;
+    let j = 0;
+    while(i < firstList.length && j < secondList.length){
+        if(firstList[i][1]  < secondList[j][0]){	//A[i] is less than B[j] no intersection
+            i++;
+        }
+        else if(secondList[j][1] < firstList[i][0]){	//B[j] is less than A[i] no intersection
+            j++;
+        }
+        else{
+            let start = Math.max(firstList[i][0], secondList[j][0]);
+            let end = Math.min(firstList[i][1], secondList[j][1]);
+            result.push([start, end]);
+            if(firstList[i][1] > secondList[j][1])
+                j++;
+            else if(firstList[i][1] < secondList[j][1])
+                i++;
+            else{
+                i++;
+                j++;
+            }
+                
+        }
+    }
+    return result;
+};
+
+// Shorter version of the exact same thing
+var intervalIntersection = function(firstList, secondList) {
+    let result = [];
+    let i = 0;
+    let j = 0;
+    while(i < firstList.length && j < secondList.length){
+        let start = Math.max(firstList[i][0], secondList[j][0]);
+        let end = Math.min(firstList[i][1], secondList[j][1]);
+        if(start <= end)
+        	result.push([start, end]);
+        if(firstList[i][1] < secondList[j][1])
+        	i++;
+        else
+        	j++;
+    }
+    return result;
+};
+
+
+
 
 // 1052. Grumpy bookstore owner
 function maxSatisfied (customers, grumpy, X){
