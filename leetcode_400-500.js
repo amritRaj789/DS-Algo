@@ -1,3 +1,48 @@
+/*435. 
+Non-overlapping intervals
+Given a collection of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
+*/var eraseOverlapIntervals = function(intervals) {
+    if(intervals.length <= 1)
+        return 0;
+    intervals.sort((a, b) => a[0] - b[0]);
+    let end = intervals[0][1];
+    let count = 0;
+    for(let i = 1; i < intervals.length; i++){
+        if(intervals[i][0] < end){
+            if(end >= intervals[i][1]){
+                count++;
+                end = intervals[i][1];
+            }
+            else{
+                count++;
+            }
+        }
+        else{
+            end = intervals[i][1];
+        }
+    }   
+    return count;
+}
+
+// I copied this solution from an user. Still got a little understanding to do
+var eraseOverlapIntervals = function(intervals) {
+    intervals.sort((a,b) => a[0]-b[0])
+    let n = intervals.length
+    let res = 0
+    let i = n-1
+    while(i>0){
+        let j = i-1
+        while(j>=0 && intervals[j][1] > intervals[i][0]){
+            res++
+            j--
+        }
+        i = j
+    }
+    return res
+};
+
+
+
 /*
 436. Find Right Interval
 
