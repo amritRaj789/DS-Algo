@@ -18,7 +18,7 @@ var findRightInterval = function(intervals) {
     let j = 0;	// endSorted index
     for(j = 0; j < intervals.length; j++){
     	while(i < intervals.length){
-    		if(startSorted[i][0] <= endSorted[j][1]){
+    		if(startSorted[i][0] >= endSorted[j][1]){
     			result[hash[endSorted[j][0]]] = hash[startSorted[i][0]];
     			break;
     		}
@@ -29,4 +29,24 @@ var findRightInterval = function(intervals) {
     }
     return result;
 };
-//O(2N)
+//O(2N
+
+// Alternate method, if we don't want to store the indices in a hash but store it in the 2 sorted arrays
+var findRightInterval = function(intervals) {
+    let result = new Array(intervals.length).fill(-1);
+    let startSorted = intervals.map((interval, i) => [...interval, i]).sort((a, b) => a[0] - b[0]);  //sorting the start values in ascending order
+    let endSorted = intervals.map((interval, i) => [...interval, i]).sort((a, b) => a[1] - b[1]);    //sorting the end values in ascending order
+    let i = 0;
+    for(let j = 0; j < intervals.length; j++){
+        while(i < intervals.length){
+            if(startSorted[i][0] >= endSorted[j][1]){
+                result[endSorted[j][2]] = startSorted[i][2];
+                break;
+            }
+            i++;
+        }
+        if(i === intervals.length)
+            break;
+    }
+    return result;
+};
