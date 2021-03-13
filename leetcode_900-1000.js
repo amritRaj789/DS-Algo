@@ -178,21 +178,3 @@ function maxScore (cardPoints, k){
 	return totalSum - minSumWindow
 }
 console.log(maxScore([1,2,3,4,5,6,1], 3));
-
-function longestSubarray (nums, limit){
-	if(nums.length === 1)
-		return 1;
-	let minInWindow = nums[0];
-	let maxInWindow = nums[0];
-	let left = 0;
-	for(let right = 0; right < nums.length; right++){
-		if(nums[right] > maxInWindow)
-			maxInWindow = nums[right];
-		if(nums[right] < minInWindow)
-			minInWindow = nums[right];
-		while(maxInWindow - minInWindow > limit){
-			if()
-		}
-	}
-
-}
