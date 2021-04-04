@@ -1,3 +1,39 @@
+/*101. Symmetric Tree
+Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+*/
+//iterative
+let isSymmetric = function (root){
+	let queue = [root.left, root.right];
+	while(queue.length !== 0){
+		temp1 = queue.shift();
+		temp2 = queue.shift();
+		if(temp1 === null && temp2 === null)
+			continue;
+		if(temp1 === null || temp2 === null)
+			return false;
+		if(temp1.val !== temp2.val)
+			return false;
+		queue.push(temp1.left)
+		queue.push(temp2.right)
+		queue.push(temp1.right)
+		queue.push(temp2.left)
+	}
+	return true;
+}
+//recursive
+let isSymmetric = function(root){
+	function helper(node1, node2){
+		if(node1 === null && node2 === null)
+			return true
+		if(node1 === null || node2 === null)
+			return false;
+		if(node1.val !== node2.val)
+			return false;
+		return (helper(node1.left, node2.right) && helper(node1.right, node2.left))
+	}
+	return helper(root.left, root.right);
+}
+
 /*141. Linked List Cycle
 Given head, the head of a linked list, determine if the linked list has a cycle in it.
 There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
@@ -153,5 +189,4 @@ function getIntersectionNode (headA, headB){
 	return pA;
 }
 // Wow I am so amazed, the above code does exactly the same thing as the one above it. But this is so so so much shorter
-
 
