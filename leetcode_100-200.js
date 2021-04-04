@@ -237,6 +237,31 @@ var minDepth = function(root) {
 		level++;
 	}
 }
+
+/*116. Populating Next Right Pointers in Each Node
+You are given a perfect binary tree where all leaves are on the same level, and every parent has two children.
+Populate each next pointer to point to its next right node. If there is no next right node, 
+the next pointer should be set to NULL.
+Initially, all next pointers are set to NULL.
+*/
+//iterative
+var connect = function(root) {
+    let queue = [root];
+    while(queue.length !== 0){
+    	count = queue.length;
+    	while(count > 0){
+    		temp = queue.shift();
+    		if(count >1)
+    			temp.next = queue[0];
+    		if(temp.left)
+    			queue.push(temp.left);
+    		if(temp.right)
+    			queue.push(temp.right);
+    		count--;
+    	}
+    }
+    return root;
+};
 /*141. Linked List Cycle
 Given head, the head of a linked list, determine if the linked list has a cycle in it.
 There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
