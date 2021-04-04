@@ -61,6 +61,60 @@ var levelOrder = function(root) {
     }
     return result;
 };
+// Recursive
+let levelOrder = function (root){
+	if(root == null)
+		return [];
+	const result = [];
+	function recBFS (node, level){
+		if(result[level] === undefined)
+            result.push([]);
+		    result[level].push(node.val);
+		if(node.left)
+			recBFS(node.left, level+1);
+		if(node.right)
+			recBFS(node.right, level+1);
+	}
+	recBFS(root, 0);
+	return result;
+}
+
+103. Binary Tree ZigZag Level order traversal
+
+
+var zigzagLevelOrder = function(root) {
+	if(!root)
+		return []
+	let queue = [root];
+	let even = true;
+	let result = [];
+	while(queue.length !== 0){
+		count = queue.length;
+		arr = []
+		while(count > 0){
+			temp = queue.shift();
+			arr.push(temp.val);
+			if(temp.left)
+				queue.push(temp.left);
+			if(temp.right)
+				queue.push(temp.right);
+			count--;
+		}
+		if(even){
+			result.push(arr)
+			even = false;
+		}
+		else{
+			reverseArr = [];
+			for(let i = arr.length-1; i >= 0; i--){
+				reverseArr.push(arr[i]);
+			}
+			result.push(reverseArr);
+			even = true;
+		}
+	}
+	return result;
+};
 
 
 /*141. Linked List Cycle
