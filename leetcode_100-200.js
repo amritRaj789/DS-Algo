@@ -81,7 +81,6 @@ let levelOrder = function (root){
 
 103. Binary Tree ZigZag Level order traversal
 
-
 var zigzagLevelOrder = function(root) {
 	if(!root)
 		return []
@@ -116,6 +115,26 @@ var zigzagLevelOrder = function(root) {
 	return result;
 };
 
+// Recursive
+let zigzagLevelOrder = function(root){
+	if(root === null)
+		return [];
+	const result = [];
+	function recursive(node, level){
+		if(result[level] === undefined)
+			result.push([]);
+		if(level % 2 === 0)
+			result[level].push(node.val);
+		else
+			result[level].unshift(node.val);
+		if(node.left)
+			recursive(node.left, level+1);
+		if(node.right)
+			recursive(node.right, level+1);
+	}
+	recursive(root, 0)
+	return result;
+}
 
 /*141. Linked List Cycle
 Given head, the head of a linked list, determine if the linked list has a cycle in it.
