@@ -34,6 +34,35 @@ let isSymmetric = function(root){
 	return helper(root.left, root.right);
 }
 
+/*102. Binary Tree Level Order Traversal
+Given the root of a binary tree, return the level order traversal of its nodes' values. 
+(i.e., from left to right, level by level).
+*/
+var levelOrder = function(root) {
+    if(root === null)
+        return []
+    let queue = [root];
+    let result = [];
+    let count;
+    let arr = [];
+    while(queue.length !== 0){
+        count = queue.length;
+        while(count > 0){
+            temp = queue.shift();
+            arr.push(temp.val);
+            if(temp.left)
+                queue.push(temp.left);
+            if(temp.right)
+                queue.push(temp.right);
+            count--;
+        }
+        result.push([...arr]);
+        arr = [];
+    }
+    return result;
+};
+
+
 /*141. Linked List Cycle
 Given head, the head of a linked list, determine if the linked list has a cycle in it.
 There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
