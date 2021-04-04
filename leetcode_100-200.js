@@ -136,6 +136,107 @@ let zigzagLevelOrder = function(root){
 	return result;
 }
 
+
+/*107. Binary Tree Level Order Traversal II
+Given the root of a binary tree, return the bottom-up level order traversal of its nodes' values. 
+(i.e., from left to right, level by level from leaf to root).
+*/
+//recursive
+var levelOrderBottom = function(root) {
+  if(root == null)
+  	return [];
+  const height = getHeight(root);
+  const result = new Array(height);
+  function recursive (node, l){
+    if(result[height-l] == undefined)
+        result[height-l] = [];
+  	result[height-l].push(node.val);
+  	if(node.left)
+  		recursive(node.left, l+1);
+  	if(node.right)
+  		recursive(node.right, l+1);
+  }
+  recursive(root, 1);
+  return result;
+};
+
+function getHeight (root){
+	let maxHeight = 0;
+	function rec(node, height){
+		if(node === null){
+			maxHeight = Math.max(maxHeight, height);
+			return;
+		}
+		rec(node.left, height+1);
+		rec(node.right, height+1);
+	}
+	rec(root, 0);
+	return maxHeight;
+}
+
+// iterative
+let levelOrderBottom = function (root){
+	if(root == null)
+		return [];
+	let queue = [root];
+	while(queue.length !== 0){
+		count = queue.length;
+		arr = [];
+		while(count > 0){
+			temp = queue.shift();
+			arr.push([temp.val])
+			if(temp.left)
+				queue.push(temp.left)
+			if(temp.right)
+				queue.push(temp.right)
+			count--;
+		}
+		result.push(arr);
+	}
+	return reversed = [];
+	for(let i = result.length-1; i > 0; i++){
+		reversed.push(result[i])
+	}
+	return reversed;
+}
+
+
+/*111. Minimum Depth of Binary Tree
+Given a binary tree, find its minimum depth.
+The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+*///recursive
+var minDepth = function(root) {
+	if(root === null)
+		return 0;
+	function recursive(node, height){
+		if(node == null)
+			return +Infinity
+		if(node.left == null && node.right == null)
+			return height+1;
+		else
+			return Math.min(recursive(node.left, height+1), recursive(node.right, height+1))
+	}
+	return recursive(root, 0);
+};
+// Iterative
+var minDepth = function(root) {
+	let queue = [root];
+	let level = 1;
+	while(queue.length !== 0){
+		count = queue.length;
+		while(count > 0){
+			temp = queue.shift();
+			if(temp.left == null && temp.right == null)
+				return level
+			if(temp.left)
+				queue.push(temp.left);
+			if(temp.right)
+				queue.push(temp.right);
+			count--;
+		}
+		level++;
+	}
+}
 /*141. Linked List Cycle
 Given head, the head of a linked list, determine if the linked list has a cycle in it.
 There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
