@@ -28,6 +28,59 @@ var maxTurbulenceSize = function(arr) {
 console.log(maxTurbulenceSize([9,4,2,10,7,8,8,1,9]));//5
 
 
+// 980. Unique Paths III
+
+// backtracking, dfs
+/*On a 2-dimensional grid, there are 4 types of squares:
+1 represents the starting square.  There is exactly one starting square.
+2 represents the ending square.  There is exactly one ending square.
+0 represents empty squares we can walk over.
+-1 represents obstacles that we cannot walk over.
+Return the number of 4-directional walks from the starting square to the ending square, that walk over every non-obstacle square exactly once.
+*/
+let uniquePathsIII = function (grid){
+	let result = 0;
+	let count = 0;
+	const m = grid.length;
+	const n = grid[0].length;
+	let newBoard = new Array(m+2);
+	for(let i = 0; i < m+2; i++){
+		newBoard[i] = new Array(n+2).fill(-1);
+	}
+	let start;
+	for(let i = 1; i < m+1; i++){
+		for(let j = 1; j < n+1; j++){
+			newBoard[i][j] = grid[i-1][j-1];
+			if(newBoard[i][j] === 1)
+				start = [i, j];
+			if(newBoard[i][j] === 0)
+				count++;
+		}
+	}
+	function traverse(i, j, board, count){
+		if(board[i][j] === 2){
+			if(count >= 0)
+				return
+			result++;
+			return;
+		}
+		let original = board[i][j];
+		board[i][j] = -1;
+		if(board[i+1][j] !== -1)
+			traverse(i+1, j, board, count-1);
+		if(board[i][j+1] !== -1)
+			traverse(i, j+1, board, count-1);
+		if(board[i-1][j] !== -1)
+			traverse(i-1, j, board, count-1);
+		if(board[i][j-1] !== -1)
+			traverse(i, j-1, board, count-1);
+		board[i][j] = original;
+	}
+	traverse(start[0], start[1], newBoard, count);
+	return result;
+}
+
+
 // 1004. Longest consecutive ones II
 function longestOnes (A, K){
 	let array = [0,0];
