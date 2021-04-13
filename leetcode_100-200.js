@@ -385,6 +385,28 @@ var evalRPN = function(tokens) {
 	return stack.pop();
 };
 
+/*152. Maximum Product SubArray
+Given an integer array nums, find a contiguous non-empty subarray within the 
+array that has the largest product, and return the product.
+It is guaranteed that the answer will fit in a 32-bit integer.
+A subarray is a contiguous subsequence of the array.
+*/
+
+let maxProduct = function (nums){
+	let prevMax = nums[0];
+	let prevMin = nums[0];
+	let result = nums[0];
+	for(let i = 1; i < nums.length; i++){
+		curMax = Math.max(nums[i]*prevMax, nums[i], nums[i]*prevMin);
+		curMin = Math.min(nums[i]*prevMin, nums[i], nums[i]*prevMax);
+		prevMax = curMax;
+		prevMin = curMin;
+		result = Math.max(curMax, result);
+	}
+	return result;
+}
+// what an incredible solution
+
 /*155. Min Stack
 	Design a stack that supports push, pop, top and retreiving the minimum element in constant time
 */
