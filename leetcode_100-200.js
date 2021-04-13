@@ -262,6 +262,82 @@ var connect = function(root) {
     }
     return root;
 };
+
+/*131. Palindrome Partitioning
+Given a string s, partition s such that every substring of the partition is a palindrome. 
+Return all possible palindrome partitioning of s.
+A palindrome string is a string that reads the same backward as forward.
+*/
+
+// simple recursive
+let partition = function (s){
+	let result = [];
+	function recursive(start, arr){
+		if(start === s.length){
+			result.push([...arr]);
+			return
+		}
+		for(let end = start+1; end <= s.length; end++){
+			let temp = s.slice(start, end);
+			if(isPalindrome(temp))
+				recursive(end, [...arr, temp]);
+		}
+	}
+	function isPalindrome (string){
+		let left = 0;
+		let right = string.length-1;
+		while(left <= right){
+			if(string[left] !== string[right])
+				return false
+			left++;
+			right--;
+		}
+		return true;
+	}
+	recursive(0, []);
+	return result;
+}
+
+
+// using dynamic programming to store info about a substring if it is palindromic or not
+let partition = function (s){
+	let result = [];
+	let dp = new Array(s.length);
+	for(let i = 0; i < dp.length; i++){
+		dp[i] = [];
+	}
+	function recursive(start, arr){
+		if(start === s.length){
+			result.push([...arr]);
+			return
+		}
+		for(let end = start+1; end <= s.length; end++){
+			if(dp[start][end] !== undefined){
+				if(dp[start][end])
+					recursive(end, [...arr, s.slice(start, end)]);
+			}
+			else{
+				dp[start][end] = isPalindrome(s.slice(start, end));
+				if(dp[start][end])
+					recursive(end, [...arr, s.slice(start, end)]);
+			}
+		}
+	}
+	function isPalindrome (string){
+		let left = 0;
+		let right = string.length-1;
+		while(left <= right){
+			if(string[left] !== string[right])
+				return false
+			left++;
+			right--;
+		}
+		return true;
+	}
+	recursive(0, []);
+	return result;
+}
+
 /*141. Linked List Cycle
 Given head, the head of a linked list, determine if the linked list has a cycle in it.
 There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
