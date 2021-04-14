@@ -298,4 +298,17 @@ let nthUglyNumber = function (n){
 	return dp[n-1];
 }
 
+/*279. Perfect Squares
+Given an integer n, return the least number of Perfect sqaure numbers that sum to n
+*/
 
+let numSquares = function (n){
+	let dp = [0];
+	for(let i = 1; i <= n ; i++){
+		dp[i] = +Infinity;
+		for(let j = 1; j*j <= i; j++){
+			dp[i] = Math.min(dp[i-j*j] + 1, dp[i]);
+		}
+	}
+	return dp[n];
+}
