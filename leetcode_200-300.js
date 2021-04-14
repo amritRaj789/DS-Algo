@@ -154,6 +154,71 @@ function reverseList(head){
 	return head;
 }
 
+// 213. House Rober II
+/*You are a professional robber planning to rob houses along a street. 
+Each house has a certain amount of money stashed. All houses at this place are arranged in a circle. 
+That means the first house is the neighbor of the last one. Meanwhile, adjacent houses have a security system connected, 
+and it will automatically contact the police if two adjacent houses were broken into on the same night.
+Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can 
+rob tonight without alerting the police.
+*/
+let rob = function(nums){
+	if(nums.length === 1)
+		return nums[0];
+	if(nums.length <= 3)
+		return Math.max(...nums);
+	let arr1 = [...nums];
+	arr1.pop();
+	let arr2 = [...nums];
+	arr2.shift();
+	let dp1 = new Array(arr1.length);
+	dp1[0] = arr1[0];
+	dp1[1] = Math.max(arr1[0], arr1[1]);
+	let dp2 = new Array(arr2.length);
+	dp2[0] = arr2[0];
+	dp2[1] = Math.max(arr2[0], arr2[1]);
+	for(let i = 2; i < dp1.length; i++){
+		dp1[i] = Math.max(arr1[i]+dp1[i-2], dp1[i-1]);
+		dp2[i] = Math.max(arr2[i]+dp2[i-2], dp2[i-1]);
+	}
+	return Math.max(dp1[dp1.length-1], dp2[dp2.length-1]);
+}
+
+// 221. Maxinmal Square
+/*Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's 
+and return its area.
+*/
+// bottom up DP solution
+let maximalSquare = function (matrix){
+	let dp = Array(matrix.length).fill(null).map(() => Array(matrix[0].length).fill(0));
+	let maxLength = 0;
+	for(let i = 0; i < matrix[0].length; i++){
+		if(matrix[0][i] === "1"){
+            maxLength = 1;
+            dp[0][i] = 1;
+        }
+	}
+	for(let i = 0; i < matrix.length; i++){
+		if(matrix[i][0] === "1"){
+            maxLength = 1;
+            dp[i][0] = 1;
+        }
+	}
+	for(let i = 1; i < matrix.length; i++){
+		for(let j = 1; j < matrix[0].length; j++){
+			if(matrix[i][j] === "1"){
+				dp[i][j] = Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]) + 1;
+				if(dp[i][j] > maxLength)
+					maxLength = dp[i][j];
+			}
+		}
+	}
+	return maxLength**2;
+}
+
+ 
+
+
 // 234. Palindrome Linked List
 // Given a singly linked list, determine if it is a palindrome
 
