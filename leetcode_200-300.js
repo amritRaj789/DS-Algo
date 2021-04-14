@@ -312,3 +312,29 @@ let numSquares = function (n){
 	}
 	return dp[n];
 }
+
+/*300. Longest Increasing Subsequence
+Given an integer array nums, return the length of the longest strictly increasing
+subsequence.
+A subsequence is a sequence that can be derived from an array by deleting some or no
+elements without changing the order of the reamaining elements. For example, 
+[3, 6, 2, 7] is a subsequence of the array [0, 3, 1, 6, 2, 7].*/
+
+// Dynamic Programming
+var lengthOfLIS = function(nums) {
+	let dp = Array(nums.length);
+	dp[0] = 1;
+	let maxVal = 1;
+	for(let i = 1; i < nums.length; i++){
+		let max = 1;
+		for(let j = 0; j < i; j++){
+			if(nums[i] > nums[j])
+				max = Math.max(max, dp[j]+1);
+		}
+		dp[i] = max;
+		maxVal = Math.max(maxVal, max);
+	}
+	return maxVal;
+};
+// TC O(N^2), SC O(N)
+// there is even a better DP sol using Binary search
