@@ -271,32 +271,31 @@ function deleteNode (node){
 	node.next = node.next.next;
 }
 
-// 876. Middle of the Linked List
-// Given a non-empty, singly linked list with head node, return a middle node of linked list.
-// If there are two middle nodes, return the second middle node.
-
-function middleNode(head){
-	let fast = head;
-	let slow = head;
-	while(fast !== null && fast.next !== null){
-		fast = fast.next.next;
-		slow = slow.next;
+// 264. Ugly Number II
+/*Given an integer n, return the nth ugly number.
+Ugly number is a positive number whose prime factors only include 2, 3, and/or 5.
+*/
+let nthUglyNumber = function (n){
+	if(n <= 6)
+		return n;
+	let i2 = 0;
+	let i3 = 0;
+	let i5 = 0;
+	let dp = [1];
+	for(let i = 2; i <= n; i++){
+		c1 = 2*dp[i2];
+		c2 = 3*dp[i3];
+		c3 = 5*dp[i5];
+		next = Math.min(c1, c2, c3);
+		dp.push(next);
+		if(next === c1)
+			i2++;
+		if(next === c2)
+			i3++;
+		if(next === c3)
+			i5++;
 	}
-	return slow;
+	return dp[n-1];
 }
 
-function getDecimalValue (head){
-	let node = head;
-	let arr = [];
-	while(node){
-		arr.push(node.val);
-		node = node.next;
-	}
-	let sum = 0;
-	let power = 0;
-	for(let i = arr.length-1; i >= 0; i--){
-		sum += arr[i] ? Math.pow(2, power) : 0;
-		power++;
-	}
-	return sum;
-}
+
