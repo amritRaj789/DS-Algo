@@ -266,6 +266,42 @@ var swapPairs = function (head){
 	return head;
 }
 
+
+/*34. Find first and last position of element in Sorted Array
+*/
+let searchRange = function (nums, target){
+    if(nums.length === 0)
+        return [-1, -1]
+	function findMid(nums, target){
+		let left = 0;
+		let right = nums.length-1;
+		while(left <= right){
+			let mid = Math.floor((left + right)/2);
+			if(nums[mid] === target)
+				return mid;
+			else if(target > nums[mid])
+				left = mid+1;
+			else
+				right = mid-1;
+		}
+		return false
+	}
+	let index = findMid(nums, target);
+	if(index === false)
+		return [-1, -1];
+	else{
+		let start = index;
+		while(nums[start] === target && start >= 0){
+			start--;
+		}
+		let end = index;
+		while(nums[end] === target && end < nums.length){
+			end++;
+		}
+		return [start+1, end-1];
+	}
+}
+
 /* 56. Merge Intervals
 Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, 
 and return an array of the non-overlapping intervals that cover all the intervals in the input.
