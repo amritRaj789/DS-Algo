@@ -302,6 +302,58 @@ let searchRange = function (nums, target){
 	}
 }
 
+37. Solve Sudoku
+
+
+function isValid (num, board, row, col){
+    //check col
+    for(let i = 0; i < 9; i++){
+        if(board[i][col] === num)
+            return false;
+    }
+    //check row
+    for(let i = 0; i < 9; i++){
+        if(board[row][i] === num)
+            return false;
+    }
+    //check grid
+    let rowStart = Math.floor(row/3)*3;
+    let colStart = Math.floor(col/3)*3;
+    for(let i = rowStart; i < rowStart+3; i++){
+        for(let j = colStart; j < colStart+3; j++){
+            if(board[i][j] === num)
+                return false;
+        }
+    }
+    return true;
+}
+const possibleNumbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+let solveSudoku = function (board){
+    const emptypoints = [];
+    for(let i = 0; i < 9; i++){
+        for(let j = 0; j < 9; j++){
+            if(board[i][j] === ".")
+                emptypoints.push({row: i, col: j});
+        }
+    }
+    function backTrack (emptypointsIndex){
+        if(emptypointsIndex >= emptypoints.length)
+            return true;
+        let {row, col} = emptypoints[emptypointsIndex];
+        for(let num of possibleNumbers){
+            if(isValid(num, board, row, col)){
+                board[row][col] = num;
+                if(backTrack(emptypointsIndex+1))
+                    return true
+                board[row][col] = "."
+            }
+        }
+        return false
+    }
+    backTrack(0);
+    return board;
+}
+
 /* 56. Merge Intervals
 Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, 
 and return an array of the non-overlapping intervals that cover all the intervals in the input.
