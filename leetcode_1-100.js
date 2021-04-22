@@ -67,30 +67,26 @@ like this: (you may want to display this pattern in a fixed font for better legi
 var convert = function(s, numRows) {
     let table = Array(numRows).fill(0);
     for(let i = 1; i <= numRows; i++){
-        table[i-1] = [];
+        table[i-1] = "";
     }
-    let row1 = 1;
-    let row2 = 1;
     let i = 0;
     while(i < s.length){
         let row1 = 1;
         while(row1 <= numRows && i < s.length){
-            table[row1-1].push(s[i]);
+            table[row1-1] += s[i];
             i++;
             row1++;
         }
         let row2 = numRows-1;
         while(row2 > 1 && i < s.length){
-            table[row2-1].push(s[i]);
+            table[row2-1] += s[i];
             i++;
             row2--;
         }
     }
     let answer = "";
     for(let i = 0; i < numRows; i++){
-        for(let j = 0; j < table[i].length; j++){
-            answer += table[i][j];
-        }
+        answer += table[i];
     }
     return answer;
 };
