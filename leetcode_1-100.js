@@ -60,6 +60,40 @@ function no_repeat(str){
 }
 console.log(no_repeat("abcabcbb"));
 
+/*6. ZigZag Conversion
+The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows 
+like this: (you may want to display this pattern in a fixed font for better legibility)
+*/
+var convert = function(s, numRows) {
+    let table = Array(numRows).fill(0);
+    for(let i = 1; i <= numRows; i++){
+        table[i-1] = [];
+    }
+    let row1 = 1;
+    let row2 = 1;
+    let i = 0;
+    while(i < s.length){
+        let row1 = 1;
+        while(row1 <= numRows && i < s.length){
+            table[row1-1].push(s[i]);
+            i++;
+            row1++;
+        }
+        let row2 = numRows-1;
+        while(row2 > 1 && i < s.length){
+            table[row2-1].push(s[i]);
+            i++;
+            row2--;
+        }
+    }
+    let answer = "";
+    for(let i = 0; i < numRows; i++){
+        for(let j = 0; j < table[i].length; j++){
+            answer += table[i][j];
+        }
+    }
+    return answer;
+};
 
 // 11. Container with Most Water
 /*Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). 
