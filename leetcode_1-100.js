@@ -545,6 +545,38 @@ let permute = function (nums){
   return result;
 }
 
+/*47. Permutations II
+Given a collection of numbers, nums, that might contain duplicates, return all possible unique permutations in any order.
+*/
+let permuteUnique = function (nums){
+    if(nums.length === 1)
+        return [nums];
+  let copiedNums = [...nums];
+  let result = [];
+  function backtrack (level, arr){
+    if(level === nums.length){
+      result.push([...arr]);
+      return;
+    }
+    let used = {};
+    copiedNums.forEach(num => {
+      used[num] = false;
+    });
+    for(let i = 0; i < nums.length; i++){
+      if(nums[i] !== false){
+        if(used[nums[i]] == false){
+          used[nums[i]] = true;
+          let temp = nums[i];
+          nums[i] = false;
+          backtrack(level+1, [...arr, temp]);
+          nums[i] = temp;
+        }
+      }
+    }
+  }
+  backtrack(0, []);
+  return result;
+}
 /*51. N-Queens
 Return all distinct solutions to the n queens problem
 */
