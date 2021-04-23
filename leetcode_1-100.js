@@ -748,6 +748,54 @@ var insert = function(intervals, newInterval) {
 };
 // In place and O(N);
 
+/*60. Permutation Sequence
+
+The set [1, 2, 3, ..., n] contains a total of n! unique permutations.
+By listing and labeling all of the permutations in order, we get the following sequence for n = 3:
+"123"
+"132"
+"213"
+"231"
+"312"
+"321"
+Given n and k, return the kth permutation sequence.
+*/
+
+let getPermutation = function (n, k){
+  let num = n;
+  if(n === 1)
+    return "1"
+  let nums = [true];
+  let fact = 1;
+  for(let i = 1; i <= n; i++){
+    nums[i] = true;
+    fact *= i;
+  }
+  let result = "";
+  while(n >= 1){
+    fact /= n;
+    n = n-1;
+    let digit = Math.ceil(k/fact);
+    for(let i = 1; i <= num; i++){
+      if(!nums[i])
+        continue;
+      else{
+        digit--;
+        if(digit === 0){
+          result = result.slice(0) + i;
+          nums[i] = false;
+          break;
+        }
+      }
+    }
+    k = k%fact=== 0 ? fact : k%fact
+  }
+  return result;
+}
+// very fucking proud of beating 98% time and 95% space for this hard problem
+
+
+
 /*61. Rotate List
 
 Given the head of a linked list, rotate the list to the right by k places
