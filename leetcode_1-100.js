@@ -482,6 +482,48 @@ var combinationSum = function(candidates, target) {
   recursive(0, [], 0);
   return result;
 };
+
+
+// interesting thing to note is, although this question can be solved using Dynamic programming
+// it doesn't result in more efficiency. So I am beginning to understand how DP differs from backtracking
+// and when to use which one
+
+/*40. Combination Sum II
+Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates 
+where the candidate numbers sum to target.
+Each number in candidates may only be used once in the combination.
+Note: The solution set must not contain duplicate combinations.
+*/
+var combinationSum2 = function(candidates, target) {
+  candidates.sort((a, b) => a-b);
+  let result = [];
+    function recursive(sum, arr, i){
+      if(sum === target){
+        result.push([...arr]);
+        return
+      }
+      if(i === candidates.length)
+        return 
+      if(candidates[i]+sum > target)
+        recursive(sum, [...arr], i+1);
+      else{
+        recursive(sum+candidates[i], [...arr, candidates[i]], i+1);
+        let nextUniqueIndex = i;
+        while(nextUniqueIndex < candidates.length){
+          if(candidates[i] !== candidates[nextUniqueIndex])
+            break;
+          nextUniqueIndex++;
+        }
+        recursive(sum, [...arr], nextUniqueIndex);
+      }
+    }
+  recursive(0, [], 0);
+  return result;
+};
+
+
+
+
 /*51. N-Queens
 Return all distinct solutions to the n queens problem
 */
