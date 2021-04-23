@@ -331,6 +331,28 @@ let mergeTwoLists = function (l1, l2){
 
 }
 
+/*22. Generate Parantheses
+Given n pairs of parentheses, 
+write a function to generate all combinations of well-formed parentheses.
+*/
+let generateParenthesis = function(n){
+  if(n === 1)
+    return ["()"];
+  let result = [];
+  function backtrack(open, close, str){
+    if(open === n && close === n){
+      result.push(str);
+      return
+    }
+    if(close > open || open > n || close > n)
+      return
+    backtrack(open+1, close, str+"(");
+    backtrack(open, close+1, str+")");
+  }
+  backtrack(0,0,"");
+  return result;
+}
+
 /*24. Swap Nodes in Pairs
 Given a linked list, swap every two adjacent nodes and return its head
 */
