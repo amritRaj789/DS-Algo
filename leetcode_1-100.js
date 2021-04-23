@@ -163,6 +163,37 @@ function twoSum (arr, left, target, result){
 	}
 }
 
+/*17. Letter Combinations of a Phone Number
+Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. 
+Return the answer in any order.
+A mapping of digit to letters (just like on the telephone buttons) is given below. 
+Note that 1 does not map to any letters.
+*/
+const letterCombinations = (digits) => {
+  if (digits === "") return [];
+  let map = {
+    2: 'abc',
+    3: 'def',
+    4: 'ghi',
+    5: 'jkl',
+    6: 'mno',
+    7: 'pqrs',
+    8: 'tuv',
+    9: 'wxyz',
+  };
+  const result = [];
+  const backtrack = (str, level) => {
+    if (level === digits.length) {
+      result.push(str);
+      return;
+    }
+    for (const c of map[digits[level]]) {
+      backtrack(str+c, level+1);
+    }
+  };
+  backtrack('',0);
+  return result;
+};
 /*18. 4Sum
 Given an array nums of n integers and an integer target, are there elements a, b, c, and d in nums such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.
 Notice that the solution set must not contain duplicate quadruplets.
