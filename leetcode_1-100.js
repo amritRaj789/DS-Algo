@@ -400,6 +400,88 @@ let solveSudoku = function (board){
     backTrack(0);
     return board;
 }
+/*51. N-Queens
+Return all distinct solutions to the n queens problem
+*/
+let solveNQueens = function (n){
+	let board = Array(n).fill(null).map(() => Array(n).fill(0));
+	let result = [];
+	function recursive(board, row){
+		for(let i = 0; i < n; i++){
+			if(isValid(board, row, i, n)){
+				board[row][i] = 1;
+				if(row === n-1){
+					let newBoard = Array(n)
+					for(let j = 0; j < n; j++){
+						newBoard[j] = "";
+						for(let k = 0; k < n; k++){
+							if(board[j][k] === 1)
+								newBoard[j] += 'Q'
+							else
+								newBoard[j] += '.'
+						}
+					}
+					result.push(newBoard);
+				}
+				else
+					recursive(board, row+1);
+			}
+			board[row][i] = 0;
+		}
+	}
+	recursive(board, 0);
+	return result;
+}
+
+function isValid(board, row, col, n){
+	// check column
+	for(let i = 0; i < n; i++){
+		if(board[i][col] === 1)
+			return false;
+	}
+	//check row
+	for(let i = 0; i < n; i++){
+		if(board[row][i] === 1)
+			return false;
+	}
+	// check top-left diagonal
+	let i = row-1;
+	let j = col-1;
+	while(i >= 0 && j >= 0){
+		if(board[i][j] === 1)
+			return false;
+		i--;
+		j--;
+	}
+	//check top-right diagonal
+	i = row-1;
+	j = col+1;
+	while(i >= 0 && j < n){
+		if(board[i][j] === 1)
+			return false;
+		i--;
+		j++;
+	}
+	//check bottom left diagonal
+	i = row+1;
+	j = col-1;
+	while(i < n && j >= 0){
+		if(board[i][j] === 1)
+			return false;
+		i++;
+		j--;
+	}
+	//check bottom right diagonal
+	i = row+1;
+	j = col+1;
+	while(i < n && j < n){
+		if(board[i][j] === 1)
+			return false;
+		i++;
+		j++;
+	}
+	return true;
+}
 
 //52. N-Queens II
 // Count the number of ways to place n queens in a nxn chessboard
