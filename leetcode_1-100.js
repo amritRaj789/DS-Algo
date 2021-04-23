@@ -350,8 +350,7 @@ let searchRange = function (nums, target){
 	}
 }
 
-37. Solve Sudoku
-
+// 37. Solve Sudoku
 
 function isValid (num, board, row, col){
     //check col
@@ -400,6 +399,77 @@ let solveSudoku = function (board){
     }
     backTrack(0);
     return board;
+}
+
+//52. N-Queens II
+// Count the number of ways to place n queens in a nxn chessboard
+let totalNQueens = function (n){
+	let board = Array(n).fill(null).map(() => Array(n).fill(0));
+	let count = 0;
+	function recursive(board, row){
+		for(let i = 0; i < n; i++){
+			if(isValid(board, row, i, n)){
+				board[row][i] = 1;
+				if(row === n-1)
+					count++;
+				else
+					recursive(board, row+1);
+			}
+			board[row][i] = 0;
+		}
+	}
+	recursive(board, 0);
+	return count;
+}
+
+function isValid(board, row, col, n){
+	// check column
+	for(let i = 0; i < n; i++){
+		if(board[i][col] === 1)
+			return false;
+	}
+	//check row
+	for(let i = 0; i < n; i++){
+		if(board[row][i] === 1)
+			return false;
+	}
+	// check top-left diagonal
+	let i = row-1;
+	let j = col-1;
+	while(i >= 0 && j >= 0){
+		if(board[i][j] === 1)
+			return false;
+		i--;
+		j--;
+	}
+	//check top-right diagonal
+	i = row-1;
+	j = col+1;
+	while(i >= 0 && j < n){
+		if(board[i][j] === 1)
+			return false;
+		i--;
+		j++;
+	}
+	//check bottom left diagonal
+	i = row+1;
+	j = col-1;
+	while(i < n && j >= 0){
+		if(board[i][j] === 1)
+			return false;
+		i++;
+		j--;
+	}
+	//check bottom right diagonal
+	i = row+1;
+	j = col+1;
+	while(i < n && j < n){
+		if(board[i][j] === 1)
+			return false;
+		i++;
+		j++;
+	}
+	return true;
 }
 
 /* 56. Merge Intervals
