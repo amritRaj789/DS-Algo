@@ -1,3 +1,44 @@
+/*1219. Path with Maximum Gold
+In a gold mine grid of size m x n, each cell in this mine has an integer representing the amount of gold in that cell, 0 if it is empty.
+Return the maximum amount of gold you can collect under the conditions:
+Every time you are located in a cell you will collect all the gold in that cell.
+From your position, you can walk one step to the left, right, up, or down.
+You can't visit the same cell more than once.
+Never visit a cell with 0 gold.
+You can start and stop collecting gold from any position in the grid that has some gold
+*/
+let getMaximumGold = function (grid){
+    let visited = Array(grid.length).fill(0).map(() => Array(grid[0].length).fill(false));
+    let maximumGold = 0;
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[0].length; j++){
+            if(grid[i][j] !== 0){
+                visited[i][j] = true;
+                backtrack(i, j, grid[i][j]);
+                visited[i][j] = false;
+            }
+        }
+    }
+
+    function backtrack(row, col, sum){
+        maximumGold = Math.max(maximumGold, sum);
+        let directions = [[0, 1], [0,-1], [-1, 0], [1, 0]];
+        for(let direction of directions){
+            let newRow = row+direction[0];
+            let newCol = col+direction[1];
+            if(newRow < grid.length && newRow >= 0 && newCol < grid[0].length && newCol >= 0){
+                if(!visited[newRow][newCol] && grid[newRow][newCol] !== 0){
+                    visited[newRow][newCol] = true;
+                    backtrack(newRow, newCol, sum+grid[newRow][newCol]);
+                    visited[newRow][newCol] = false;
+                }   
+            }
+        }
+    }
+
+    return maximumGold;
+}
+
 /*1288 Remove Covered Intervals
 
 Given a list of intervals, remove all intervals that are covered by another interval in the list.
