@@ -521,8 +521,29 @@ var combinationSum2 = function(candidates, target) {
   return result;
 };
 
-
-
+/*46. Permutations
+Given an array nums of distinct integers, return all the possible permutations.
+You can return the answer in any order
+*/
+let permute = function (nums){
+  let result = [];
+  function recursive(arr, level){
+    if(level === nums.length){
+      result.push(arr);
+      return;
+    }
+    for(let i = 0; i < nums.length; i++){
+      if(nums[i] !== false){
+        let temp = nums[i];
+        nums[i] = false;
+        recursive([...arr, temp], level+1)
+        nums[i] = temp;
+      }
+    }
+  }
+  recursive([], 0);
+  return result;
+}
 
 /*51. N-Queens
 Return all distinct solutions to the n queens problem
