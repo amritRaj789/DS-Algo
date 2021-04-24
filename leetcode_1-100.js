@@ -943,6 +943,24 @@ let combine = function (n, k){
 }
 // this works, but it is not too fast
 
+
+/*78. Subsets
+Given an integer array nums of unique elements, return all possible subsets (the power set).
+The solution set must not contain duplicate subsets. Return the solution in any order.
+*/
+
+
+const subsets = function (nums){
+  let result = [[]];
+  for(let i = 0; i < nums.length; i++){
+    let length = result.length;
+    for(let j = 0; j < length; j++){
+      result.push([...result[j], nums[i]]);
+    }
+  }
+  return result;
+}
+
 // 83. Remove Duplicates from sorted List
 
 function deleteDuplicates (head){
