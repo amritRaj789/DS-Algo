@@ -516,3 +516,35 @@ function getIntersectionNode (headA, headB){
 }
 // Wow I am so amazed, the above code does exactly the same thing as the one above it. But this is so so so much shorter
 
+
+//200. Number of Islands
+/*Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.
+An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all 
+four edges of the grid are all surrounded by water.*/
+
+let numIslands = function (grid){
+	for(let i = 0; i < grid.length; i++){
+		for(let j = 0; j < grid[0].length; j++){
+			if(grid[i][j] === "1"){
+				recursive(i, j);
+				count++;
+			}
+		}
+	}
+	function recursive(row, col){
+		if(grid[row][col] === "1")
+			grid[row][col] = "0";
+		else
+			return
+		if(row < grid.length-1)
+			recursive(row+1, col);
+		if(col < grid[0].length-1)
+			recursive(row, col+1);
+		if(row > 0)
+			recursive(row-1, col);
+		if(col > 0)
+			recursive(row, col-1);
+	}
+	return count;
+}
+// this is much faster
