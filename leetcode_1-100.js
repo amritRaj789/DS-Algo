@@ -961,6 +961,49 @@ const subsets = function (nums){
   return result;
 }
 
+/*79. Word Search
+Given an m x n grid of characters board and a string word, return true if word exists in the grid.
+The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally 
+or vertically neighboring. The same letter cell may not be used more than once.
+*/
+
+var exist = function(board, word) {
+  let found = false;
+  for(let i = 0; i < board.length; i++){
+    for(let j = 0; j < board[0].length; j++){
+      if(board[i][j] === word[0]){
+        if(word.length === 1)
+          return true
+        backtrack(i, j, 0);
+        if(found)
+          return true;
+      }
+    }
+  }
+  return false;
+    function backtrack(row, col, level){
+      if(level === word.length){
+        found = true;
+        return
+      }
+      if(board[row][col] === false || board[row][col] !== word[level])
+        return
+      let temp = board[row][col];
+      board[row][col] = false;
+      if(row < board.length-1)
+        backtrack(row+1, col, level+1)
+      if(row > 0)
+        backtrack(row-1, col, level+1)
+      if(col > 0)
+        backtrack(row, col-1, level+1)
+      if(col < board[0].length-1)
+        backtrack(row, col+1, level+1)
+      board[row][col] = temp;
+    }
+};
+
+// oh yes, backtracking rocks
+
 // 83. Remove Duplicates from sorted List
 
 function deleteDuplicates (head){
