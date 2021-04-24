@@ -922,7 +922,26 @@ function minWindow (s, t){
 
 // console.log(minWindow("ADOBECODEBANC", "ABC"));
 
-
+// 77. Combinations
+/*Given two integers n and k, return all possible combinations of k numbers out of the range [1, n].
+You may return the answer in any order
+*/
+let combine = function (n, k){
+  let result = [];
+  function recursive(i, count, arr){
+    if(count === k){
+      result.push(arr);
+      return;
+    }
+    if(i === n+1)
+      return
+    recursive(i+1, count+1, [...arr, i]);
+    recursive(i+1, count, [...arr]);
+  }
+  recursive(1, 0, []);
+  return result;
+}
+// this works, but it is not too fast
 
 // 83. Remove Duplicates from sorted List
 
