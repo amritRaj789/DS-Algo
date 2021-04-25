@@ -1024,6 +1024,33 @@ function deleteDuplicates (head){
 	return head;
 }
 
+/*90. Subsets II
+Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
+The solution set must not contain duplicate subsets. Return the solution in any order.
+*/
+
+let subsetsWithDup = function (nums){
+    if(nums.length === 1)
+        return [[], [nums[0]]]
+  nums.sort((a, b) => a - b);
+  let result = [];
+  function backTrack(index, arr){
+    if(index === nums.length){
+      result.push([...arr]);
+      return
+    }
+    let nextUniqueIndex = index;
+    while(nums[nextUniqueIndex] === nums[index] && nextUniqueIndex < nums.length){
+      nextUniqueIndex++;
+    }
+    backTrack(index+1, [...arr, nums[index]]);
+    backTrack(nextUniqueIndex, [...arr]);
+  }
+    backTrack(0, []);
+  return result;
+}
+
+
 //Hello from my new Laptop
 
 /*96. Unique Binary Search Trees
