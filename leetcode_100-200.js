@@ -338,6 +338,35 @@ let partition = function (s){
 	return result;
 }
 
+
+/*139. Word Break
+Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a 
+space-separated sequence of one or more dictionary words.
+Note that the same word in the dictionary may be reused multiple times in the segmentation.
+*/
+
+let wordBreak = function (s, wordDict){
+	let memo = [];
+	function backtrack(start){
+		if(start === s.length)
+			return true;
+		if(memo[start] !== undefined)
+			return memo[start];
+		let value = false;
+		for(let word of wordDict){
+			if(s[start] === word[0]){
+				if(s.substr(start, word.length) === word)
+					value = value || backtrack(start+word.length)
+			}
+		}
+		memo[start] = value;
+		return memo[start];
+	}
+	return backtrack(0);
+}
+// I am so happy I solved it, 6 months ago I had attempted this. Now seeing the difference
+// in my approach, I feel good.
+
 /*141. Linked List Cycle
 Given head, the head of a linked list, determine if the linked list has a cycle in it.
 There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
