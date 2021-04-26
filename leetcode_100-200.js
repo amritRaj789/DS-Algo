@@ -603,3 +603,32 @@ let numIslands = function (grid){
 	return count;
 }
 // this is much faster
+
+
+/*216. Combination Sum III
+Find all valid combinations of k numbers that sum up to n such that the following conditions are true:
+Only numbers 1 through 9 are used.
+Each number is used at most once.
+Return a list of all possible valid combinations. The list must not contain the same combination twice, and the combinations may be returned in any order.
+*/
+let combinationSum3 = function (k, n){
+	let max = n >= 9 ? 9 : n;
+	let result = [];
+	function recursive(sum, count, start, arr){
+		if(sum === 0 && count === 0){
+			result.push([...arr]);
+			return
+		}
+		if(count === 0 || start > sum)
+			return
+		for(let i = start; i <= max; i++){
+			if(i <= sum)
+				recursive(sum-i, count-1, i+1, [...arr, i])
+			else
+				break;
+		}
+	}
+	recursive(n, k, 1, []);
+	return result;
+}
+// 100 % faster. Lets Go!!!
