@@ -35,3 +35,23 @@ let increasingTriplet = function (nums){
 	}
 	return false;	
 }
+
+
+//357. Count Numbers With Unique Digits
+//Given an integer n, return the count of all numbers with unique digits, x, where 0 <= x < 10n.
+
+var countNumbersWithUniqueDigits = function(n) {
+	if(n <= 1)
+		return 10**n;
+    let dp = Array(n+1).fill(0);
+    dp[0] = 1;
+    dp[1] = 10;
+    for(let i = 2; i <= n; i++){
+    	let p = 9;
+    	for(let j = 9; j >= 11-i; j--){
+    		p *= j;
+    	}
+    	dp[i] = p + dp[i-1];
+    }
+    return dp[n];
+};
