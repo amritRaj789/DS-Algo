@@ -43,15 +43,13 @@ let increasingTriplet = function (nums){
 var countNumbersWithUniqueDigits = function(n) {
 	if(n <= 1)
 		return 10**n;
-    let dp = Array(n+1).fill(0);
-    dp[0] = 1;
-    dp[1] = 10;
+    let dp = 10;
     for(let i = 2; i <= n; i++){
     	let p = 9;
     	for(let j = 9; j >= 11-i; j--){
     		p *= j;
     	}
-    	dp[i] = p + dp[i-1];
+    	dp = p + dp;
     }
-    return dp[n];
+    return dp;
 };
