@@ -367,6 +367,32 @@ let wordBreak = function (s, wordDict){
 // I am so happy I solved it, 6 months ago I had attempted this. Now seeing the difference
 // in my approach, I feel good.
 
+/*140. Word Break II
+Given a string s and a dictionary of strings wordDict, add spaces in s to construct a sentence where each word is a valid dictionary word. 
+Return all such possible sentences in any order.
+Note that the same word in the dictionary may be reused multiple times in the segmentation.
+*/
+
+let wordBreak = function (s, wordDict){
+	let result = [];
+	function recursive(start, str){
+		if(start === s.length){
+			result.push(str.slice(0, str.length-1));
+			return
+		}
+		for(let word of wordDict){
+			if(s[start] === word[0]){
+				if(s.substr(start, word.length) === word)
+					recursive(start+word.length, str.slice(0)+word+" ");
+			}
+		}
+	}
+	recursive(0, "");
+	return result;
+}
+// feel so good man! Hard problem, dusted
+
+
 /*141. Linked List Cycle
 Given head, the head of a linked list, determine if the linked list has a cycle in it.
 There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
