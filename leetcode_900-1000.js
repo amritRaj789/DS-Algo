@@ -110,6 +110,42 @@ let uniquePathsIII = function (grid){
 	return result;
 }
 
+/*996. Number of Squareful Arrays
+
+Given an array A of non-negative integers, the array is squareful if for every pair of adjacent elements, 
+their sum is a perfect square.
+Return the number of permutations of A that are squareful.  Two permutations A1 and A2 differ if and only 
+if there is some index i such that A1[i] != A2[i].
+*/
+var numSquarefulPerms = function(A) {
+    let count = 0;
+    A.sort((a, b) => a-b);
+    function backtrack(lastNum, level){
+    	if(level === A.length){
+    		count++;
+    		return;
+    	}
+    	let hash = {};
+    	A.forEach(num => {hash[num] = false});
+    	for(let i = 0; i < A.length; i++){
+    		if(A[i] !== false){
+    			if(hash[A[i]] === false){
+    				hash[A[i]] = true;
+    				if(level === 0 || (Math.sqrt(A[i] + lastNum))%1 === 0){
+    					let temp = A[i];
+	    				A[i] = false;
+    					backtrack(temp, level+1);
+    					A[i] = temp;
+    				}
+    			}
+    		}
+    	}
+    }
+    backtrack(0, 0);
+    return count;
+};
+// this isn't the most efficient one and there are better ways to do it
+// I will learn those ways later
 
 // 1004. Longest consecutive ones II
 function longestOnes (A, K){
