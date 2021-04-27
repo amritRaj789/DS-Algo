@@ -1,3 +1,39 @@
+/*1079. Letter Tile Possibilities
+
+You have n  tiles, where each tile has one letter tiles[i] printed on it.
+Return the number of possible non-empty sequences of letters you can make using the letters printed on those tiles.
+*/
+let numTilePossibilities = function (tiles){
+    let count = 0;
+    let charFreq = {};
+    for(let char of tiles){
+        if(!(char in charFreq))
+            charFreq[char] = 0;
+        charFreq[char]++;
+    }
+    function recursive(level){
+        if(level === tiles.length)
+            return;
+        let used = {};
+        for(let char of tiles){
+            used[char] = false;
+        }
+        for(let key in charFreq){
+            if(charFreq[key] > 0){
+                if(used[key] === false){
+                    used[key] = true;
+                    charFreq[key]--;
+                    recursive(level+1);
+                    count++;
+                    charFreq[key]++;
+                }
+            }
+        }
+    }
+    recursive(0);
+    return count;
+}
+// not very fast, but this works
 /*1092. Shortest Common Supersequence
 Given two strings str1 and str2, return the shortest string that has both str1 and str2 as subsequences.  
 If multiple answers exist, you may return any of them.
