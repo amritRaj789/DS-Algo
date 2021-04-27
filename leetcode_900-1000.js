@@ -1,3 +1,33 @@
+/*967. Numbers with Same consecutive differences
+
+Return all non-negative integers of length n such that the absolute difference between every two consecutive digits is k.
+Note that every number in the answer must not have leading zeros. For example, 01 has one leading zero and is invalid.
+You may return the answer in any order.
+*/
+var numsSameConsecDiff = function(n, k) {
+    let result = [];
+    function backtrack(number, level){
+    	if(level === n){
+    		result.push(number)
+    		return
+    	}
+    	let lastDigit = number%10;
+    	if(k === 0)
+    		backtrack(number*10+lastDigit, level+1);
+    	else{
+	     	if(lastDigit+k <= 9)
+	    		backtrack(number*10+lastDigit+k, level+1);
+	    	if(lastDigit-k >= 0)
+	    		backtrack(number*10+lastDigit-k, level+1);
+    	}
+    }
+    for(let i = 1; i <= 9; i++){
+    	backtrack(i, 1);
+    }
+    return result;
+};
+
+
 /*
 978. Longest Turbulent SubArray
 
