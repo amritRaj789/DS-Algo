@@ -1,4 +1,26 @@
-1769. Minimum number of Operations to Move All Balls to Each box
+/*1752. Check if array is sorted and rotated
+
+Given an array nums, return true if the array was originally sorted in non-decreasing order, 
+then rotated some number of positions (including zero). Otherwise, return false.
+There may be duplicates in the original array.
+*/
+let check = function (nums){
+	if(nums.length <= 2)
+		return true
+	let decreasing_count = 0;
+	for(let i = 0; i < nums.length-1; i++){
+		if(nums[i+1] < nums[i]){
+			decreasing_count++;
+			if(decreasing_count === 2)
+				return false
+		}
+	}
+	if(decreasing_count === 1 && nums[nums.length-1] > nums[0])
+		return false;
+	return true
+}
+
+//1769. Minimum number of Operations to Move All Balls to Each box
 
 
 /*logic: 
