@@ -73,6 +73,44 @@ function findAnagrams (s, p){
 }
 
 
+/*504. 01 Matrix
+
+Given an m x n binary matrix mat, return the distance of the nearest 0 for each cell.
+The distance between two adjacent cells is 1.
+*/
+let updateMatrix = function (mat){
+	let dp = Array(mat.length).fill(null).map(() => Array(mat[0].length).fill(Infinity));
+	let queue = [];
+	for(let i = 0; i < mat.length; i++){
+		for(let j = 0; j < mat[0].length; j++){
+			if(mat[i][j] === 0){
+				dp[i][j] = 0;
+				queue.push([i, j]);
+			}
+		}
+	}
+	while(queue.length > 0){
+		let [row, col] = queue.shift();
+		if(row > 0 && dp[row-1][col] > 1+dp[row][col]){
+			dp[row-1][col] = 1+dp[row][col];
+			queue.push([row-1, col]);
+		}
+		if(row < mat.length-1 && dp[row+1][col] > 1+dp[row][col]){
+			dp[row+1][col] = 1+dp[row][col];
+			queue.push([row+1, col]);
+		}
+		if(col > 0 && dp[row][col-1] > 1+dp[row][col]){
+			dp[row][col-1] = 1+dp[row][col];
+			queue.push([row, col-1]);
+		}
+		if(col < mat[0].length-1 && dp[row][col+1] > 1+dp[row][col]){
+			dp[row][col+1] = 1+dp[row][col];
+			queue.push([row, col+1]);
+		}
+	}
+	return dp;
+}
+// BFS approach
 
 
 // 526. Beautiful Arrangement
