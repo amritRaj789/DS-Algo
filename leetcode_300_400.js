@@ -1,3 +1,44 @@
+/*306. Additive Number
+
+Additive number is a string whose digits can form additive sequence.
+A valid additive sequence should contain at least three numbers. 
+Except for the first two numbers, each subsequent number in the sequence 
+must be the sum of the preceding two.
+*/
+let isAdditiveNumber = function(num){
+	if(num.length < 3)
+		return false;
+	let found = false;
+	function backtrack(index, count, n1, n2){
+		if(found)
+			return
+		if(index === num.length){
+			if(count < 3)
+				return
+			found = true;
+			return
+		}
+		if(num[index] !== "0"){
+			for(let i = 1; i <= num.length-index; i++){
+				let temp = Number(num.substr(index, i));
+				if(count < 2)
+					backtrack(index+i, count+1, n2, temp);
+				else if(n1+n2 === temp)
+					backtrack(index+i, count+1, n2, temp);
+			}
+		}
+		else{
+			if(count < 2)
+				backtrack(index+1, count+1, n2, 0);
+			else if(n1+n2 === 0)
+				backtrack(index+1, count+1, n2, 0);
+		}
+	}
+	backtrack(0, 0, 0, 0);
+	return found;
+}
+// this absolutely works but the runtime is slow. like very slow. how do we optimize it?
+
 316. Remove Duplicate Letters
 var removeDuplicateLetters = function(s) {
 	const hash = {};
