@@ -1,3 +1,46 @@
+/*401. Binary Watch
+
+A binary watch has 4 LEDs on the top which represent the hours (0-11), 
+and the 6 LEDs on the bottom represent the minutes (0-59). 
+Each LED represents a zero or one, with the least significant bit on the right.
+*/
+let readBinaryWatch = function (turnedOn){
+    if(turnedOn > 8)
+        return [];
+    let result = [];
+    let minute = [1, 2, 4, 8, 16, 32];
+    let hoursPossible = [["0:"], ["1:", "2:", "4:", "8:"], ["3:", "5:", "6:", "9:", "10:"], ["7:", "11:"]];
+    let minutesPossible = Array(6).fill([]);
+    for(let i = 0; i < 6; i++){
+        minutesPossible[i] = [];
+    }
+    minutesPossible[0] = ["00"];
+    function makeMinutes (count, index, total){
+        if(index === minute.length)
+            return
+        let minutes = total+minute[index];
+        if(minutes < 60){
+            if(minutes >= 10)
+                minutesPossible[count+1].push(String(minutes));
+            else
+                minutesPossible[count+1].push("0" + minutes);
+            makeMinutes(count+1, index+1, minutes);
+        }
+        makeMinutes(count, index+1, total);
+    }
+    makeMinutes(0, 0, 0);
+    for(let i = 0; i <= turnedOn && i < 3; i++){
+        for(let j = 0; j < hoursPossible[i].length; j++){
+            if(turnedOn-i > 5)
+                break;
+            for(let k = 0; k < minutesPossible[turnedOn-i].length; k++){
+                result.push(hoursPossible[i][j]+minutesPossible[turnedOn-i][k]);
+            }
+        }
+    }
+    return result;
+}
+
 /*435. 
 Non-overlapping intervals
 Given a collection of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
