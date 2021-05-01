@@ -1,3 +1,44 @@
+/*842. Split Array into Fibonacci Sequence
+
+Given a string S of digits, such as S = "123456579", we can split it into a Fibonacci-like sequence [123, 456, 579].
+Return any Fibonacci-like sequence split from S, or return [] if it cannot be done
+*/
+var splitIntoFibonacci = function(S) {
+	if(S.length < 3)
+		return [];
+	let result = [];
+	function backtrack(index, f1, f2, arr){
+		if(result.length > 0)
+			return
+		if(index === S.length){
+			if(arr.length < 3)
+				return
+			result.push(...arr);
+			return
+		}
+		if(S[index] !== "0"){
+			for(let i = 1; i <= S.length-index; i++){
+				let temp = Number(S.substr(index, i));
+				if(temp > (2**31-1))
+					break;
+				if(arr.length < 2)
+					backtrack(index+i, f2, temp, [...arr, temp]);
+				else if(f1+f2 == temp)
+					backtrack(index+i, f2, temp, [...arr, temp]);
+			}
+		}
+		else{
+			if(arr.length < 2)
+				backtrack(index+1, f2, 0, [...arr, 0]);
+			else if(f1+f2 === 0)
+				backtrack(index+1, f2, 0, [...arr, 0]);
+		}
+	}
+	backtrack(0, 0, 0, []);
+	return result;
+};
+
+
 // 876. Middle of the Linked List
 // Given a non-empty, singly linked list with head node, return a middle node of linked list.
 // If there are two middle nodes, return the second middle node.
