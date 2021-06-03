@@ -896,6 +896,31 @@ In a Unix-style file system, a period '.' refers to the current directory, a dou
   return result;
 };
 
+/* 75. Sort Colors
+
+Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
+We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
+You must solve this problem without using the library's sort function. */
+
+var sortColors = function (nums) {
+  let left = 0;
+  while (left < nums.length - 1 && nums[left] === 0) left++;
+  if (left === nums.length - 1) return;
+  let right = nums.length - 1;
+  while (right > 0 && nums[right] === 2) right--;
+  if (right == 0) return;
+  for (let i = left; i <= right; i++) {
+    if (nums[i] == 2) {
+      [nums[i], nums[right]] = [nums[right], nums[i]];
+      right--;
+      i--;
+    } else if (nums[i] == 0) {
+      [nums[i], nums[left]] = [nums[left], nums[i]];
+      left++;
+    }
+  }
+};
+
 /*76. Minimum window substring
 
 Given two strings s and t, return the minimum window in s which will contain all the characters in t. If there is no such window in s that covers all characters in t, return the empty string "".
