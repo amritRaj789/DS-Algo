@@ -399,6 +399,22 @@ var swapPairs = function (head){
 	return head;
 }
 
+/* 28. Implement strStr()
+
+Implement strStr().
+Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+ */
+
+let strStr = function (haystack, needle){
+  if(needle == "") return 0
+  for(let i = 0; i <= haystack.length-needle.length; i++){
+    if(haystack.slice(i, i+needle.length) == needle)return i
+  }
+  return -1;
+}
+// The above has a TC of O(MxN) it can be improved to O(N) by using KMP algorithm
+
+
 /*33. Search in Rotated Array
 
 Given the array nums after the rotation and an integer target, 
