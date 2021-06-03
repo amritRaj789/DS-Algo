@@ -1036,6 +1036,28 @@ var exist = function (board, word) {
 
 // oh yes, backtracking rocks
 
+//80. Remove Duplicates from Sorted Array II
+
+/* Given a sorted array nums, remove the duplicates in-place such that duplicates appeared at most twice and return the new length.
+Do not allocate extra space for another array; you must do this by modifying the input array in-place with O(1) extra memory.
+ */
+
+let removeDuplicates = function (nums) {
+  if (nums.length <= 2) return nums.length;
+  let left = nums[0] == nums[1] ? 2 : 1;
+  let right = left;
+  while (right < nums.length) {
+    if (nums[right] !== nums[right - 1]) {
+      if (right < nums.length - 1 && nums[right] === nums[right + 1]) {
+        nums[left++] = nums[right++];
+        left++;
+        nums[left++] = nums[right++];
+      } else nums[left++] = nums[right++];
+    } else right++;
+  }
+  return left;
+};
+
 // 83. Remove Duplicates from sorted List
 
 function deleteDuplicates(head) {
