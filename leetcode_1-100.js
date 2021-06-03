@@ -163,6 +163,38 @@ function twoSum (arr, left, target, result){
 	}
 }
 
+
+/* 
+16. 3Sum Closest
+Given an array nums of n integers and an integer target, find three integers in nums such that the sum is closest to target. Return the sum of the three integers. You may assume that each input would have exactly one solution 
+*/
+let threeSumClosest = function (nums, target) {
+  nums.sort((a, b) => a - b);
+  let closest = Infinity;
+  for (let i = 0; i < nums.length - 2; i++) {
+    if (i > 0 && nums[i] == nums[i - 1]) continue;
+    let left = i + 1;
+    let right = nums.length - 1;
+    let sum;
+    while (left < right) {
+      sum = nums[i] + nums[left] + nums[right];
+      if (Math.abs(sum - target) < Math.abs(closest - target)) closest = sum;
+      if (sum > target) right--;
+      else if (sum < target) left++;
+      else return target;
+    }
+  }
+  return closest;
+};
+
+/* 
+For an interview, we recommend focusing on the Two Pointers approach above. It's easier to get it right and adapt for other variations of 3Sum. Interviewers love asking follow-up problems like 3Sum Smaller!
+
+If an interviewer asks you whether you can achieve \mathcal{O}(1)O(1) memory complexity, you can use the selection sort instead of a built-in sort in the Two Pointers approach. It will make it a bit slower, though the overall time complexity will be still \mathcal{O}(n^2)O(n 
+2
+ ). */
+
+
 /*17. Letter Combinations of a Phone Number
 Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. 
 Return the answer in any order.
