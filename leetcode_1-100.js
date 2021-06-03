@@ -540,6 +540,31 @@ var combinationSum2 = function (candidates, target) {
   return result;
 };
 
+/*
+ 42. Trapping Rain Water
+Given a non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can be trap after raining.
+ */
+var trap = function (height) {
+  let left = 0;
+  let leftMax = 0;
+  let right = height.length - 1;
+  let rightMax = 0;
+  let ans = 0;
+  while (left < right) {
+    if (height[left] < height[right]) {
+      if (height[left] >= leftMax) leftMax = height[left];
+      else ans += leftMax - height[left];
+      left++;
+    } else {
+      if (height[right] >= rightMax) rightMax = height[right];
+      else ans += rightMax - height[right];
+      right--;
+    }
+  }
+  return ans;
+};
+// This is so magical using 2 pointers we can solve it in O(N) and without any extra space
+
 /*46. Permutations
 Given an array nums of distinct integers, return all the possible permutations.
 You can return the answer in any order
