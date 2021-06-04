@@ -64,6 +64,21 @@ let reverseString = function (s) {
   }
 };
 
+/* 349. Intersection of 2 arrays
+Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique and you may return the result in any order. */
+
+let intersection = function (nums1, nums2) {
+  let set1 = new Set();
+  let result = [];
+  nums1.forEach((num) => set1.add(num));
+  nums2.forEach((num) => {
+    if (set1.has(num)) {
+      result.push(num);
+      set1.delete(num);
+    }
+  });
+  return result;
+};
 //357. Count Numbers With Unique Digits
 //Given an integer n, return the count of all numbers with unique digits, x, where 0 <= x < 10n.
 
