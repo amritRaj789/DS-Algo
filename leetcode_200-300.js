@@ -131,6 +131,25 @@ function reverseList(head) {
   return head;
 }
 
+/* 209. Minimum Size SubArray Sum
+
+Given an array of positive integers nums and a positive integer target, return the minimal length of a contiguous subarray [numsl, numsl+1, ..., numsr-1, numsr] of which the sum is greater than or equal to target. If there is no such subarray, return 0 instead. */
+
+var minSubArrayLen = function (target, nums) {
+  let left = 0;
+  let sum = 0;
+  let minLength = Infinity;
+  let right;
+  for (right = 0; right < nums.length; right++) {
+    sum += nums[right];
+    while (sum >= target) {
+      minLength = Math.min(minLength, right - left + 1);
+      sum -= nums[left++];
+    }
+  }
+  return minLength == Infinity ? 0 : minLength;
+};
+
 // 213. House Rober II
 /*You are a professional robber planning to rob houses along a street. 
 Each house has a certain amount of money stashed. All houses at this place are arranged in a circle. 
