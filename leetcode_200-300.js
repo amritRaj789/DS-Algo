@@ -1,4 +1,3 @@
-----------------------------x----------------------------x----------------------------x----------------------------x----------------------------x
 /*120. Triangle
 Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.
 For example, given the following triangle
@@ -16,142 +15,120 @@ Bonus point if you are able to do this using only O(n) extra space, where n is t
 //Dynamic Programming bottom up
 let count = 0;
 let minimumTotal = function (triangle) {
-	let rows = triangle.length;
-	// there are i elements for any i-th row (i starts from 1)
-	let dp = new Array(rows+1).fill(0);
-	for(let i = 1 ; i <= rows; i++){
-		dp[i] = new Array(i+2).fill(+Infinity);
-	}
-	dp[1][1] = triangle[0][0];
+  let rows = triangle.length;
+  // there are i elements for any i-th row (i starts from 1)
+  let dp = new Array(rows + 1).fill(0);
+  for (let i = 1; i <= rows; i++) {
+    dp[i] = new Array(i + 2).fill(+Infinity);
+  }
+  dp[1][1] = triangle[0][0];
 
-	for( let i = 2; i <= rows; i++){
-		for(let j = 1; j <= i; j++){
-			count++;
-			dp[i][j] = triangle[i-1][j-1] + Math.min(dp[i-1][j-1], dp[i-1][j]);
-		}
-	}
+  for (let i = 2; i <= rows; i++) {
+    for (let j = 1; j <= i; j++) {
+      count++;
+      dp[i][j] =
+        triangle[i - 1][j - 1] + Math.min(dp[i - 1][j - 1], dp[i - 1][j]);
+    }
+  }
 
-	let min = dp[rows][0];
-	for(let i = 0; i <= rows; i++){
-		count++;
-		if(min > dp[rows][i]){
-			min = dp[rows][i];
-		}
-	}
-	return min;
-}
+  let min = dp[rows][0];
+  for (let i = 0; i <= rows; i++) {
+    count++;
+    if (min > dp[rows][i]) {
+      min = dp[rows][i];
+    }
+  }
+  return min;
+};
 
-console.log(minimumTotal([
-     [2],
-    [3,4],
-   [6,5,7],
-  [4,1,8,3]
-]));
+console.log(minimumTotal([[2], [3, 4], [6, 5, 7], [4, 1, 8, 3]]));
 console.log("the function ran for this many times: ", count);
 
 // Really elegant solution from community
 let count = 0;
 let minimumTotal = function (triangle) {
-	for (let i = triangle.length-2; i >= 0 ; i--){
-		for(let j = 0; j <= i+1; j++) {
-			count++;
-			triangle[i][j] += Math.min(triangle[i+1][j], triangle[i+1][j+1]);
-		}
-	}
-	return triangle[0][0];
-}
-console.log(minimumTotal([
-     [2],
-    [3,4],
-   [6,5,7],
-  [4,1,8,3]
-]));
+  for (let i = triangle.length - 2; i >= 0; i--) {
+    for (let j = 0; j <= i + 1; j++) {
+      count++;
+      triangle[i][j] += Math.min(triangle[i + 1][j], triangle[i + 1][j + 1]);
+    }
+  }
+  return triangle[0][0];
+};
+console.log(minimumTotal([[2], [3, 4], [6, 5, 7], [4, 1, 8, 3]]));
 console.log("the function ran for this many times: ", count);
-
-
 
 // yet another community solution (RECURSION)
 let count = 0;
-var minimumTotal = function(triangle) {
+var minimumTotal = function (triangle) {
   var hash = {};
   return getMin(0, 0);
 
   function getMin(h, idx) {
-  	count++;
+    count++;
     if (h === triangle.length) return 0;
-    if (!hash[h + ':' + idx]) {
-      hash[h + ':' + idx] = triangle[h][idx] + Math.min(getMin(h + 1, idx), getMin(h + 1, idx + 1))
+    if (!hash[h + ":" + idx]) {
+      hash[h + ":" + idx] =
+        triangle[h][idx] + Math.min(getMin(h + 1, idx), getMin(h + 1, idx + 1));
     }
-    return hash[h + ':' + idx];
+    return hash[h + ":" + idx];
   }
 };
-console.log(minimumTotal([
-     [2],
-    [3,4],
-   [6,5,7],
-  [4,1,8,3]
-]));
+console.log(minimumTotal([[2], [3, 4], [6, 5, 7], [4, 1, 8, 3]]));
 console.log("the function ran for this many times: ", count);
-
-
-
 
 // 203 Remove Linked List elements
 
-function removeElements (head, val){
-	while(head && head.val === val){
-		head = head.next;
-	}
-	if(head === null)
-		return null;
-	let prevNode = head;
-	let node = head.next;
-	while(node){
-		if(node.val === val){
-			prevNode.next = node.next;
-			node = node.next;
-		}
-		else{
-			prevNode = node;
-			node = node.next;
-		}
-	}
-	return head;
+function removeElements(head, val) {
+  while (head && head.val === val) {
+    head = head.next;
+  }
+  if (head === null) return null;
+  let prevNode = head;
+  let node = head.next;
+  while (node) {
+    if (node.val === val) {
+      prevNode.next = node.next;
+      node = node.next;
+    } else {
+      prevNode = node;
+      node = node.next;
+    }
+  }
+  return head;
 }
 
 // 206. Reverse A  linked List
 //Iterative approach
-function reverseList (head){
-	let prevNode = null;
-	let node = head;
-	while(node){
-		let temp = node.next;
-		node.next = prevNode;
-		prevNode = node;
-		node = temp;
-	}
-	head = prevNode;
-	return head;
+function reverseList(head) {
+  let prevNode = null;
+  let node = head;
+  while (node) {
+    let temp = node.next;
+    node.next = prevNode;
+    prevNode = node;
+    node = temp;
+  }
+  head = prevNode;
+  return head;
 }
 
 //Recursive approach
-function reverseList(head){
-	if(head==null)
-		return null;
-	let currNode = head;
-	function reverse(node){
-		if(node.next == null){
-			head = node;
-			return
-		}
-		else{
-			reverse(node.next);
-			node.next.next = node;
-		}
-	}
-	reverse(currNode);
-	currNode.next = null;
-	return head;
+function reverseList(head) {
+  if (head == null) return null;
+  let currNode = head;
+  function reverse(node) {
+    if (node.next == null) {
+      head = node;
+      return;
+    } else {
+      reverse(node.next);
+      node.next.next = node;
+    }
+  }
+  reverse(currNode);
+  currNode.next = null;
+  return head;
 }
 
 // 213. House Rober II
@@ -162,156 +139,164 @@ and it will automatically contact the police if two adjacent houses were broken 
 Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can 
 rob tonight without alerting the police.
 */
-let rob = function(nums){
-	if(nums.length === 1)
-		return nums[0];
-	if(nums.length <= 3)
-		return Math.max(...nums);
-	let arr1 = [...nums];
-	arr1.pop();
-	let arr2 = [...nums];
-	arr2.shift();
-	let dp1 = new Array(arr1.length);
-	dp1[0] = arr1[0];
-	dp1[1] = Math.max(arr1[0], arr1[1]);
-	let dp2 = new Array(arr2.length);
-	dp2[0] = arr2[0];
-	dp2[1] = Math.max(arr2[0], arr2[1]);
-	for(let i = 2; i < dp1.length; i++){
-		dp1[i] = Math.max(arr1[i]+dp1[i-2], dp1[i-1]);
-		dp2[i] = Math.max(arr2[i]+dp2[i-2], dp2[i-1]);
-	}
-	return Math.max(dp1[dp1.length-1], dp2[dp2.length-1]);
-}
+let rob = function (nums) {
+  if (nums.length === 1) return nums[0];
+  if (nums.length <= 3) return Math.max(...nums);
+  let arr1 = [...nums];
+  arr1.pop();
+  let arr2 = [...nums];
+  arr2.shift();
+  let dp1 = new Array(arr1.length);
+  dp1[0] = arr1[0];
+  dp1[1] = Math.max(arr1[0], arr1[1]);
+  let dp2 = new Array(arr2.length);
+  dp2[0] = arr2[0];
+  dp2[1] = Math.max(arr2[0], arr2[1]);
+  for (let i = 2; i < dp1.length; i++) {
+    dp1[i] = Math.max(arr1[i] + dp1[i - 2], dp1[i - 1]);
+    dp2[i] = Math.max(arr2[i] + dp2[i - 2], dp2[i - 1]);
+  }
+  return Math.max(dp1[dp1.length - 1], dp2[dp2.length - 1]);
+};
 
 // 221. Maxinmal Square
 /*Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's 
 and return its area.
 */
 // bottom up DP solution
-let maximalSquare = function (matrix){
-	let dp = Array(matrix.length).fill(null).map(() => Array(matrix[0].length).fill(0));
-	let maxLength = 0;
-	for(let i = 0; i < matrix[0].length; i++){
-		if(matrix[0][i] === "1"){
-            maxLength = 1;
-            dp[0][i] = 1;
-        }
-	}
-	for(let i = 0; i < matrix.length; i++){
-		if(matrix[i][0] === "1"){
-            maxLength = 1;
-            dp[i][0] = 1;
-        }
-	}
-	for(let i = 1; i < matrix.length; i++){
-		for(let j = 1; j < matrix[0].length; j++){
-			if(matrix[i][j] === "1"){
-				dp[i][j] = Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]) + 1;
-				if(dp[i][j] > maxLength)
-					maxLength = dp[i][j];
-			}
-		}
-	}
-	return maxLength**2;
-}
-
- 
-
+let maximalSquare = function (matrix) {
+  let dp = Array(matrix.length)
+    .fill(null)
+    .map(() => Array(matrix[0].length).fill(0));
+  let maxLength = 0;
+  for (let i = 0; i < matrix[0].length; i++) {
+    if (matrix[0][i] === "1") {
+      maxLength = 1;
+      dp[0][i] = 1;
+    }
+  }
+  for (let i = 0; i < matrix.length; i++) {
+    if (matrix[i][0] === "1") {
+      maxLength = 1;
+      dp[i][0] = 1;
+    }
+  }
+  for (let i = 1; i < matrix.length; i++) {
+    for (let j = 1; j < matrix[0].length; j++) {
+      if (matrix[i][j] === "1") {
+        dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1;
+        if (dp[i][j] > maxLength) maxLength = dp[i][j];
+      }
+    }
+  }
+  return maxLength ** 2;
+};
 
 // 234. Palindrome Linked List
 // Given a singly linked list, determine if it is a palindrome
 
-function isPalindrome (head){
-	if(head === null || head.next === null)
-		return true;
+function isPalindrome(head) {
+  if (head === null || head.next === null) return true;
 
-	//find middle of the linked list
-	let fast = head;
-	let slow = head;
-	while(fast !== null && fast.next !== null){
-		fast = fast.next.next;
-		slow = slow.next;
-	}
-	headSecondHalf = reverse(slow); // reverse the second half
-	copyHeadSecondHalf = headSecondHalf; // stores the head of the reversed list so that we can reverse it back later
+  //find middle of the linked list
+  let fast = head;
+  let slow = head;
+  while (fast !== null && fast.next !== null) {
+    fast = fast.next.next;
+    slow = slow.next;
+  }
+  headSecondHalf = reverse(slow); // reverse the second half
+  copyHeadSecondHalf = headSecondHalf; // stores the head of the reversed list so that we can reverse it back later
 
-	//Compare the first half with the reversed second half
-	while(head !== null && headSecondHalf !== null){
-		if(head.val !== headSecondHalf.val)
-			break;
-		head = head.next;
-		headSecondHalf = headSecondHalf.next;
-	}
-	reverse(copyHeadSecondHalf);
-	if(head === null || headSecondHalf === null)
-		return true;
-	return false;
+  //Compare the first half with the reversed second half
+  while (head !== null && headSecondHalf !== null) {
+    if (head.val !== headSecondHalf.val) break;
+    head = head.next;
+    headSecondHalf = headSecondHalf.next;
+  }
+  reverse(copyHeadSecondHalf);
+  if (head === null || headSecondHalf === null) return true;
+  return false;
 
-	//helper function to reverse a linked list and return the new head
-	function reverse(head){
-		let prev = null;
-		let node = head;
-		while(node){
-			let temp = node.next;
-			node.next = prevNode;
-			prevNode = node;
-			node = temp;
-		}
-		head = prevNode;
-		return head;
-	}
+  //helper function to reverse a linked list and return the new head
+  function reverse(head) {
+    let prev = null;
+    let node = head;
+    while (node) {
+      let temp = node.next;
+      node.next = prevNode;
+      prevNode = node;
+      node = temp;
+    }
+    head = prevNode;
+    return head;
+  }
 }
 
 // 237. Delete Node in a Linked List
 // you are not given the head of the linked list instead you are given the node to be deleted directly
 
-function deleteNode (node){
-	node.val = node.next.val;
-	node.next = node.next.next;
+function deleteNode(node) {
+  node.val = node.next.val;
+  node.next = node.next.next;
 }
 
 // 264. Ugly Number II
 /*Given an integer n, return the nth ugly number.
 Ugly number is a positive number whose prime factors only include 2, 3, and/or 5.
 */
-let nthUglyNumber = function (n){
-	if(n <= 6)
-		return n;
-	let i2 = 0;
-	let i3 = 0;
-	let i5 = 0;
-	let dp = [1];
-	for(let i = 2; i <= n; i++){
-		c1 = 2*dp[i2];
-		c2 = 3*dp[i3];
-		c3 = 5*dp[i5];
-		next = Math.min(c1, c2, c3);
-		dp.push(next);
-		if(next === c1)
-			i2++;
-		if(next === c2)
-			i3++;
-		if(next === c3)
-			i5++;
-	}
-	return dp[n-1];
-}
+let nthUglyNumber = function (n) {
+  if (n <= 6) return n;
+  let i2 = 0;
+  let i3 = 0;
+  let i5 = 0;
+  let dp = [1];
+  for (let i = 2; i <= n; i++) {
+    c1 = 2 * dp[i2];
+    c2 = 3 * dp[i3];
+    c3 = 5 * dp[i5];
+    next = Math.min(c1, c2, c3);
+    dp.push(next);
+    if (next === c1) i2++;
+    if (next === c2) i3++;
+    if (next === c3) i5++;
+  }
+  return dp[n - 1];
+};
 
 /*279. Perfect Squares
 Given an integer n, return the least number of Perfect sqaure numbers that sum to n
 */
 
-let numSquares = function (n){
-	let dp = [0];
-	for(let i = 1; i <= n ; i++){
-		dp[i] = +Infinity;
-		for(let j = 1; j*j <= i; j++){
-			dp[i] = Math.min(dp[i-j*j] + 1, dp[i]);
-		}
-	}
-	return dp[n];
-}
+let numSquares = function (n) {
+  let dp = [0];
+  for (let i = 1; i <= n; i++) {
+    dp[i] = +Infinity;
+    for (let j = 1; j * j <= i; j++) {
+      dp[i] = Math.min(dp[i - j * j] + 1, dp[i]);
+    }
+  }
+  return dp[n];
+};
+
+/* 287. Find the Duplicate Number
+
+Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
+There is only one repeated number in nums, return this repeated number.
+You must solve the problem without modifying the array nums and uses only constant extra space. */
+
+var findDuplicate = function (nums) {
+  for (let i = 0; i < nums.length; i++) {
+    let j = nums[i] - 1;
+    if (nums[i] !== nums[j]) {
+      [nums[i], nums[j]] = [nums[j], nums[i]];
+      i--;
+    }
+  }
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] !== i + 1) return nums[i];
+  }
+};
 
 /*300. Longest Increasing Subsequence
 Given an integer array nums, return the length of the longest strictly increasing
@@ -321,20 +306,19 @@ elements without changing the order of the reamaining elements. For example,
 [3, 6, 2, 7] is a subsequence of the array [0, 3, 1, 6, 2, 7].*/
 
 // Dynamic Programming
-var lengthOfLIS = function(nums) {
-	let dp = Array(nums.length);
-	dp[0] = 1;
-	let maxVal = 1;
-	for(let i = 1; i < nums.length; i++){
-		let max = 1;
-		for(let j = 0; j < i; j++){
-			if(nums[i] > nums[j])
-				max = Math.max(max, dp[j]+1);
-		}
-		dp[i] = max;
-		maxVal = Math.max(maxVal, max);
-	}
-	return maxVal;
+var lengthOfLIS = function (nums) {
+  let dp = Array(nums.length);
+  dp[0] = 1;
+  let maxVal = 1;
+  for (let i = 1; i < nums.length; i++) {
+    let max = 1;
+    for (let j = 0; j < i; j++) {
+      if (nums[i] > nums[j]) max = Math.max(max, dp[j] + 1);
+    }
+    dp[i] = max;
+    maxVal = Math.max(maxVal, max);
+  }
+  return maxVal;
 };
 // TC O(N^2), SC O(N)
 // there is even a better DP sol using Binary search
