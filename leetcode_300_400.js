@@ -79,6 +79,28 @@ let intersection = function (nums1, nums2) {
   });
   return result;
 };
+
+/* 350. Intersection of 2 arrays II
+
+Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must appear as many times as it shows in both arrays and you may return the result in any order.
+ */
+var intersect = function (nums1, nums2) {
+  let hash = {};
+  nums1.forEach((num) => {
+    if (!(num in hash)) hash[num] = 0;
+    hash[num]++;
+  });
+  let result = [];
+  nums2.forEach((num) => {
+    if (num in hash) {
+      result.push(num);
+      hash[num]--;
+      if (hash[num] === 0) delete hash[num];
+    }
+  });
+  return result;
+};
+
 //357. Count Numbers With Unique Digits
 //Given an integer n, return the count of all numbers with unique digits, x, where 0 <= x < 10n.
 
