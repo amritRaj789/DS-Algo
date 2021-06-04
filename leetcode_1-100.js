@@ -1076,6 +1076,40 @@ function deleteDuplicates(head) {
   return head;
 }
 
+86. Partition List
+
+/* Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
+You should preserve the original relative order of the nodes in each of the two partitions.
+
+ */let partition = function (head, x){
+  let tempNode = new ListNode();
+  let copy = tempNode;
+  tempNode.next = head;
+  let current = head;
+  let parent = tempNode;
+  while(current !== null){
+    if(current.val >= x){
+      parent = current;
+      current = current.next;
+    }
+    else{
+      if(tempNode.next == current){
+        parent = current;
+        current = current.next;
+        tempNode = tempNode.next;
+      }
+      else{
+        let tempTempNode = tempNode.next;
+        tempNode.next = current;
+        parent.next = current.next;
+        current.next = tempTempNode;
+        tempNode = current;
+        current = parent.next;
+      }
+    }
+  }
+  return copy.next;
+}
 /*90. Subsets II
 Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
 The solution set must not contain duplicate subsets. Return the solution in any order.
