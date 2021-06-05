@@ -17,6 +17,27 @@ var numSubarrayProductLessThanK = function (nums, k) {
   return result;
 };
 
+/* 763. Partition Labels
+
+A string s of lowercase English letters is given. We want to partition this string into as many parts as possible so that each letter appears in at most one part, and return a list of integers representing the size of these parts. */
+
+var partitionLabels = function (s) {
+  let hash = {};
+  for (let i = s.length - 1; i >= 0; i--) {
+    if (!(s[i] in hash)) hash[s[i]] = i;
+  }
+  let result = [];
+  let left = 0;
+  while (left < s.length) {
+    let right = hash[s[left]];
+    let i = left + 1;
+    while (i < right) right = Math.max(right, hash[s[i++]]);
+    result.push(right - left + 1);
+    left = right + 1;
+  }
+  return result;
+};
+
 /*784. Letter Case Permutation
 Given a string S, we can transform every letter individually to be lowercase or uppercase to create another string.
 Return a list of all possible strings we could create. You can return the output in any order.
