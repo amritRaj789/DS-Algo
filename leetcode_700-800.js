@@ -1,38 +1,64 @@
+/* 713. Subarray product less than K
+
+Given an array of integers nums and an integer k, return the number of contiguous subarrays where the product of all the elements in the subarray is strictly less than k. */
+
+var numSubarrayProductLessThanK = function (nums, k) {
+  if (k == 0) return 0;
+  let result = 0;
+  let left = 0;
+  let product = 1;
+  for (let right = 0; right < nums.length; right++) {
+    product *= nums[right];
+    while (product >= k && left <= right) {
+      product /= nums[left++];
+    }
+    if (product < k) result += right - left + 1;
+  }
+  return result;
+};
+
 /*784. Letter Case Permutation
 Given a string S, we can transform every letter individually to be lowercase or uppercase to create another string.
 Return a list of all possible strings we could create. You can return the output in any order.
 */
 
 // BFS iterative
-let letterCasePermutation = function (string){
-    let str = string.toLowerCase();
-	let result = [str.slice(0)];
-	for(let i = 0; i < str.length; i++){
-		if(str.charCodeAt(i) < 97 || str.charCodeAt(i) > 122)
-			continue
-		let length = result.length;
-			for(let j = 0; j < length; j++)
-				result.push(result[j].slice(0, i) + result[j][i].toUpperCase() + result[j].slice(i+1))
-	}
-	return result;
-}
-
+let letterCasePermutation = function (string) {
+  let str = string.toLowerCase();
+  let result = [str.slice(0)];
+  for (let i = 0; i < str.length; i++) {
+    if (str.charCodeAt(i) < 97 || str.charCodeAt(i) > 122) continue;
+    let length = result.length;
+    for (let j = 0; j < length; j++)
+      result.push(
+        result[j].slice(0, i) +
+          result[j][i].toUpperCase() +
+          result[j].slice(i + 1)
+      );
+  }
+  return result;
+};
 
 // DFS recursive
-let letterCasePermutation = function(S) {
-    let s = S.toLowerCase();
-    let result = [];
-    function recursive(index, string){
-        if(index === s.length){
-            result.push(string.slice(0));
-            return
-        }
-        recursive(index+1, string.slice(0));
-        if(s.charCodeAt(index) >= 97 && s.charCodeAt(index) <= 122)
-            recursive(index+1, string.slice(0, index) + string[index].toUpperCase() + string.slice(index+1));
+let letterCasePermutation = function (S) {
+  let s = S.toLowerCase();
+  let result = [];
+  function recursive(index, string) {
+    if (index === s.length) {
+      result.push(string.slice(0));
+      return;
     }
-    recursive(0, s);
-    return result;
+    recursive(index + 1, string.slice(0));
+    if (s.charCodeAt(index) >= 97 && s.charCodeAt(index) <= 122)
+      recursive(
+        index + 1,
+        string.slice(0, index) +
+          string[index].toUpperCase() +
+          string.slice(index + 1)
+      );
+  }
+  recursive(0, s);
+  return result;
 };
 
 /*797. All Paths From Source to Target
@@ -42,17 +68,17 @@ from node 0 to node n - 1, and return them in any order.
 The graph is given as follows: graph[i] is a list of all nodes you can visit from node i 
 (i.e., there is a directed edge from node i to node graph[i][j]).
 */
-var allPathsSourceTarget = function(graph) {
-    let result = [];
-    function recursive(index, arr){
-        if(index === graph.length-1){
-            result.push([...arr, index])
-            return
-        }
-        for(let i = 0; i < graph[index].length; i++){
-            recursive(graph[index][i], [...arr, index]);
-        }
+var allPathsSourceTarget = function (graph) {
+  let result = [];
+  function recursive(index, arr) {
+    if (index === graph.length - 1) {
+      result.push([...arr, index]);
+      return;
     }
-    recursive(0, []);
-    return result;
+    for (let i = 0; i < graph[index].length; i++) {
+      recursive(graph[index][i], [...arr, index]);
+    }
+  }
+  recursive(0, []);
+  return result;
 };
