@@ -367,7 +367,6 @@ var swapPairs = function (head) {
   return head;
 };
 
-
 /* 25. Reverse Nodes in k-group
 
 Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.
@@ -375,7 +374,7 @@ k is a positive integer and is less than or equal to the length of the linked li
 You may not alter the values in the list's nodes, only nodes themselves may be changed.
  */
 let reverseKGroup = function (head, k) {
-  if(k == 1 || head == null) return head;
+  if (k == 1 || head == null) return head;
   let current = head;
   let i = 0;
   let copyLink1;
@@ -390,10 +389,10 @@ let reverseKGroup = function (head, k) {
       current = temp;
       count--;
     }
-    if (count > 0){
+    if (count > 0) {
       curr = prev;
       prev = null;
-      while(curr){
+      while (curr) {
         let temp = curr.next;
         curr.next = prev;
         prev = curr;
@@ -402,10 +401,10 @@ let reverseKGroup = function (head, k) {
       copyLink1.next = prev;
       return head;
     }
-      if (i == 0) {
-        head = prev;
-        i++;
-      } else copyLink1.next = prev;
+    if (i == 0) {
+      head = prev;
+      i++;
+    } else copyLink1.next = prev;
     copyLink1 = copyStart;
   }
   return head;
@@ -1129,7 +1128,6 @@ var deleteDuplicates = function (head) {
   return copyHead.next;
 };
 
-
 // 83. Remove Duplicates from sorted List
 
 function deleteDuplicates(head) {
@@ -1148,29 +1146,27 @@ function deleteDuplicates(head) {
   return head;
 }
 
-86. Partition List
+//86. Partition List
 
 /* Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
 You should preserve the original relative order of the nodes in each of the two partitions.
 
- */let partition = function (head, x){
+ */ let partition = function (head, x) {
   let tempNode = new ListNode();
   let copy = tempNode;
   tempNode.next = head;
   let current = head;
   let parent = tempNode;
-  while(current !== null){
-    if(current.val >= x){
+  while (current !== null) {
+    if (current.val >= x) {
       parent = current;
       current = current.next;
-    }
-    else{
-      if(tempNode.next == current){
+    } else {
+      if (tempNode.next == current) {
         parent = current;
         current = current.next;
         tempNode = tempNode.next;
-      }
-      else{
+      } else {
         let tempTempNode = tempNode.next;
         tempNode.next = current;
         parent.next = current.next;
@@ -1181,7 +1177,7 @@ You should preserve the original relative order of the nodes in each of the two 
     }
   }
   return copy.next;
-}
+};
 /*90. Subsets II
 Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
 The solution set must not contain duplicate subsets. Return the solution in any order.
@@ -1208,6 +1204,37 @@ let subsetsWithDup = function (nums) {
   }
   backTrack(0, []);
   return result;
+};
+
+/* 92. Reverse Linked List II
+
+Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.
+
+ */
+var reverseBetween = function (head, left, right) {
+  if (left == right || head === null || head.next === null) return head;
+  let parent = new ListNode(501);
+  let copyParent = parent;
+  parent.next = head;
+  let current = head;
+  while (left > 1) {
+    parent = current;
+    current = current.next;
+    left--;
+    right--;
+  }
+  let copyStart = parent.next;
+  let prev = null;
+  while (right > 0) {
+    let temp = current.next;
+    current.next = prev;
+    prev = current;
+    current = temp;
+    right--;
+  }
+  parent.next = prev;
+  copyStart.next = current;
+  return copyParent.next;
 };
 
 //Hello from my new Laptop
