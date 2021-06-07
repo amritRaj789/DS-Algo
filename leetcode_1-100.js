@@ -367,6 +367,50 @@ var swapPairs = function (head) {
   return head;
 };
 
+
+/* 25. Reverse Nodes in k-group
+
+Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.
+k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes, in the end, should remain as it is.
+You may not alter the values in the list's nodes, only nodes themselves may be changed.
+ */
+let reverseKGroup = function (head, k) {
+  if(k == 1 || head == null) return head;
+  let current = head;
+  let i = 0;
+  let copyLink1;
+  while (current) {
+    let count = k;
+    let prev = null;
+    let copyStart = current;
+    while (count > 0 && current) {
+      let temp = current.next;
+      current.next = prev;
+      prev = current;
+      current = temp;
+      count--;
+    }
+    if (count > 0){
+      curr = prev;
+      prev = null;
+      while(curr){
+        let temp = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = temp;
+      }
+      copyLink1.next = prev;
+      return head;
+    }
+      if (i == 0) {
+        head = prev;
+        i++;
+      } else copyLink1.next = prev;
+    copyLink1 = copyStart;
+  }
+  return head;
+};
+
 /* 28. Implement strStr()
 
 Implement strStr().
