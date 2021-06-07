@@ -1102,6 +1102,34 @@ let removeDuplicates = function (nums) {
   return left;
 };
 
+/* 82. Remove Duplicates from Sorted List II
+
+Given the head of a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list. Return the linked list sorted as well. */
+
+var deleteDuplicates = function (head) {
+  if (head === null || head.next === null) return head;
+  let left = new ListNode(101);
+  let middle = head;
+  let right = head.next;
+  let prev = left;
+  let copyHead = prev;
+  while (middle) {
+    if (
+      left.val !== middle.val &&
+      (right === null || middle.val !== right.val)
+    ) {
+      prev.next = middle;
+      prev = middle;
+    }
+    left = middle;
+    middle = right;
+    right = right === null ? null : right.next;
+  }
+  prev.next = null;
+  return copyHead.next;
+};
+
+
 // 83. Remove Duplicates from sorted List
 
 function deleteDuplicates(head) {
