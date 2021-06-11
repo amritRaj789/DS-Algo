@@ -696,6 +696,21 @@ let permuteUnique = function (nums) {
   backtrack(0, []);
   return result;
 };
+
+/* 49. Group Anagrams
+
+Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+ */
+var groupAnagrams = function (strs) {
+  let hash = {};
+  for (let i = 0; i < strs.length; i++) {
+    let sortedWord = strs[i].split("").sort().join("");
+    if (sortedWord in hash) hash[sortedWord].push(strs[i]);
+    else hash[sortedWord] = [strs[i]];
+  }
+  return Object.entries(hash).map((entry) => entry[1]);
+};
+
 /*51. N-Queens
 Return all distinct solutions to the n queens problem
 */
