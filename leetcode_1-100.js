@@ -477,6 +477,39 @@ let searchRange = function (nums, target) {
   }
 };
 
+//36. Valid Sudoku
+/* Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
+Each row must contain the digits 1-9 without repetition.
+Each column must contain the digits 1-9 without repetition.
+Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.
+ */
+var isValidSudoku = function (board) {
+  let hash = {
+    row: {},
+    col: {},
+    grid: {},
+  };
+  for (let i = 0; i < 9; i++) {
+    hash["row"][i + 1] = new Object();
+    hash["col"][i + 1] = new Object();
+    hash["grid"][i + 1] = new Object();
+  }
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      let char = board[i][j];
+      if (char === ".") continue;
+      let grid = Math.floor(i / 3) * 3 + (Math.floor(j / 3) + 1);
+      if (!(char in hash["row"][i + 1])) hash["row"][i + 1][char] = true;
+      else return false;
+      if (!(char in hash["col"][j + 1])) hash["col"][j + 1][char] = true;
+      else return false;
+      if (!(char in hash["grid"][grid])) hash["grid"][grid][char] = true;
+      else return false;
+    }
+  }
+  return true;
+};
+
 // 37. Solve Sudoku
 
 function isValid(num, board, row, col) {
