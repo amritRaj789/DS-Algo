@@ -1285,6 +1285,39 @@ var reverseBetween = function (head, left, right) {
   return copyParent.next;
 };
 
+//94. Binary Tree inorder Traversal
+//Given the root of a binary tree, return the inorder traversal of its nodes' values.
+
+// recursive
+var inorderTraversal = function (root) {
+  let result = [];
+  function inOrder(node) {
+    if (node === null) return;
+    inOrder(node.left);
+    result.push(node.val);
+    inOrder(node.right);
+  }
+  inOrder(root);
+  return result;
+};
+
+// iterative
+let inorderTraversal = function (root) {
+  let result = [];
+  let stack = [];
+  while (root || stack.length) {
+    if (root) {
+      stack.push(root);
+      root = root.left;
+    } else {
+      root = stack.pop();
+      result.push(root.val);
+      root = root.right;
+    }
+  }
+  return result;
+};
+
 //Hello from my new Laptop
 
 /*96. Unique Binary Search Trees
