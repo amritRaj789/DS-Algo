@@ -113,6 +113,27 @@ let zigzagLevelOrder = function (root) {
   return result;
 };
 
+/* 104. Maximum Depth of Binary Tree
+
+Given the root of a binary tree, return its maximum depth.
+A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+
+ */
+var maxDepth = function (root) {
+  if (!root) return 0;
+  let result = 0;
+  function dfs(node, length) {
+    if (node.left === null && node.right === null) {
+      result = Math.max(result, length);
+      return;
+    }
+    if (node.left) dfs(node.left, length + 1);
+    if (node.right) dfs(node.right, length + 1);
+  }
+  dfs(root, 0);
+  return result + 1;
+};
+
 /*107. Binary Tree Level Order Traversal II
 Given the root of a binary tree, return the bottom-up level order traversal of its nodes' values. 
 (i.e., from left to right, level by level from leaf to root).
