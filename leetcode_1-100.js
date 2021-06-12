@@ -968,6 +968,25 @@ var rotateRight = function (head, k) {
   return tempNode;
 };
 
+/* 67. Add Binary
+
+Given two binary strings a and b, return their sum as a binary string
+ */
+let addBinary = function (a, b) {
+  if (a.length < b.length) {
+    a = "0".repeat(b.length - a.length) + a;
+  } else b = "0".repeat(a.length - b.length) + b;
+  let result = "";
+  let carry = 0;
+  for (let i = a.length - 1; i >= 0; i--) {
+    let sum = Number(a[i]) + Number(b[i]) + carry;
+    result = (sum >= 2 ? String(sum - 2) : String(sum)) + result;
+    carry = sum >= 2 ? 1 : 0;
+  }
+  if (carry > 0) result = String(carry) + result;
+  return result;
+};
+
 /*71. Simplify Path
 
 Given a string path, which is an absolute path (starting with a slash '/') to a file or directory in a Unix-style file system, convert it to the simplified canonical path.
