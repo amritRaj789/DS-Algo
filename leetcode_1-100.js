@@ -123,6 +123,27 @@ function maxWater(height) {
   return maxVolWater;
 }
 
+/* 13 Roman to Integer
+
+Given a roman numeral, convert it to an integer.
+ */
+let romanToInt = function (s) {
+  let hash = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+  };
+  let sum = 0;
+  for (let i = 0; i < s.length; i++) {
+    if (hash[s[i]] < hash[s[i + 1]]) sum -= hash[s[i]];
+    else sum += hash[s[i]];
+  }
+  return sum;
+};
 /*15. 3Sum
 Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
 Notice that the solution set must not contain duplicate triplets.
