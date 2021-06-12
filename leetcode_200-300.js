@@ -224,6 +224,26 @@ function deleteNode(node) {
   node.next = node.next.next;
 }
 
+/* 242. Valid Anagram
+
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+ */ var isAnagram = function (s, t) {
+  let hash = {};
+  for (let i = 0; i < s.length; i++) {
+    if (!(s[i] in hash)) hash[s[i]] = 0;
+    hash[s[i]]++;
+  }
+  for (let i = 0; i < t.length; i++) {
+    if (!(t[i] in hash)) return false;
+    hash[t[i]]--;
+    if (hash[t[i]] < 0) return false;
+    if (hash[t[i]] === 0) delete hash[t[i]];
+  }
+  if (Object.keys(hash).length) return false;
+  return true;
+};
+
 // 264. Ugly Number II
 /*Given an integer n, return the nth ugly number.
 Ugly number is a positive number whose prime factors only include 2, 3, and/or 5.
