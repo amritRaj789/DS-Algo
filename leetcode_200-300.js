@@ -43,6 +43,25 @@ function removeElements(head, val) {
   return head;
 }
 
+/* 204. Count Primes
+
+Count the number of prime numbers less than a non-negative number, n.
+ */
+let countPrimes = function (n) {
+  let hash = new Array(n).fill(1);
+  let count = 0;
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (hash[i]) {
+      count++;
+      for (let j = i * i; j < n; j += i) hash[j] = 0;
+    }
+  }
+  for (let i = Math.floor(Math.sqrt(n) + 1); i < n; i++) {
+    if (hash[i]) count++;
+  }
+  return count;
+};
+
 // 206. Reverse A  linked List
 //Iterative approach
 function reverseList(head) {
