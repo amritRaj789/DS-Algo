@@ -224,6 +224,84 @@ var connect = function (root) {
   }
   return root;
 };
+/*120. Triangle
+Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.
+For example, given the following triangle
+[
+     [2],
+    [3,4],
+   [6,5,7],
+  [4,1,8,3]
+]
+The minimum path sum from top to bottom is 11 (i.e., 2 + 3 + 5 + 1 = 11).
+Note:
+Bonus point if you are able to do this using only O(n) extra space, where n is the total number of rows in the triangle
+*/
+
+//Dynamic Programming bottom up
+let count = 0;
+let minimumTotal = function (triangle) {
+  let rows = triangle.length;
+  // there are i elements for any i-th row (i starts from 1)
+  let dp = new Array(rows + 1).fill(0);
+  for (let i = 1; i <= rows; i++) {
+    dp[i] = new Array(i + 2).fill(+Infinity);
+  }
+  dp[1][1] = triangle[0][0];
+
+  for (let i = 2; i <= rows; i++) {
+    for (let j = 1; j <= i; j++) {
+      count++;
+      dp[i][j] =
+        triangle[i - 1][j - 1] + Math.min(dp[i - 1][j - 1], dp[i - 1][j]);
+    }
+  }
+
+  let min = dp[rows][0];
+  for (let i = 0; i <= rows; i++) {
+    count++;
+    if (min > dp[rows][i]) {
+      min = dp[rows][i];
+    }
+  }
+  return min;
+};
+
+console.log(minimumTotal([[2], [3, 4], [6, 5, 7], [4, 1, 8, 3]]));
+console.log("the function ran for this many times: ", count);
+
+// Really elegant solution from community
+let count = 0;
+let minimumTotal = function (triangle) {
+  for (let i = triangle.length - 2; i >= 0; i--) {
+    for (let j = 0; j <= i + 1; j++) {
+      count++;
+      triangle[i][j] += Math.min(triangle[i + 1][j], triangle[i + 1][j + 1]);
+    }
+  }
+  return triangle[0][0];
+};
+console.log(minimumTotal([[2], [3, 4], [6, 5, 7], [4, 1, 8, 3]]));
+console.log("the function ran for this many times: ", count);
+
+// yet another community solution (RECURSION)
+let count = 0;
+var minimumTotal = function (triangle) {
+  var hash = {};
+  return getMin(0, 0);
+
+  function getMin(h, idx) {
+    count++;
+    if (h === triangle.length) return 0;
+    if (!hash[h + ":" + idx]) {
+      hash[h + ":" + idx] =
+        triangle[h][idx] + Math.min(getMin(h + 1, idx), getMin(h + 1, idx + 1));
+    }
+    return hash[h + ":" + idx];
+  }
+};
+console.log(minimumTotal([[2], [3, 4], [6, 5, 7], [4, 1, 8, 3]]));
+console.log("the function ran for this many times: ", count);
 
 /*131. Palindrome Partitioning
 Given a string s, partition s such that every substring of the partition is a palindrome. 
