@@ -1379,3 +1379,36 @@ var numTrees = function (n) {
 };
 // We just have to arrange different no. of nodes on each side of the root node
 // The value of the nodes doesn't matter. Suppose we select 4 as root node, then 1 to 3 goes to left and 5 to n goes to right
+
+/* 100. Same Tree
+
+Given the roots of two binary trees p and q, write a function to check if they are the same or not.
+Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
+ */
+
+var isSameTree = function (p, q) {
+  if (p === null || q === null) {
+    if (p === q) return true;
+    return false;
+  }
+  let queue1 = [p];
+  let queue2 = [q];
+  while (queue1.length > 0) {
+    let node1 = queue1.shift();
+    let node2 = queue2.shift();
+    if (node1.val !== node2.val) return false;
+    if (node1.left === null || node2.left === null) {
+      if (node1.left !== node2.left) return false;
+    } else {
+      queue1.push(node1.left);
+      queue2.push(node2.left);
+    }
+    if (node1.right === null || node2.right === null) {
+      if (node1.right !== node2.right) return false;
+    } else {
+      queue1.push(node1.right);
+      queue2.push(node2.right);
+    }
+  }
+  return true;
+};
