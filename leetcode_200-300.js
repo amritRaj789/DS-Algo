@@ -62,6 +62,28 @@ let countPrimes = function (n) {
   return count;
 };
 
+/* 
+205. Isomorphic String
+
+Given two strings s and t, determine if they are isomorphic.
+Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself. */
+
+var isIsomorphic = function (s, t) {
+  let hash = {};
+  let used = {};
+  for (let i = 0; i < s.length; i++) {
+    if (!(s[i] in hash)) {
+      if (t[i] in used) return false;
+      hash[s[i]] = t[i];
+      used[t[i]] = true;
+    } else {
+      if (hash[s[i]] !== t[i]) return false;
+    }
+  }
+  return true;
+};
+
 // 206. Reverse A  linked List
 //Iterative approach
 function reverseList(head) {
