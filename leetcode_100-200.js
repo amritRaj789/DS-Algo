@@ -293,6 +293,19 @@ let partition = function (s) {
   return result;
 };
 
+/* 136. Single Number
+
+Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+You must implement a solution with a linear runtime complexity and use only constant extra space.
+
+ */
+var singleNumber = function (nums) {
+  let x1 = nums[0];
+  for (let i = 1; i < nums.length; i++) x1 = x1 ^ nums[i];
+  return x1;
+};
+// Bitwise XOR rocks
+
 /*139. Word Break
 Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a 
 space-separated sequence of one or more dictionary words.
