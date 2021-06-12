@@ -306,6 +306,65 @@ var singleNumber = function (nums) {
 };
 // Bitwise XOR rocks
 
+/* 138. Copy List with Random pointer
+
+A linked list of length n is given such that each node contains an additional random pointer, which could point to any node in the list, or null.
+Construct a deep copy of the list. The deep copy should consist of exactly n brand new nodes, where each new node has its value set to the value of its corresponding original node. Both the next and random pointer of the new nodes should point to new nodes in the copied list such that the pointers in the original list and copied list represent the same list state. */
+
+// using simple Object has hashmap can be cumbersome because JS doesnt allow object as keys of another object
+var copyRandomList = function (head) {
+  if (head === null) return null;
+  let head1 = head;
+  let head2 = new Node(head1.val);
+  let copyHead2 = head2;
+  let hash = {};
+  hash[String(head1.val) + 0] = head2;
+  let i = 1;
+  while (head1.next) {
+    head1 = head1.next;
+    head2.next = new Node(head1.val);
+    head2 = head2.next;
+    hash[String(head1.val) + i] = head2;
+    i++;
+  }
+  head2.next = null;
+  head2 = copyHead2;
+  while (head) {
+    let random = head.random;
+    if (random === null) head2.random = null;
+    else {
+      let node = random;
+      let count = 0;
+      while (node) {
+        node = node.next;
+        count++;
+      }
+      head2.random = hash[String(random.val) + (i - count)];
+    }
+    head = head.next;
+    head2 = head2.next;
+  }
+  return copyHead2;
+};
+
+// However with introduction of Maps in ES6, we can have a really simple solution
+let copyRandomList = function (head) {
+  if (!head) return null;
+  const cloned = new Map();
+  let node = head;
+  while (node) {
+    cloned.set(node, new Node(node.val));
+    node = node.next;
+  }
+  node = head;
+  while (node) {
+    cloned.get(node).next = cloned.get(node.next) || null;
+    cloned.get(node).random = cloned.get(node.random) || null;
+    node = node.next;
+  }
+  return cloned.get(head);
+};
+
 /*139. Word Break
 Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a 
 space-separated sequence of one or more dictionary words.
