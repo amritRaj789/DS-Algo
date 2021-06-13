@@ -619,6 +619,21 @@ let detectCycle = function (head) {
   return null;
 };
 
+/* 144. Binary Tree Preorder Traversal
+
+Given the root of a binary Tree, return the preorder traversal of its nodes' values
+ */
+let preorderTraversal = function (root) {
+  let result = [];
+  function dfs(node) {
+    if (!node) return;
+    result.push(node.val);
+    dfs(node.left);
+    dfs(node.right);
+  }
+  dfs(root);
+  return result;
+};
 /*150 Evaluate Reverse Polish Notation
  */
 var evalRPN = function (tokens) {
