@@ -827,6 +827,22 @@ var titleToNumber = function (columnTitle) {
   return sum;
 };
 
+/* 172. Factorial Trailing Zeroes
+
+Given an integer n, return the number of trailing zeroes in n!.
+Follow up: Could you write a solution that works in logarithmic time complexity?
+ */
+
+let trailingZeroes = function (n) {
+  let num = 5;
+  let pow5 = 0;
+  while (num <= n) {
+    pow5 += Math.floor(n / num);
+    num = num * 5;
+  }
+  return pow5;
+};
+
 //200. Number of Islands
 /*Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.
 An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all 
