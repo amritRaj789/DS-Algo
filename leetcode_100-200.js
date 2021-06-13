@@ -190,6 +190,21 @@ let levelOrderBottom = function (root) {
   return reversed;
 };
 
+/* 108. Convert sorted Array to Binary Search Tree
+
+Given an integer array nums where the elements are sorted in ascending order, convert it to a height-balanced binary search tree.
+A height-balanced binary tree is a binary tree in which the depth of the two subtrees of every node never differs by more than one.
+ */
+
+let sortedArrayToBST = function (nums) {
+  if (!nums.length) return null;
+  const mid = Math.floor(nums.length / 2);
+  const root = new TreeNode(nums[mid]);
+  root.left = sortedArrayToBST(nums.slice(0, mid));
+  root.right = sortedArrayToBST(nums.slice(mid + 1));
+  return root;
+};
+
 /*111. Minimum Depth of Binary Tree
 Given a binary tree, find its minimum depth.
 The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
