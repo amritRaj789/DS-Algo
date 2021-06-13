@@ -634,6 +634,23 @@ let preorderTraversal = function (root) {
   dfs(root);
   return result;
 };
+
+/* 145. Binary Tree Postorder Traversal
+
+Given the root of a binary Tree, return the postorder traversal of its nodes' values
+ */
+var postorderTraversal = function (root) {
+  let result = [];
+  function dfs(node) {
+    if (!node) return;
+    dfs(node.left);
+    dfs(node.right);
+    result.push(node.val);
+  }
+  dfs(root);
+  return result;
+};
+
 /*150 Evaluate Reverse Polish Notation
  */
 var evalRPN = function (tokens) {
