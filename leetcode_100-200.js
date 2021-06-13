@@ -205,6 +205,27 @@ let sortedArrayToBST = function (nums) {
   return root;
 };
 
+/* 110. Balanced Binary Tree
+
+Given a binary tree, determine if it is height-balanced.
+ */
+var isBalanced = function (root) {
+  if (root === null) return true;
+  let balanced = true;
+  function dfs(node) {
+    if (!balanced) return;
+    if (node.left === null && node.right === null) return 0;
+    let leftTreeHeight = 0;
+    let rightTreeHeight = 0;
+    if (node.left) leftTreeHeight = dfs(node.left) + 1;
+    if (node.right) rightTreeHeight = dfs(node.right) + 1;
+    if (Math.abs(leftTreeHeight - rightTreeHeight) > 1) balanced = false;
+    return Math.max(leftTreeHeight, rightTreeHeight);
+  }
+  dfs(root);
+  return balanced;
+};
+
 /*111. Minimum Depth of Binary Tree
 Given a binary tree, find its minimum depth.
 The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
