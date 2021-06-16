@@ -235,6 +235,17 @@ var summaryRanges = function (nums) {
   return result;
 };
 
+/* 231. Power of Two
+
+Given an integer n, return true if it is a power of two. Otherwise, return false.
+An integer n is a power of two, if there exists an integer x such that n == 2x.
+ */
+
+var isPowerOfTwo = function (n) {
+  if (n <= 0) return false;
+  return !(n & (n - 1));
+};
+
 // 234. Palindrome Linked List
 // Given a singly linked list, determine if it is a palindrome
 
