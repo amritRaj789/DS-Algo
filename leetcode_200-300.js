@@ -197,6 +197,18 @@ let maximalSquare = function (matrix) {
   return maxLength ** 2;
 };
 
+/* 226. Invert Binary Tree
+
+Given the root of a Binary Tree, invert the tree, and return its root
+ */
+var invertTree = function (root) {
+  if (!root) return null;
+  let temp = root.left;
+  root.left = invertTree(root.right);
+  root.right = invertTree(temp);
+  return root;
+};
+
 // 234. Palindrome Linked List
 // Given a singly linked list, determine if it is a palindrome
 
