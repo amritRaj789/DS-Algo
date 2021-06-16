@@ -470,6 +470,31 @@ var findDuplicate = function (nums) {
   }
 };
 
+/* 290. Word Pattern
+
+Given a pattern and a string s, find if s follows the same pattern
+Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in s
+ */
+
+let wordPattern = function (pattern, s) {
+  let hash1 = {};
+  let hash2 = {};
+  let words = s.split(" ");
+  if (words.length !== pattern.length) return false;
+  for (let i = 0; i < pattern.length; i++) {
+    if (pattern[i] in hash1) {
+      if (hash1[pattern[i]] !== words[i]) return false;
+    } else {
+      if (words[i] in hash2) return false;
+      else {
+        hash1[pattern[i]] = words[i];
+        hash2[words[i]] = true;
+      }
+    }
+  }
+  return true;
+};
+
 /* 292. Nim Game
 
 You are playing the following Nim Game with your friend:
