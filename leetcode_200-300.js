@@ -409,6 +409,33 @@ let nthUglyNumber = function (n) {
   return dp[n - 1];
 };
 
+/* 278. First Bad Version
+
+Suppose you have n versions [1, 2, ..., n] and you want to find out the first bad one, which causes all the following ones to be bad.
+You are given an API bool isBadVersion(version) which returns whether version is bad. Implement a function to find the first bad version. You should minimize the number of calls to the API.
+
+ */
+
+// try to cut through the fluff its just Binary Search
+
+var solution = function (isBadVersion) {
+  return function (n) {
+    if (isBadVersion(1)) return 1;
+    let left = 1;
+    let right = n;
+    while (left <= right) {
+      let mid = Math.floor((left + right) / 2);
+      if (isBadVersion(mid)) {
+        if (!isBadVersion(mid - 1)) return mid;
+        right = mid - 1;
+      } else {
+        if (isBadVersion(mid + 1)) return mid + 1;
+        left = mid + 1;
+      }
+    }
+  };
+};
+
 /*279. Perfect Squares
 Given an integer n, return the least number of Perfect sqaure numbers that sum to n
 */
