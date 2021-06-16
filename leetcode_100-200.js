@@ -843,6 +843,21 @@ let trailingZeroes = function (n) {
   return pow5;
 };
 
+/* 191. Number of 1 Bits
+
+Write a function that takes an unsigned integer and returns the number of '1' bits it has (also known as the Hamming weight).
+ */
+
+// Brian Kernighan's algorithm
+var hammingWeight = function (n) {
+  let count = 0;
+  while (n) {
+    n = n & (n - 1);
+    count++;
+  }
+  return count;
+};
+
 //200. Number of Islands
 /*Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.
 An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all 
