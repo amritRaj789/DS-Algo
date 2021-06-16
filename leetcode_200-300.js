@@ -238,6 +238,21 @@ function isPalindrome(head) {
   }
 }
 
+/* 235. Lowest Common Ancestor of a Binary Search Tree
+
+Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes in the BST.
+
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
+ */
+
+let lowestCommonAncestor = function (root, p, q) {
+  while (root) {
+    if (root.val > p.val && root.val > q.val) root = root.left;
+    else if (root.val < p.val && root.val < q.val) root = root.right;
+    else return root;
+  }
+};
+
 // 237. Delete Node in a Linked List
 // you are not given the head of the linked list instead you are given the node to be deleted directly
 
