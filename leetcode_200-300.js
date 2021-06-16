@@ -349,6 +349,43 @@ var binaryTreePaths = function (root) {
   return result;
 };
 
+/* 258. Add digits
+
+Given an integer num, repeatedly add all its digits until the result has only one digit, and return it
+ */
+
+// Recursive
+var addDigits = function (num) {
+  if (num <= 9) return num;
+  let sum = 0;
+  while (num > 0) {
+    sum += num % 10;
+    num = Math.floor(num / 10);
+  }
+  return addDigits(sum);
+};
+
+// Iterative
+var addDigits = function (num) {
+  let sum = 0;
+  while (num) {
+    sum += num % 10;
+    num = Math.floor(num / 10);
+    if (num === 0 && sum > 9) {
+      num = sum;
+      sum = 0;
+    }
+  }
+  return sum;
+};
+
+// Mathematics
+let addDigits = function (num) {
+  if (!num) return 0;
+  if (!(num % 9)) return 9;
+  return num % 9;
+};
+
 // 264. Ugly Number II
 /*Given an integer n, return the nth ugly number.
 Ugly number is a positive number whose prime factors only include 2, 3, and/or 5.
