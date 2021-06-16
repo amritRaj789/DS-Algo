@@ -330,6 +330,25 @@ Given two strings s and t, return true if t is an anagram of s, and false otherw
   return true;
 };
 
+/* 257. Binary Tree Paths
+
+Given the root of a binary tree, return all root-to-leaf paths in any order
+ */
+var binaryTreePaths = function (root) {
+  let result = [];
+  let node = root;
+  function dfs(node, string) {
+    if (!node.left && !node.right) {
+      result.push(string.slice(0));
+      return;
+    }
+    if (node.left) dfs(node.left, string.slice(0) + "->" + node.left.val);
+    if (node.right) dfs(node.right, string.slice(0) + "->" + node.right.val);
+  }
+  dfs(root, String(root.val));
+  return result;
+};
+
 // 264. Ugly Number II
 /*Given an integer n, return the nth ugly number.
 Ugly number is a positive number whose prime factors only include 2, 3, and/or 5.
