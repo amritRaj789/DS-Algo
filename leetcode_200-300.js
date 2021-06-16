@@ -209,6 +209,32 @@ var invertTree = function (root) {
   return root;
 };
 
+/* 228. Summary Ranges
+You are given a sorted unique integer array nums.
+
+Return the smallest sorted list of ranges that cover all the numbers in the array exactly. That is, each element of nums is covered by exactly one of the ranges, and there is no integer x such that x is in one of the ranges but not in nums.
+Each range [a,b] in the list should be output as:
+"a->b" if a != b
+"a" if a == b
+ */
+var summaryRanges = function (nums) {
+  if (!nums.length) return [];
+  let result = [];
+  let start = 0;
+  let end;
+  for (end = 1; end < nums.length; end++) {
+    if (nums[end] == nums[end - 1] + 1) continue;
+    else {
+      if (start === end - 1) result.push(String(nums[start]));
+      else result.push(String(nums[start]) + "->" + nums[end - 1]);
+      start = end;
+    }
+  }
+  if (start == end - 1) result.push(String(nums[start]));
+  else result.push(String(nums[start]) + "->" + nums[end - 1]);
+  return result;
+};
+
 // 234. Palindrome Linked List
 // Given a singly linked list, determine if it is a palindrome
 
