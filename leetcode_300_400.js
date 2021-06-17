@@ -50,6 +50,23 @@ let increasingTriplet = function (nums) {
   return false;
 };
 
+/* 338. Counting Bits
+
+Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.
+ */
+let countBits = function (n) {
+  let result = [];
+  for (let i = 0; i <= n; i++) {
+    let num = i;
+    let count = 0;
+    while (num > 0) {
+      num = num & (num - 1);
+      count++;
+    }
+    result.push(count);
+  }
+  return result;
+};
 /* 342. Power of Four
 
 Given an integer n, return true if it is a power of four. Otherwise, return false.
