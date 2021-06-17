@@ -96,6 +96,43 @@ let reverseString = function (s) {
   }
 };
 
+/* 345. Reverse Vowels of a String
+
+Given a string s, reverse only all the vowels in the string and return it.
+The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both cases.
+ */
+var reverseVowels = function (s) {
+  if (s.length <= 1) return s;
+  let result = "";
+  let left = 0;
+  let right = s.length - 1;
+  let hash = {
+    a: true,
+    e: true,
+    i: true,
+    o: true,
+    u: true,
+    A: true,
+    E: true,
+    I: true,
+    O: true,
+    U: true,
+  };
+  let hash2 = {};
+  while (left < right) {
+    while (!(s[left] in hash) && left < s.length) left++;
+    while (!(s[right] in hash) && right >= 0) right--;
+    if (left < right) {
+      hash2[left] = s[right];
+      hash2[right] = s[left];
+      left++;
+      right--;
+    }
+  }
+  if (!Object.keys(hash2).length) return s;
+  for (let i = 0; i < s.length; i++) result += i in hash2 ? hash2[i] : s[i];
+  return result;
+};
 /* 349. Intersection of 2 arrays
 Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique and you may return the result in any order. */
 
