@@ -50,6 +50,21 @@ let increasingTriplet = function (nums) {
   return false;
 };
 
+/* 342. Power of Four
+
+Given an integer n, return true if it is a power of four. Otherwise, return false.
+An integer n is a power of four, if there exists an integer x such that n == 4x */
+
+var isPowerOfFour = function (n) {
+  if (n <= 0) return false;
+  while (n >= 4) {
+    if (n % 4) return false;
+    n = Math.floor(n / 4);
+  }
+  if (n === 1) return true;
+  return false;
+};
+
 /* 344. Reverse String
 
 Write a function that reverses a string. The input string is given as an array of characters screen. */
