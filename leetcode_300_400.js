@@ -185,3 +185,40 @@ var countNumbersWithUniqueDigits = function (n) {
   }
   return dp;
 };
+
+/* 367. Valid Perfect Squares
+
+Given a positive integer num, write a function which returns True if num is a perfect square else False.
+Follow up: Do not use any built-in library function such as sqrt.
+ */
+// using Math.sqrt()
+var isPerfectSquare = function (num) {
+  let answer = Math.sqrt(num);
+  if (
+    answer >= Math.floor(answer) - 0.00001 &&
+    answer <= Math.floor(answer) + 0.00001
+  )
+    return true;
+  return false;
+};
+
+// Binary Search when using inbuit function Math.sqrt() is not allowed
+var isPerfectSquare = function (num) {
+  if (num < 2) return true;
+  let left = 0,
+    right = num,
+    guessSquared;
+  while (left <= right) {
+    const mid = Math.floor((right + left) / 2);
+    guessSquared = mid * mid;
+    if (guessSquared == num) {
+      return true;
+    }
+    if (guessSquared > num) {
+      right = mid - 1;
+    } else {
+      left = mid + 1;
+    }
+  }
+  return false;
+};
