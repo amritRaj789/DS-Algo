@@ -843,7 +843,7 @@ let trailingZeroes = function (n) {
   return pow5;
 };
 
-190. Reverse Bits
+//190. Reverse Bits
 
 // Given a postive unsigned integer, reverse the bits of its binary representation and return the new Integer value
 
@@ -857,7 +857,6 @@ var reverseBits = function (n) {
   }
   return parseInt(result, 2);
 };
-
 
 /* 191. Number of 1 Bits
 
