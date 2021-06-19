@@ -843,6 +843,22 @@ let trailingZeroes = function (n) {
   return pow5;
 };
 
+190. Reverse Bits
+
+// Given a postive unsigned integer, reverse the bits of its binary representation and return the new Integer value
+
+var reverseBits = function (n) {
+  let result = "";
+  let num = 32;
+  while (num) {
+    result += String(n & 1);
+    n = n >> 1;
+    num--;
+  }
+  return parseInt(result, 2);
+};
+
+
 /* 191. Number of 1 Bits
 
 Write a function that takes an unsigned integer and returns the number of '1' bits it has (also known as the Hamming weight).
