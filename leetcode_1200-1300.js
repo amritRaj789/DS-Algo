@@ -7,37 +7,49 @@ You can't visit the same cell more than once.
 Never visit a cell with 0 gold.
 You can start and stop collecting gold from any position in the grid that has some gold
 */
-let getMaximumGold = function (grid){
-    let visited = Array(grid.length).fill(0).map(() => Array(grid[0].length).fill(false));
-    let maximumGold = 0;
-    for(let i = 0; i < grid.length; i++){
-        for(let j = 0; j < grid[0].length; j++){
-            if(grid[i][j] !== 0){
-                visited[i][j] = true;
-                backtrack(i, j, grid[i][j]);
-                visited[i][j] = false;
-            }
-        }
+let getMaximumGold = function (grid) {
+  let visited = Array(grid.length)
+    .fill(0)
+    .map(() => Array(grid[0].length).fill(false));
+  let maximumGold = 0;
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      if (grid[i][j] !== 0) {
+        visited[i][j] = true;
+        backtrack(i, j, grid[i][j]);
+        visited[i][j] = false;
+      }
     }
+  }
 
-    function backtrack(row, col, sum){
-        maximumGold = Math.max(maximumGold, sum);
-        let directions = [[0, 1], [0,-1], [-1, 0], [1, 0]];
-        for(let direction of directions){
-            let newRow = row+direction[0];
-            let newCol = col+direction[1];
-            if(newRow < grid.length && newRow >= 0 && newCol < grid[0].length && newCol >= 0){
-                if(!visited[newRow][newCol] && grid[newRow][newCol] !== 0){
-                    visited[newRow][newCol] = true;
-                    backtrack(newRow, newCol, sum+grid[newRow][newCol]);
-                    visited[newRow][newCol] = false;
-                }   
-            }
+  function backtrack(row, col, sum) {
+    maximumGold = Math.max(maximumGold, sum);
+    let directions = [
+      [0, 1],
+      [0, -1],
+      [-1, 0],
+      [1, 0],
+    ];
+    for (let direction of directions) {
+      let newRow = row + direction[0];
+      let newCol = col + direction[1];
+      if (
+        newRow < grid.length &&
+        newRow >= 0 &&
+        newCol < grid[0].length &&
+        newCol >= 0
+      ) {
+        if (!visited[newRow][newCol] && grid[newRow][newCol] !== 0) {
+          visited[newRow][newCol] = true;
+          backtrack(newRow, newCol, sum + grid[newRow][newCol]);
+          visited[newRow][newCol] = false;
         }
+      }
     }
+  }
 
-    return maximumGold;
-}
+  return maximumGold;
+};
 
 /*1288 Remove Covered Intervals
 
@@ -45,19 +57,35 @@ Given a list of intervals, remove all intervals that are covered by another inte
 Interval [a,b) is covered by interval [c,d) if and only if c <= a and b <= d.
 After doing so, return the number of remaining intervals.*/
 
-var removeCoveredIntervals = function(intervals) {
-    if(intervals.length <= 1)
-        return intervals.length;
-    intervals.sort((a, b) => a[0] - b[0] || b[1] - a[1]);
-    let end = intervals[0][1];
-    let count = intervals.length;
-    for(let i = 1; i < intervals.length; i++){
-        if(intervals[i][1] <= end){
-            count--;
-        }
-        else{
-            end = intervals[i][1];
-        }
+var removeCoveredIntervals = function (intervals) {
+  if (intervals.length <= 1) return intervals.length;
+  intervals.sort((a, b) => a[0] - b[0] || b[1] - a[1]);
+  let end = intervals[0][1];
+  let count = intervals.length;
+  for (let i = 1; i < intervals.length; i++) {
+    if (intervals[i][1] <= end) {
+      count--;
+    } else {
+      end = intervals[i][1];
     }
-    return count;
+  }
+  return count;
+};
+
+/* 1291. Sequential Digits
+
+An integer has sequential digits if and only if each digit in the number is one more than the previous digit.
+Return a sorted list of all the integers in the range [low, high] inclusive that have sequential digits.
+ */
+var sequentialDigits = function (low, high) {
+  let result = [];
+  let base = "123456789";
+  for (let i = 2; i <= 9; i++) {
+    for (let j = 0; j <= 9 - i; j++) {
+      let num = Number(base.slice(j, j + i));
+      if (num >= low && num <= high) result.push(num);
+      if (num > high) break;
+    }
+  }
+  return result;
 };
