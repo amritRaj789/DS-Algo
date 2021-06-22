@@ -41,6 +41,36 @@ let readBinaryWatch = function (turnedOn) {
   return result;
 };
 
+/* 404. Sum of left leaves
+
+Given the root of a binary tree, return the sum of all left leaves
+ */
+
+var sumOfLeftLeaves = function (root) {
+  let sum = 0;
+  function dfs(node) {
+    if (node.left !== null) {
+      if (node.left.left === null && node.left.right === null)
+        sum += node.left.val;
+      else dfs(node.left);
+    }
+    if (node.right !== null) dfs(node.right);
+  }
+  dfs(root);
+  return sum;
+};
+
+let sumOfLeftLeaves = function (root) {
+  let sum = 0;
+  function dfs(node, string) {
+    if (!node.left && !node.right && string === "left") sum += node.val;
+    if (node.left) dfs(node.left, "left");
+    if (node.right) dfs(node.right, "right");
+  }
+  dfs(root, "right");
+  return sum;
+};
+
 /*435. 
 Non-overlapping intervals
 Given a collection of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
