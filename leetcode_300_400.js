@@ -240,3 +240,19 @@ var canConstruct = function (ransomNote, magazine) {
   }
   return true;
 };
+
+/* 387. First Unique Character in a String
+
+Given a string s, return the first non-repeating character in it and return its index. If it does not exist, return -1.
+ */
+var firstUniqChar = function (s) {
+  let hash = {};
+  for (let i = 0; i < s.length; i++) {
+    if (!(s[i] in hash)) hash[s[i]] = [0, i];
+    hash[s[i]][0]++;
+  }
+  for (let key in hash) {
+    if (hash[key][0] === 1) return hash[key][1];
+  }
+  return -1;
+};
