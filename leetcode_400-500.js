@@ -71,6 +71,24 @@ let sumOfLeftLeaves = function (root) {
   return sum;
 };
 
+/* 409. Longest Palindrome
+
+Given a string s which consists of lowercase or uppercase letters, return the length of the longest palindrome that can be built with those letters.
+Letters are case sensitive, for example, "Aa" is not considered a palindrome here. */
+
+var longestPalindrome = function (s) {
+  let hash = {};
+  for (let char of s) {
+    if (!(char in hash)) hash[char] = 0;
+    hash[char]++;
+  }
+  let pair = 0;
+  for (let key in hash) {
+    pair += Math.floor(hash[key] / 2);
+  }
+  return 2 * pair + (s.length > 2 * pair ? 1 : 0);
+};
+
 /*435. 
 Non-overlapping intervals
 Given a collection of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
