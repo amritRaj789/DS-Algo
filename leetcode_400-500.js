@@ -280,6 +280,27 @@ var arrangeCoins = function (n) {
   }
 };
 
+/* 455. Assign Cookies
+
+Assume you are an awesome parent and want to give your children some cookies. But, you should give each child at most one cookie.
+Each chid i has a greed factor g[i], which is the minimum size of a cookie that the child will be content with; and each cookie j has a size s[j]. If s[j] >= g[i], we can assign the cookie j to the child i, and the child i will be content. Your goal is to maximize the number of your content children and output the maximum number.
+ */
+var findContentChildren = function (g, s) {
+  let satisfied = 0;
+  g.sort((a, b) => a - b);
+  s.sort((a, b) => a - b);
+  let greed = 0;
+  let size = 0;
+  while (greed < g.length && size < s.length) {
+    if (g[greed] <= s[size]) {
+      satisfied++;
+      greed++;
+      size++;
+    } else size++;
+  }
+  return satisfied;
+};
+
 //457. Circular Array Loop
 
 /* 
