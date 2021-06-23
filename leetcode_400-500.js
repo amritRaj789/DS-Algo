@@ -140,11 +140,28 @@ var addStrings = function (num1, num2) {
       carry = 1;
     } else carry = 0;
     result = String(sum) + result;
+
     i--;
     j--;
   }
   if (carry) result = String(carry) + result;
   return result;
+};
+
+/* 434. Number of Segments in a String
+
+You are given a string s, return the number of segments in the string. 
+A segment is defined to be a contiguous sequence of non-space characters.
+ */
+
+let countSegments = function (s) {
+  if (s === "") return 0;
+  let segments = 0;
+  for (let i = 1; i < s.length; i++) {
+    if (s[i] === " " && s[i - 1] !== " ") segments++;
+  }
+  if (s[s.length - 1] !== " ") segments++;
+  return segments;
 };
 
 /*435. 
