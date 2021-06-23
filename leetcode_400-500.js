@@ -89,6 +89,37 @@ var longestPalindrome = function (s) {
   return 2 * pair + (s.length > 2 * pair ? 1 : 0);
 };
 
+/* 412. Fizz Buzz
+
+Given an integer n, return a string array answer (1-indexed) where:
+answer[i] == "FizzBuzz" if i is divisible by 3 and 5.
+answer[i] == "Fizz" if i is divisible by 3.
+answer[i] == "Buzz" if i is divisible by 5.
+answer[i] == i if non of the above conditions are true
+ */
+
+var fizzBuzz = function (n) {
+  let array = Array(n)
+    .fill(0)
+    .map((element, i) => {
+      if ((i + 1) % 3 === 0 && (i + 1) % 5 === 0) return "FizzBuzz";
+      if ((i + 1) % 3 === 0) return "Fizz";
+      if ((i + 1) % 5 === 0) return "Buzz";
+      return String(i + 1);
+    });
+  return array;
+};
+
+let fizzBuzz = function (n) {
+  let array = Array(n).fill("");
+  for (let i = 0; i < n; i++) {
+    if ((i + 1) % 3 === 0) array[i] += "Fizz";
+    if ((i + 1) % 5 === 0) array[i] += "Buzz";
+    if (!array[i]) array[i] = String(i + 1);
+  }
+  return array;
+};
+
 /*435. 
 Non-overlapping intervals
 Given a collection of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
