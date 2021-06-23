@@ -120,6 +120,33 @@ let fizzBuzz = function (n) {
   return array;
 };
 
+/* 415. Add Strings
+
+Given two non-negative integers, num1 and num2 represented as string, return the sum of num1 and num2 as a string.
+You must solve the problem without using any built-in library for handling large integers (such as BigInteger). You must also not convert the inputs to integers directly.
+
+ */
+var addStrings = function (num1, num2) {
+  let result = "";
+  let i = num1.length - 1;
+  let j = num2.length - 1;
+  let carry = 0;
+  while (i >= 0 || j >= 0) {
+    n1 = i >= 0 ? Number(num1[i]) : 0;
+    n2 = j >= 0 ? Number(num2[j]) : 0;
+    sum = n1 + n2 + carry;
+    if (sum > 9) {
+      sum = sum - 10;
+      carry = 1;
+    } else carry = 0;
+    result = String(sum) + result;
+    i--;
+    j--;
+  }
+  if (carry) result = String(carry) + result;
+  return result;
+};
+
 /*435. 
 Non-overlapping intervals
 Given a collection of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
