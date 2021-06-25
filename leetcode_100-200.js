@@ -341,6 +341,27 @@ let hasPathSum = function (root, targetSum) {
   return dfs(root, 0);
 };
 
+/* 113. Path Sum II
+
+Given the root of a binary tree and an integer targetSum, return all root-to-leaf paths where each path's sum equals targetSum.
+A leaf is a node with no children.
+ */
+
+var pathSum = function (root, targetSum) {
+  if (!root) return [];
+  let result = [];
+  function dfs(node, sum, array) {
+    if (!node.left && !node.right) {
+      if (sum + node.val === targetSum) result.push([...array, node.val]);
+      return;
+    }
+    if (node.left) dfs(node.left, sum + node.val, [...array, node.val]);
+    if (node.right) dfs(node.right, sum + node.val, [...array, node.val]);
+  }
+  dfs(root, 0, []);
+  return result;
+};
+
 /*116. Populating Next Right Pointers in Each Node
 You are given a perfect binary tree where all leaves are on the same level, and every parent has two children.
 Populate each next pointer to point to its next right node. If there is no next right node, 
