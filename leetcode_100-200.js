@@ -134,6 +134,27 @@ var maxDepth = function (root) {
   return result + 1;
 };
 
+/* 105. Construct Binary Tree from Preorder and Inorder Traversal
+
+Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.
+ */
+
+var buildTree = function (preorder, inorder) {
+  function dfs(preArray, inArray) {
+    let root;
+    if (preArray.length) root = new TreeNode(preArray[0]);
+    else return null;
+    let i;
+    for (i = 0; i < inArray.length; i++) {
+      if (inArray[i] === preArray[0]) break;
+    }
+    root.left = dfs(preArray.slice(1, i + 1), inArray.slice(0, i));
+    root.right = dfs(preArray.slice(i + 1), inArray.slice(i + 1));
+    return root;
+  }
+  return dfs(preorder, inorder);
+};
+
 /*107. Binary Tree Level Order Traversal II
 Given the root of a binary tree, return the bottom-up level order traversal of its nodes' values. 
 (i.e., from left to right, level by level from leaf to root).
