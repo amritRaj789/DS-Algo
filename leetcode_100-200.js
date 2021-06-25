@@ -155,6 +155,31 @@ var buildTree = function (preorder, inorder) {
   return dfs(preorder, inorder);
 };
 
+/* 106. Construct Binary Tree from PostOrder and Inorder Traversal
+
+Given two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same tree, construct and return the binary tree.
+
+ */
+
+var buildTree = function (inorder, postorder) {
+  function dfs(inArray, postArray) {
+    let root;
+    if (postArray.length) root = new TreeNode(postArray[postArray.length - 1]);
+    else return null;
+    let i;
+    for (i = 0; i < inArray.length; i++) {
+      if (inArray[i] === postArray[postArray.length - 1]) break;
+    }
+    root.left = dfs(inArray.slice(0, i), postArray.slice(0, i));
+    root.right = dfs(
+      inArray.slice(i + 1),
+      postArray.slice(i, postArray.length - 1)
+    );
+    return root;
+  }
+  return dfs(inorder, postorder);
+};
+
 /*107. Binary Tree Level Order Traversal II
 Given the root of a binary tree, return the bottom-up level order traversal of its nodes' values. 
 (i.e., from left to right, level by level from leaf to root).
@@ -224,6 +249,27 @@ let sortedArrayToBST = function (nums) {
   root.left = sortedArrayToBST(nums.slice(0, mid));
   root.right = sortedArrayToBST(nums.slice(mid + 1));
   return root;
+};
+
+/* 109. Convert Sorted List to Binary Search Tree
+
+Given the head of a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
+ */
+var sortedListToBST = function (head) {
+  let arr = [];
+  while (head) {
+    arr.push(head.val);
+    head = head.next;
+  }
+  function convert(array) {
+    if (array.length === 0) return null;
+    let mid = Math.floor(array.length / 2);
+    let root = new TreeNode(array[mid]);
+    root.left = convert(array.slice(0, mid));
+    root.right = convert(array.slice(mid + 1));
+    return root;
+  }
+  return convert(arr);
 };
 
 /* 110. Balanced Binary Tree
