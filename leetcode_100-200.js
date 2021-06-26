@@ -362,6 +362,43 @@ var pathSum = function (root, targetSum) {
   return result;
 };
 
+/* 114. Flatten Binary Tree to Linked list
+
+Given the root of a binary tree, flatten the tree into a "linked list":
+The "linked list" should use the same TreeNode class where the right child pointer points to the next node in the list and the left child pointer is always null.
+The "linked list" should be in the same order as a pre-order traversal of the binary tree.
+ */
+
+// My method, a little inefficient
+var flatten = function (root) {
+  if (!root) return null;
+  function dfs(node) {
+    if (!node.left && !node.right) return node;
+    if (node.left) {
+      let temp = node.right;
+      node.right = node.left;
+      node.left = null;
+      dfs(node.right).right = temp;
+    }
+    return dfs(node.right);
+  }
+  dfs(root);
+};
+
+// efficient recursive solution,
+// note this can also be solved in a non-recursive way using O(1) extra space
+let flatten = function (root) {
+  let head = null;
+  function convert(node) {
+    if (node.right) convert(node.right);
+    if (node.left) convert(node.left);
+    node.left = null;
+    node.right = head;
+    head = node;
+  }
+  if (root) convert(root);
+};
+
 /*116. Populating Next Right Pointers in Each Node
 You are given a perfect binary tree where all leaves are on the same level, and every parent has two children.
 Populate each next pointer to point to its next right node. If there is no next right node, 
