@@ -1061,6 +1061,27 @@ var hammingWeight = function (n) {
   return count;
 };
 
+/* 199. Binary Tree Right Side View
+
+Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+ */
+var rightSideView = function (root) {
+  if (!root) return [];
+  let result = [];
+  let queue = [root];
+  while (queue.length) {
+    let count = queue.length;
+    while (count) {
+      let node = queue.shift();
+      if (count === 1) result.push(node.val);
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+      count--;
+    }
+  }
+  return result;
+};
+
 //200. Number of Islands
 /*Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.
 An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all 
