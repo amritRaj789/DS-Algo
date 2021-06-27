@@ -522,6 +522,25 @@ var minimumTotal = function (triangle) {
 console.log(minimumTotal([[2], [3, 4], [6, 5, 7], [4, 1, 8, 3]]));
 console.log("the function ran for this many times: ", count);
 
+/* 124. Binary Tree Maximum Path Sum
+
+A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. Note that the path does not need to pass through the root.
+The path sum of a path is the sum of the node's values in the path.
+Given the root of a binary tree, return the maximum path sum of any path.
+ */
+var maxPathSum = function (root) {
+  let max = -Infinity;
+  function dfs(node) {
+    if (!node) return 0;
+    let leftSum = Math.max(dfs(node.left), 0);
+    let rightSum = Math.max(dfs(node.right), 0);
+    max = Math.max(max, node.val + leftSum + rightSum);
+    return Math.max(node.val + leftSum, node.val + rightSum);
+  }
+  dfs(root);
+  return max;
+};
+
 /*131. Palindrome Partitioning
 Given a string s, partition s such that every substring of the partition is a palindrome. 
 Return all possible palindrome partitioning of s.
