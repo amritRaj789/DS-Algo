@@ -420,6 +420,29 @@ var connect = function (root) {
   }
   return root;
 };
+
+/* 117. Populating Next right pointers in each Node II
+
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+Initially, all next pointers are set to NULL.
+ */
+
+var connect = function (root) {
+  if (!root) return null;
+  let queue = [root];
+  while (queue.length) {
+    let count = queue.length;
+    while (count) {
+      let node = queue.shift();
+      if (count > 1) node.next = queue[0];
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+      count--;
+    }
+  }
+  return root;
+};
+
 /*120. Triangle
 Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.
 For example, given the following triangle
