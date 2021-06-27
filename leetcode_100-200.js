@@ -541,6 +541,27 @@ var maxPathSum = function (root) {
   return max;
 };
 
+/* 129. Sum Root to Leaf Numbers
+
+You are given the root of a binary tree containing digits from 0 to 9 only. Each root-to-leaf path in the tree represents a number.
+For example, the root-to-leaf path 1 -> 2 -> 3 represents the number 123. Return the total sum of all root-to-leaf numbers. Test cases are generated so that the answer will fit in a 32-bit integer.
+A leaf node is a node with no children.
+ */
+var sumNumbers = function (root) {
+  let total = 0;
+  function dfs(node, sum) {
+    if (!node.left && !node.right) {
+      sum = sum * 10 + node.val;
+      total += sum;
+      return;
+    }
+    if (node.left) dfs(node.left, sum * 10 + node.val);
+    if (node.right) dfs(node.right, sum * 10 + node.val);
+  }
+  dfs(root, 0);
+  return total;
+};
+
 /*131. Palindrome Partitioning
 Given a string s, partition s such that every substring of the partition is a palindrome. 
 Return all possible palindrome partitioning of s.
