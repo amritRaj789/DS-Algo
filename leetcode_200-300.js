@@ -260,6 +260,22 @@ var summaryRanges = function (nums) {
   return result;
 };
 
+/* 230. Kth smallest Element in a BST
+
+Given the root of a binary search tree, and an integer k, return the kth (1-indexed) smallest element in the tree. */
+
+var kthSmallest = function (root, k) {
+  let array = [];
+  function dfs(node) {
+    if (array.length === k) return;
+    if (node.left) dfs(node.left);
+    array.push(node.val);
+    if (node.right) dfs(node.right);
+  }
+  dfs(root);
+  return array[k - 1];
+};
+
 /* 231. Power of Two
 
 Given an integer n, return true if it is a power of two. Otherwise, return false.
