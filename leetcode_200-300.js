@@ -276,6 +276,24 @@ var kthSmallest = function (root, k) {
   return array[k - 1];
 };
 
+// iterative sol
+let kthSmallest = function (root, k) {
+  let stack = [];
+  let current = root;
+  let result = [];
+  while (true) {
+    if (current) {
+      stack.push(current);
+      current = current.left;
+    } else {
+      current = stack.pop();
+      result.push(current.val);
+      if (result.length === k) return result[k - 1];
+      current = current.right;
+    }
+  }
+};
+
 /* 231. Power of Two
 
 Given an integer n, return true if it is a power of two. Otherwise, return false.
