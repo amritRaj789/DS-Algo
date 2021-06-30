@@ -361,6 +361,34 @@ let lowestCommonAncestor = function (root, p, q) {
   }
 };
 
+/* 236. Lowest Common Ancestor of a Binary tree
+
+Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
+ */
+let lowestCommonAncestor = function (root, p, q) {
+  function dfs(node) {
+    if (!node || node === p || node === q) return node;
+    let left = dfs(node.left);
+    let right = dfs(node.right);
+    if (left && right) return node;
+    else {
+      if (left) return left;
+      if (right) return right;
+    }
+  }
+  return dfs(root);
+};
+
+// Can also be shortened to:
+let lowestCommonAncestor = function (root, p, q) {
+  function dfs(node) {
+    if (!node || node === p || node === q) return node;
+    let left = dfs(node.left);
+    let right = dfs(node.right);
+    return left && right ? node : left || right;
+  }
+  return dfs(root);
+};
 // 237. Delete Node in a Linked List
 // you are not given the head of the linked list instead you are given the node to be deleted directly
 
