@@ -291,3 +291,38 @@ let isSubtree = function (root, subRoot) {
   }
   return dfs(root);
 };
+
+/* 589. N-ary Tree Preorder traversal
+
+Given the root of an n-ary tree, return the preorder traversal of its nodes' values.
+Nary-Tree input serialization is represented in their level order traversal. Each group of children is separated by the null value (See examples)
+ */
+
+var preorder = function (root) {
+  if (!root) return [];
+  let result = [];
+  function preOrder(node) {
+    result.push(node.val);
+    for (let i = 0; i < node.children.length; i++) {
+      preOrder(node.children[i]);
+    }
+  }
+  preOrder(root);
+  return result;
+};
+
+/* 590. N-ary Tree PostOrder Traversal
+
+Given the root of an n-ary tree, return the postorder traversal of its nodes' values.
+Nary-Tree input serialization is represented in their level order traversal. Each group of children is separated by the null value (See examples) */
+
+var postorder = function (root) {
+  if (!root) return [];
+  let result = [];
+  function dfs(node) {
+    for (let i = 0; i < node.children.length; i++) dfs(node.children[i]);
+    result.push(node.val);
+  }
+  dfs(root);
+  return result;
+};
