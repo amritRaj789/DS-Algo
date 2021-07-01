@@ -179,6 +179,24 @@ let countArrangement = function (n) {
   return count;
 };
 
+/* 530. Minimum Absolute Difference in BST
+
+Given the root of a Binary Search Tree (BST), return the minimum absolute difference between the values of any two different nodes in the tree.
+ */
+var getMinimumDifference = function (root) {
+  let min = +Infinity;
+  let previous = -Infinity;
+  function inorder(node) {
+    if (node.left) inorder(node.left);
+    let currentDiff = node.val - previous;
+    min = Math.min(currentDiff, min);
+    previous = node.val;
+    if (node.right) inorder(node.right);
+  }
+  inorder(root);
+  return min;
+};
+
 /* 538. Convert BST to Greater Tree
 
 Given the root of a Binary Search Tree (BST), convert it to a Greater Tree such that every key of the original BST is changed to the original key plus sum of all keys greater than the original key in BST.
