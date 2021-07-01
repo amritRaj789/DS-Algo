@@ -271,3 +271,23 @@ var findTilt = function (root) {
   dfs(root);
   return sum;
 };
+
+/* 572. Subtree of Another Tree
+
+Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values of subRoot and false otherwise.
+A subtree of a binary tree tree is a tree that consists of a node in tree and all of this node's descendants. The tree tree could also be considered as a subtree of itself.
+ */
+
+let isSubtree = function (root, subRoot) {
+  function isSame(root1, root2) {
+    if (!root1 && !root2) return true;
+    if (!root1 || !root2 || root1.val !== root2.val) return false;
+    return isSame(root1.left, root2.left) && isSame(root1.right, root2.right);
+  }
+  function dfs(node) {
+    if (!node) return false;
+    if (node.val === subRoot.val && isSame(node, subRoot)) return true;
+    return dfs(node.left) || dfs(node.right);
+  }
+  return dfs(root);
+};
