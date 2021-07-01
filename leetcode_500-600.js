@@ -233,3 +233,22 @@ var diameterOfBinaryTree = function (root) {
   dfs(root);
   return diameter - 1;
 };
+
+/* 559. Maximum Depth of N-ary Tree
+
+The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+Nary-Tree input serialization is represented in their level order traversal, each group of children is separated by the null value (See examples). */
+
+var maxDepth = function (root) {
+  if (!root) return 0;
+  function dfs(node) {
+    let max = 0;
+    if (node.children) {
+      for (let i = 0; i < node.children.length; i++) {
+        max = Math.max(dfs(node.children[i]), max);
+      }
+    }
+    return max + 1;
+  }
+  return dfs(root);
+};
