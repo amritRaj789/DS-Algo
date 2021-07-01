@@ -59,6 +59,59 @@ function findAnagrams(s, p) {
   return result;
 }
 
+/* 501. Find Mode in a Binary Search Tree
+
+Given the root of a binary search tree (BST) with duplicates, return all the mode(s) (i.e., the most frequently occurred element) in it.
+If the tree has more than one mode, return them in any order.
+Left subtree has nodes less than or equal to parent node
+Right subtree has nodes greater than or equal to parent node
+ */
+
+// O(N) space and O(N) time
+var findMode = function (root) {
+  let hash = {};
+  let result = [];
+  function dfs(node) {
+    if (!(node.val in hash)) hash[node.val] = 0;
+    hash[node.val]++;
+    if (node.left) dfs(node.left);
+    if (node.right) dfs(node.right);
+  }
+  dfs(root);
+  let max = 0;
+  for (let key in hash) {
+    max = Math.max(max, hash[key]);
+  }
+  for (let key in hash) {
+    if (hash[key] === max) result.push(key);
+  }
+  return result;
+};
+
+// O(1) space and O(N) time
+let findMode = function (root) {
+  let result = [];
+  let previousValue = -Infinity;
+  let currentCount = 0;
+  let maxCount = 0;
+  function inorder(node) {
+    if (node.left) inorder(node.left);
+    if (node.val === previousValue) currentCount++;
+    else {
+      currentCount = 1;
+      previousValue = node.val;
+    }
+    if (currentCount === maxCount) result.push(node.val);
+    else if (currentCount > maxCount) {
+      maxCount = currentCount;
+      result = [node.val];
+    }
+    if (node.right) inorder(node.right);
+  }
+  inorder(root);
+  return result;
+};
+
 /*504. 01 Matrix
 
 Given an m x n binary matrix mat, return the distance of the nearest 0 for each cell.
