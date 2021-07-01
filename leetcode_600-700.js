@@ -13,6 +13,28 @@ let mergeTrees = function (root1, root2) {
   return root1;
 };
 
+/* 637. Average of Levels in Binary Tree
+
+Given the root of a binary tree, return the average value of the nodes on each level in the form of an array. Answers within 10-5 of the actual answer will be accepted.
+ 
+ */
+var averageOfLevels = function (root) {
+  let queue = [root];
+  let result = [];
+  while (queue.length) {
+    let count = queue.length;
+    let sum = 0;
+    for (let i = 1; i <= count; i++) {
+      node = queue.shift();
+      sum += node.val;
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+    result.push(sum / count);
+  }
+  return result;
+};
+
 //646. Maximum Length of Pair Chain
 
 /*You are given n pairs of numbers. In every pair, the first number is always smaller than the second number.
