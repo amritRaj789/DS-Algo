@@ -74,3 +74,47 @@ let findLongestChain = function (pairs) {
   }
   return maxLength;
 };
+
+/* 653. Two Sum IV - Input in a BST
+
+Given the root of a Binary Search Tree and a target number k, return true if there exist two elements in the BST such that their sum is equal to the given target.
+ */
+
+// Using 2 pointers This is pretty fast
+var findTarget = function (root, k) {
+  if (!root.left && !root.right) return false;
+  let array = [];
+  function inorder(node) {
+    if (node.left) inorder(node.left);
+    array.push(node.val);
+    if (node.right) inorder(node.right);
+  }
+  inorder(root);
+  let left = 0;
+  let right = array.length - 1;
+  while (left < right) {
+    sum = array[left] + array[right];
+    if (sum > k) right--;
+    else if (sum < k) left++;
+    else return true;
+  }
+  return false;
+};
+
+// Using Hash map/ Hash set
+let findTarget = function (root, k) {
+  if (!root.left && !root.right) return false;
+  let hash = {};
+  let found = false;
+  function inorder(node) {
+    if (found) return;
+    if (node.left) inorder(node.left);
+    if (k - node.val in hash) {
+      found = true;
+      return;
+    } else hash[node.val] = true;
+    if (node.right) inorder(node.right);
+  }
+  inorder(root);
+  return found;
+};
