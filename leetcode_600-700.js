@@ -118,3 +118,21 @@ let findTarget = function (root, k) {
   inorder(root);
   return found;
 };
+
+/* 671. Second Minimum Node in a Binary tree
+
+Given a non-empty special binary tree consisting of nodes with the non-negative value, where each node in this tree has exactly two or zero sub-node. If the node has two sub-nodes, then this node's value is the smaller value among its two sub-nodes. More formally, the property root.val = min(root.left.val, root.right.val) always holds.
+Given such a binary tree, you need to output the second minimum value in the set made of all the nodes' value in the whole tree.
+If no such second minimum value exists, output -1 instead. */
+
+let findSecondMinimumValue = function (root) {
+  let secondMin = +Infinity;
+  let min = root.val;
+  function dfs(node) {
+    if (node.val < secondMin && node.val !== min) secondMin = node.val;
+    if (node.left && node.left.val < secondMin) dfs(node.left);
+    if (node.right && node.right.val < secondMin) dfs(node.right);
+  }
+  dfs(root);
+  return secondMin === Infinity ? -1 : secondMin;
+};
