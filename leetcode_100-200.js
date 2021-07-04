@@ -807,6 +807,35 @@ let detectCycle = function (head) {
   return null;
 };
 
+/* 143. Reorder List
+
+You are given the head of a singly linked-list. The list can be represented as:
+L0 → L1 → … → Ln - 1 → Ln
+Reorder the list to be on the following form:
+L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+You may not modify the values in the list's nodes. Only nodes themselves may be changed.
+ */
+
+let reorderList = function (head) {
+  let stack = [];
+  let start = head;
+  while (start) {
+    stack.push(start);
+    start = start.next;
+  }
+  let left = 1;
+  let right = stack.length - 1;
+  while (left <= right) {
+    head.next = stack[right--];
+    head = head.next;
+    if (left < right) {
+      head.next = stack[left++];
+      head = head.next;
+    }
+  }
+  head.next = null;
+};
+
 /* 144. Binary Tree Preorder Traversal
 
 Given the root of a binary Tree, return the preorder traversal of its nodes' values

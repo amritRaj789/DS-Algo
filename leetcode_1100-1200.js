@@ -1,25 +1,25 @@
-1143. Longest Common Subsequence
+//1143. Longest Common Subsequence
 // Given two strings text1 and text2, return the length of their longest common subsequence. If there is no common subsequence, return 0.
 
-let longestCommonSubsequence = function(text1, text2){
-    let dp = Array(text1.length+1).fill(null).map(() => Array(text2.length+1).fill(0));
-    for(let i  = 1; i <= text1.length; i++){
-        for(let j = 1; j <= text2.length; j++){
-            if(text2[j-1] === text1[i-1])
-                dp[i][j] = 1 + dp[i-1][j-1];
-            else
-                dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
-        }
+let longestCommonSubsequence = function (text1, text2) {
+  let dp = Array(text1.length + 1)
+    .fill(null)
+    .map(() => Array(text2.length + 1).fill(0));
+  for (let i = 1; i <= text1.length; i++) {
+    for (let j = 1; j <= text2.length; j++) {
+      if (text2[j - 1] === text1[i - 1]) dp[i][j] = 1 + dp[i - 1][j - 1];
+      else dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
     }
-    return dp[text1.length][text2.length];
-}
+  }
+  return dp[text1.length][text2.length];
+};
 
 /* 1189. Maximum Number of Balloons
 
 Given a string text, you want to use the characters of text to form as many instances of the word "balloon" as possible.
 You can use each character in text at most once. Return the maximum number of instances that can be formed.
  */
- 
+
 let maxNumberOfBalloons = function (text) {
   let hash = {
     b: 0,
@@ -43,7 +43,6 @@ let maxNumberOfBalloons = function (text) {
   return min / 2;
 };
 
-
 /* 1190. Reverse Substrings between each pair of Parantheses
 
 You are given a string s that consists of lower case English letters and brackets. 
@@ -53,19 +52,18 @@ Your result should not contain any brackets.
 
 var reverseParentheses = function (s) {
   let stack = [];
-  for(let i = 0; i < s.length; i++){
-    if(s[i] !== ')') stack.push(s[i]);
-    else{
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] !== ")") stack.push(s[i]);
+    else {
       let stack2 = [];
-      while(stack.length){
+      while (stack.length) {
         let char = stack.pop();
-        if(char === '(') break;
+        if (char === "(") break;
         stack2.push(char);
       }
       stack2.reverse();
-      while(stack2.length) stack.push(stack2.pop());
+      while (stack2.length) stack.push(stack2.pop());
     }
   }
   return stack.join("");
 };
- 
