@@ -42,3 +42,30 @@ let maxNumberOfBalloons = function (text) {
   if (min % 2) return (min - 1) / 2;
   return min / 2;
 };
+
+
+/* 1190. Reverse Substrings between each pair of Parantheses
+
+You are given a string s that consists of lower case English letters and brackets. 
+Reverse the strings in each pair of matching parentheses, starting from the innermost one.
+Your result should not contain any brackets.
+ */
+
+var reverseParentheses = function (s) {
+  let stack = [];
+  for(let i = 0; i < s.length; i++){
+    if(s[i] !== ')') stack.push(s[i]);
+    else{
+      let stack2 = [];
+      while(stack.length){
+        let char = stack.pop();
+        if(char === '(') break;
+        stack2.push(char);
+      }
+      stack2.reverse();
+      while(stack2.length) stack.push(stack2.pop());
+    }
+  }
+  return stack.join("");
+};
+ 
