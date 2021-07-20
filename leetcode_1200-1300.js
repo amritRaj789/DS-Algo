@@ -51,6 +51,24 @@ let getMaximumGold = function (grid) {
   return maximumGold;
 };
 
+/* 1233. Remove Sub-folders from the filesystem
+
+Given a list of folders, remove all sub-folders in those folders and return in any order the folders after removing.
+If a folder[i] is located within another folder[j], it is called a sub-folder of it.
+The format of a path is one or more concatenated strings of the form: / followed by one or more lowercase English letters. For example, /leetcode and /leetcode/problems are valid paths while an empty string and / are not.
+ */
+var removeSubfolders = function (folder) {
+  folder.sort();
+  let result = [folder[0]];
+  let current = folder[0];
+  for (let i = 1; i < folder.length; i++) {
+    if (folder[i].startsWith(current + "/")) continue;
+    result.push(folder[i]);
+    current = folder[i];
+  }
+  return result;
+};
+
 /*1288 Remove Covered Intervals
 
 Given a list of intervals, remove all intervals that are covered by another interval in the list.
