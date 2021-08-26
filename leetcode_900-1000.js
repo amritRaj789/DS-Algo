@@ -24,6 +24,42 @@ var numsSameConsecDiff = function (n, k) {
   return result;
 };
 
+/*970. Powerful integers
+Given three integers x, y, and bound, return a list of all the powerful integers that have a value less than or equal to bound.
+An integer is powerful if it can be represented as xi + yj for some integers i >= 0 and j >= 0.
+You may return the answer in any order. In your answer, each value should occur at most once.
+*/
+
+let powerfulIntegers = function (x, y, bound){
+  let xMax = x == 1 ? 0 : Math.floor(Math.log(bound)/Math.log(x));
+  let yMax = y == 1 ? 0 : Math.floor(Math.log(bound)/Math.log(y));
+  let result = new Set();
+  for(let i = 0 ; i <= xMax; i++){
+    for(let j = 0; j <= yMax; j++){
+      sum = x**i + y**j;
+      if(sum <= bound) result.add(sum);
+      else break;
+    }
+  }
+  return Array.from(result);
+}
+
+
+// Trick here would be to check 2^20 is just greater than 10^6.
+// So we can have the bounds of power of x and y as 20
+let powerfulIntegers = function (x, y, bound){
+  let result = new Set();
+  for(let i = 0; i < 20; i++){
+    for(let j = 0; j < 20; j++){
+      let sum = x**i + y**j;
+      if(sum <= bound) result.add(sum);
+      else break;
+    }
+  }
+  return Array.from(result);
+}
+
+
 /* 971. Flip Binary Tree to Match Preorder Traversal
 
 Flip the smallest number of nodes so that the pre-order traversal of the tree matches voyage.
@@ -46,6 +82,8 @@ let flipMatchVoyage = function (root, voyage) {
   dfs(root);
   return result;
 };
+
+
 
 /*
 978. Longest Turbulent SubArray
@@ -116,6 +154,59 @@ let uniquePathsIII = function (grid) {
   }
   traverse(start[0], start[1], newBoard, count);
   return result;
+};
+
+/* 994. Rotting Oranges
+
+You are given an m x n grid where each cell can have one of three values:
+0 representing an empty cell,
+1 representing a fresh orange, or
+2 representing a rotten orange.
+Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.
+Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.
+ */
+var orangesRotting = function (grid) {
+  let queue = [];
+  let rotten = 0;
+  for (let row = 0; row < grid.length; row++) {
+    for (let col = 0; col < grid[0].length; col++) {
+      if (grid[row][col] === 2) {
+        queue.push([row, col]);
+        grid[row][col] = 0;
+      } else if (grid[row][col] === 1) rotten++;
+    }
+  }
+  if (rotten === 0) return 0;
+  let result = -1;
+  while (queue.length) {
+    let count = queue.length;
+    while (count) {
+      let [row, col] = queue.shift();
+      if (row > 0 && grid[row - 1][col] === 1) {
+        queue.push([row - 1, col]);
+        grid[row - 1][col] = 0;
+        rotten--;
+      }
+      if (row < grid.length - 1 && grid[row + 1][col] === 1) {
+        queue.push([row + 1, col]);
+        grid[row + 1][col] = 0;
+        rotten--;
+      }
+      if (col > 0 && grid[row][col - 1] === 1) {
+        queue.push([row, col - 1]);
+        grid[row][col - 1] = 0;
+        rotten--;
+      }
+      if (col < grid[0].length - 1 && grid[row][col + 1] === 1) {
+        queue.push([row, col + 1]);
+        grid[row][col + 1] = 0;
+        rotten--;
+      }
+      count--;
+    }
+    result++;
+  }
+  return rotten > 0 ? -1 : result;
 };
 
 /*996. Number of Squareful Arrays
