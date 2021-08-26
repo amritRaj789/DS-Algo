@@ -83,8 +83,27 @@ let flipMatchVoyage = function (root, voyage) {
   return result;
 };
 
+/*973. K Closest Points to Origin
+Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).
+The distance between two points on the X-Y plane is the Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2).
+You may return the answer in any order. The answer is guaranteed to be unique (except for the order that it is in).
+*/
 
-
+var kClosest = function(points, k) {
+    let result = [];
+    for(let point of points){
+      let [x, y] = point;
+      let distance = x**2 + y**2;
+      result.push([distance, point]);
+    }
+    result.sort((a, b) => a[0] - b[0]);
+    let finalResult = [];
+    for(let i = 1; i <= k; i++){
+      finalResult.push(result[i-1][1]);
+    }
+    return finalResult;
+};
+ 
 /*
 978. Longest Turbulent SubArray
 
