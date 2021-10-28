@@ -662,6 +662,32 @@ var trap = function (height) {
 };
 // This is so magical using 2 pointers we can solve it in O(N) and without any extra space
 
+/* 45. Jump Game II
+
+Given an array of non-negative integers nums, you are initially positioned at the first index of the array.
+Each element in the array represents your maximum jump length at that position.
+Your goal is to reach the last index in the minimum number of jumps.
+You can assume that you can always reach the last index. */
+
+var jump = function (nums) {
+  let dp = Array(nums.length).fill(+Infinity);
+  dp[nums.length - 1] = 0;
+  for (let i = nums.length - 2; i >= 0; i--) {
+    if (nums[i] >= nums.length - 1 - i) {
+      dp[i] = 1;
+      continue;
+    } else if (nums[i] == 0) continue;
+    for (let j = i + 1; j <= i + nums[i]; j++) {
+      if (dp[j] == 1) {
+        dp[i] = 2;
+        break;
+      }
+      dp[i] = Math.min(dp[i], 1 + dp[j]);
+    }
+  }
+  return dp[0];
+};
+
 /*46. Permutations
 Given an array nums of distinct integers, return all the possible permutations.
 You can return the answer in any order
