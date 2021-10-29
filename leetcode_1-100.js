@@ -688,6 +688,22 @@ var jump = function (nums) {
   return dp[0];
 };
 
+// Much more efficient, O(N)
+var jump = function (nums) {
+  if (nums.length == 1) return 0;
+  let jumps = 0;
+  let newMax = 0;
+  let oldMax = 0;
+  for (let i = 0; i < nums.length; i++) {
+    newMax = Math.max(newMax, i + nums[i]);
+    if (newMax >= nums.length - 1) return jumps + 1;
+    if (oldMax == i) {
+      jumps++;
+      oldMax = newMax;
+    }
+  }
+};
+
 /*46. Permutations
 Given an array nums of distinct integers, return all the possible permutations.
 You can return the answer in any order
