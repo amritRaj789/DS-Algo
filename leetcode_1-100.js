@@ -936,6 +936,21 @@ function isValid(board, row, col, n) {
   return true;
 }
 
+/* 55. Jump Game
+
+You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
+Return true if you can reach the last index, or false otherwise.
+ */
+
+var canJump = function (nums) {
+  let newMax = nums[0];
+  for (let i = 0; i < nums.length; i++) {
+    newMax = Math.max(newMax, i + nums[i]);
+    if (newMax >= nums.length - 1) return true;
+    else if (newMax <= i) return false;
+  }
+};
+
 /* 56. Merge Intervals
 Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, 
 and return an array of the non-overlapping intervals that cover all the intervals in the input.
