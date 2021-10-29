@@ -998,6 +998,45 @@ var insert = function (intervals, newInterval) {
 };
 // In place and O(N);
 
+/* 59. Generate Matrix
+
+Given a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.
+ */
+
+var generateMatrix = function (n) {
+  // change direction when either you run into an already filled cell or cell is out of bounds
+  let array = Array(n)
+    .fill(0)
+    .map(() => Array(n).fill(0));
+
+  let dir = {
+    ltr: [0, 1],
+    ttb: [1, 0],
+    rtl: [0, -1],
+    btt: [-1, 0],
+  };
+  let currDir = "ltr";
+  let row = 0;
+  let col = 0;
+  array[0][0] = 1;
+  for (let i = 2; i <= n * n; i++) {
+    row += dir[currDir][0];
+    col += dir[currDir][1];
+    if (row == n || row < 0 || col < 0 || col == n || array[row][col] !== 0) {
+      row -= dir[currDir][0];
+      col -= dir[currDir][1];
+      if (currDir == "ltr") currDir = "ttb";
+      else if (currDir == "ttb") currDir = "rtl";
+      else if (currDir == "rtl") currDir = "btt";
+      else currDir = "ltr";
+      row += dir[currDir][0];
+      col += dir[currDir][1];
+    }
+    array[row][col] = i;
+  }
+  return array;
+};
+
 /*60. Permutation Sequence
 
 The set [1, 2, 3, ..., n] contains a total of n! unique permutations.
