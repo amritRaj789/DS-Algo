@@ -1145,6 +1145,62 @@ In a Unix-style file system, a period '.' refers to the current directory, a dou
   return result;
 };
 
+/* 73. Set Matrix Zeroes
+Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's, and return the matrix.
+You must do it in place.
+ */
+
+// O(MxN) with extra space
+var setZeroes = function (matrix) {
+  let rows = {};
+  let cols = {};
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      if (matrix[i][j] == 0) {
+        if (!(i in rows)) rows[i] = true;
+        if (!(j in cols)) cols[j] = true;
+      }
+    }
+  }
+  for (let key in rows) {
+    for (let i = 0; i < matrix[0].length; i++) matrix[key][i] = 0;
+  }
+  for (let key in cols) {
+    for (let i = 0; i < matrix.length; i++) matrix[i][key] = 0;
+  }
+};
+
+// O(MxN) with O(1) space
+// this takes more time as we have to traverse the matrix twice
+let setZeroes = function (matrix) {
+  let isCol = false;
+  for (let i = 0; i < matrix.length; i++) {
+    if (matrix[i][0] == 0) isCol = true;
+    for (let j = 1; j < matrix[0].length; j++) {
+      if (matrix[i][j] == 0) {
+        matrix[i][0] = 0;
+        matrix[0][j] = 0;
+      }
+    }
+  }
+  for (let i = 1; i < matrix[0].length; i++) {
+    if (matrix[0][i] == 0) {
+      for (let j = 0; j < matrix.length; j++) matrix[j][i] = 0;
+    }
+  }
+  for (let i = 1; i < matrix.length; i++) {
+    if (matrix[i][0] == 0) {
+      for (let j = 0; j < matrix[0].length; j++) matrix[i][j] = 0;
+    }
+  }
+  if (matrix[0][0] == 0) {
+    for (let i = 0; i < matrix[0].length; i++) matrix[0][i] = 0;
+  }
+  if (isCol) {
+    for (let i = 0; i < matrix.length; i++) matrix[i][0] = 0;
+  }
+};
+
 /* 75. Sort Colors
 
 Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
