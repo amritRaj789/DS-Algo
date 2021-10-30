@@ -1201,6 +1201,28 @@ let setZeroes = function (matrix) {
   }
 };
 
+/* 74. Search a 2D matrix
+
+Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
+Integers in each row are sorted from left to right.
+The first integer of each row is greater than the last integer of the previous row.
+ */
+var searchMatrix = function (matrix, target) {
+  let rowNo = -1;
+  let cols = matrix[0].length;
+  for (let i = 0; i < matrix.length; i++) {
+    if (target <= matrix[i][cols - 1]) {
+      rowNo = i;
+      break;
+    }
+  }
+  if (rowNo == -1) return false;
+  for (let i = 0; i < cols; i++) {
+    if (matrix[rowNo][i] == target) return true;
+  }
+  return false;
+};
+
 /* 75. Sort Colors
 
 Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
