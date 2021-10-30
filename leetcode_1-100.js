@@ -1521,6 +1521,50 @@ var reverseBetween = function (head, left, right) {
   return copyParent.next;
 };
 
+/* 93. Restore IP Addresses
+
+Given a string s containing only digits, return all possible valid IP addresses that can be obtained from s. You can return them in any order.
+A valid IP address consists of exactly four integers, each integer is between 0 and 255, separated by single dots and cannot have leading zeros. For example, "0.1.2.201" and "192.168.1.1" are valid IP addresses and "0.011.255.245", "192.168.1.312" and "192.168@1.1" are invalid IP addresses. 
+
+ */
+var restoreIpAddresses = function (s) {
+  if (s.length == 4) return [s[0] + "." + s[1] + "." + s[2] + "." + s[3]];
+  let result = [];
+  function backtrack(string, count, ipString) {
+    if (count == 4 && string.length > 0) return;
+    else if (count < 4 && string.length == 0) return;
+    else if (count == 4 && string.length == 0)
+      result.push(ipString.slice(0, ipString.length - 1));
+    if (string.length == 0) return;
+
+    // take one character
+    backtrack(string.slice(1), count + 1, ipString + string.substr(0, 1) + ".");
+
+    // take two character
+    if (string.length < 2) return;
+    if (Number(string.substr(0, 2)) < 10) return;
+    else {
+      backtrack(
+        string.slice(2),
+        count + 1,
+        ipString + string.substr(0, 2) + "."
+      );
+    }
+
+    if (string.length < 3) return;
+    // take three characters
+    if (Number(string.substr(0, 3)) > 255 || Number(string.substr(0, 3)) < 100)
+      return;
+    else
+      backtrack(
+        string.slice(3),
+        count + 1,
+        ipString + string.substr(0, 3) + "."
+      );
+  }
+  backtrack(s, 0, "");
+  return result;
+};
 //94. Binary Tree inorder Traversal
 //Given the root of a binary tree, return the inorder traversal of its nodes' values.
 
