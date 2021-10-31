@@ -1430,6 +1430,30 @@ function deleteDuplicates(head) {
   return head;
 }
 
+/* 84. Largest Rectangle in Histogram
+
+Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+ */
+
+// DP solution, still too slow for very large inputs
+var largestRectangleArea = function (heights) {
+  let dp = Array(heights.length).fill(0);
+  dp[0] = [...Array(heights[0] + 1).keys()];
+  let maxArea = heights[0];
+  for (let i = 1; i < heights.length; i++) {
+    //dp[i] = Array(heights[i].length+1).fill(0);
+    dp[i] = [...Array(heights[i] + 1).keys()];
+    for (let j = 1; j < dp[i - 1].length && j < dp[i].length; j++) {
+      dp[i][j] += dp[i - 1][j];
+      maxArea = Math.max(maxArea, dp[i][j]);
+    }
+    maxArea = Math.max(maxArea, heights[i]);
+  }
+  return maxArea;
+};
+
+// Incomplete. Will add the montonic stack solution later.
+
 //86. Partition List
 
 /* Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
