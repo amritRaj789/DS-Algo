@@ -223,6 +223,39 @@ var isPerfectSquare = function (num) {
   return false;
 };
 
+/*375. Guess Number Higher or Lower II
+We are playing the Guessing Game. The game will work as follows:
+I pick a number between 1 and n.
+You guess a number.
+If you guess the right number, you win the game.
+If you guess the wrong number, then I will tell you whether the number I picked is higher or lower, and you will continue guessing.
+Every time you guess a wrong number x, you will pay x dollars. If you run out of money, you lose the game.
+Given a particular n, return the minimum amount of money you need to guarantee a win regardless of what number I pick.
+*/
+
+let getMoneyAmount = function (n){
+  if(n <= 3) return n-1;
+  let dp = Array(n+1).fill(0).map(() => Array(n+1).fill(0));
+  for(let i = 1; i <= n-1; i++){
+    dp[i][i+1]= i;
+  }
+  for(let i = 2; i <= n-1; i++){
+    dp[i-1][i+1] = i;
+  }
+  // for length of 4 and onwards
+  for(let len = 4; len <= n; len++){
+    for(let i = 1; i <= n-len+1; i++){
+      let min = +Infinity;
+      for(let j = i+1; j < i+len-1; j++){
+        min = Math.min(min, j+ Math.max(dp[i][j-1], dp[j+1][i+len-1]))
+      }
+      dp[i][i+len-1] = min;
+    }
+  }
+  return dp[1][n];
+}
+
+
 /* 383. Ransom Note
 
 Given two stings ransomNote and magazine, return true if ransomNote can be constructed from magazine and false otherwise.
