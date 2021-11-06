@@ -1454,6 +1454,41 @@ var largestRectangleArea = function (heights) {
 
 // Incomplete. Will add the montonic stack solution later.
 
+/* 85. Maximal Rectangle
+
+Given a rows x cols binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
+ */
+
+var maximalRectangle = function (matrix) {
+  if (matrix.length == 0 || matrix[0].length == 0) return 0;
+  let m = matrix.length;
+  let n = matrix[0].length;
+  let newMatrix = Array(m)
+    .fill(0)
+    .map(() => Array(n).fill(0));
+  for (let i = 0; i < m; i++) {
+    let temp = 0;
+    for (let j = n - 1; j >= 0; j--) {
+      if (matrix[i][j] == "1") {
+        newMatrix[i][j] = ++temp;
+      } else temp = 0;
+    }
+  }
+  let maxArea = 0;
+  for (let j = 0; j < n; j++) {
+    for (let i = 0; i < m; i++) {
+      let k = i;
+      let min = newMatrix[i][j];
+      while (k < m && newMatrix[k][j] > 0) {
+        min = Math.min(min, newMatrix[k][j]);
+        maxArea = Math.max(maxArea, (k - i + 1) * min);
+        k++;
+      }
+    }
+  }
+  return maxArea;
+};
+
 //86. Partition List
 
 /* Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
