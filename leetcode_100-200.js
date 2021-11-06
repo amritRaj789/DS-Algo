@@ -522,6 +522,49 @@ var minimumTotal = function (triangle) {
 console.log(minimumTotal([[2], [3, 4], [6, 5, 7], [4, 1, 8, 3]]));
 console.log("the function ran for this many times: ", count);
 
+/* 123. Best time to buy and sell stocks III
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+Find the maximum profit you can achieve. You may complete at most two transactions.
+Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+ */
+
+let maxProfit = function (prices) {
+  let forward = Array(prices.length).fill(0);
+  let min = prices[0];
+  let maxProfit = 0;
+  for (let i = 1; i < prices.length; i++) {
+    if (prices[i] > min) {
+      maxProfit = Math.max(maxProfit, prices[i] - min);
+      forward[i] = maxProfit;
+    } else {
+      forward[i] = maxProfit;
+      min = prices[i];
+    }
+  }
+  let backward = Array(prices.length).fill(0);
+  let max = prices[prices.length - 1];
+  maxProfit = 0;
+  for (let i = prices.length - 2; i >= 0; i--) {
+    if (prices[i] < max) {
+      maxProfit = Math.max(maxProfit, max - prices[i]);
+      backward[i] = maxProfit;
+    } else {
+      backward[i] = maxProfit;
+      max = prices[i];
+    }
+  }
+  let result = 0;
+  for (let i = 1; i < prices.length - 1; i++) {
+    result = Math.max(
+      result,
+      forward[i] + backward[i + 1],
+      forward[i - 1] + backward[i]
+    );
+  }
+  result = Math.max(forward[prices.length - 1], result);
+  return result;
+};
+
 /* 124. Binary Tree Maximum Path Sum
 
 A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. Note that the path does not need to pass through the root.
