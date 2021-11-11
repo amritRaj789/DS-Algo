@@ -379,3 +379,43 @@ var makesquare = function (matchsticks) {
   }
   return backTrack(0, 0, 0, 0, 0);
 };
+
+/* 491. Increasing Subsequences
+
+Given an integer array nums, return all the different possible increasing subsequences of the given array with at least two elements. You may return the answer in any order.
+The given array may contain duplicates, and two equal integers should also be considered a special case of increasing sequence.
+ */
+
+let findSubsequences = function (nums) {
+  let hash = {};
+  let result = [];
+  let dp = Array(nums.length).fill(0);
+  dp[0] = [];
+  dp[1] = [];
+  if (nums[0] <= nums[1]) {
+    dp[1] = [[nums[0], nums[1]]];
+    hash[nums[0] + "|" + nums[1]] = true;
+    result.push(dp[1][0]);
+  }
+  for (let i = 2; i < nums.length; i++) {
+    dp[i] = [];
+    for (let j = i - 1; j >= 0; j--) {
+      if (nums[j] <= nums[i]) {
+        if (!(nums[j] + "|" + nums[i] in hash)) {
+          hash[nums[j] + "|" + nums[i]] = true;
+          dp[i].push([nums[j], nums[i]]);
+        }
+        if (dp[j].length) {
+          dp[j].forEach((arr) => {
+            dp[i].push([...arr, nums[i]]);
+          });
+        }
+        if (nums[j] == nums[i]) break;
+      }
+    }
+    for (let k = 0; k < dp[i].length; k++) {
+      result.push([...dp[i][k]]);
+    }
+  }
+  return result;
+};
