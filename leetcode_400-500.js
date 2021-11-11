@@ -351,3 +351,31 @@ function find_next_index(array, dir, pointer) {
     return -1;
   }
 }
+
+/* 473. Matchsticks to Square
+
+You are given an integer array matchsticks where matchsticks[i] is the length of the ith matchstick. You want to use all the matchsticks to make one square. You should not break any stick, but you can link them up, and each matchstick must be used exactly one time.
+Return true if you can make this square and false otherwise.
+ */
+var makesquare = function (matchsticks) {
+  let totalSum = matchsticks.reduce((a, b) => a + b);
+  if (totalSum % 4 !== 0) return false;
+  matchsticks.sort((a, b) => b - a); // Holy Cow!! this simple line reduces runtime by so much!
+  let eachSide = totalSum / 4;
+  function backTrack(s1, s2, s3, s4, i) {
+    if (s1 > eachSide || s2 > eachSide || s3 > eachSide || s4 > eachSide)
+      return false;
+    if (i === matchsticks.length) {
+      if (s1 == eachSide && s2 == eachSide && s3 == eachSide && s4 == eachSide)
+        return true;
+      return false;
+    }
+    return (
+      backTrack(s1 + matchsticks[i], s2, s3, s4, i + 1) ||
+      backTrack(s1, s2 + matchsticks[i], s3, s4, i + 1) ||
+      backTrack(s1, s2, s3 + matchsticks[i], s4, i + 1) ||
+      backTrack(s1, s2, s3, s4 + matchsticks[i], i + 1)
+    );
+  }
+  return backTrack(0, 0, 0, 0, 0);
+};
