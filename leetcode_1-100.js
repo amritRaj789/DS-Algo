@@ -576,6 +576,43 @@ let solveSudoku = function (board) {
   return board;
 };
 
+// Simpler Backtracking given below
+
+let solveSudoku = function (board) {
+  function check(s, r, c) {
+    // check row and col
+    for (let i = 0; i < 9; i++) {
+      if (board[r][i] == s || board[i][c] == s) return false;
+    }
+    // check grid
+    let rowStart = 3 * Math.floor(r / 3);
+    let colStart = 3 * Math.floor(c / 3);
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (board[rowStart + i][colStart + j] == s) return false;
+      }
+    }
+    return true;
+  }
+  function backTrack(row, col) {
+    if (row == 8 && col == 9) return true;
+    if (col == 9) {
+      row = row + 1;
+      col = 0;
+    }
+    if (board[row][col] !== ".") return backTrack(row, col + 1);
+    for (let i = 1; i <= 9; i++) {
+      if (check(String(i), row, col)) {
+        board[row][col] = String(i);
+        if (!backTrack(row, col + 1)) board[row][col] = ".";
+        else return true;
+      }
+    }
+    return false;
+  }
+  backTrack(0, 0);
+};
+
 //39. Combination Sum
 
 /*Given an array of distinct integers candidates and a target integer target, 
