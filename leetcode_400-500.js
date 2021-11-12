@@ -419,3 +419,48 @@ let findSubsequences = function (nums) {
   }
   return result;
 };
+
+/* 494. Target Sum
+You are given an integer array nums and an integer target.
+You want to build an expression out of nums by adding one of the symbols '+' and '-' before each integer in nums and then concatenate all the integers.
+For example, if nums = [2, 1], you can add a '+' before 2 and a '-' before 1 and concatenate them to build the expression "+2-1".
+Return the number of different expressions that you can build, which evaluates to target.
+ */
+
+// Recursive solution; not so efficient
+var findTargetSumWays = function (nums, target) {
+  let count = 0;
+  function recursive(sum, i) {
+    if (i === nums.length) {
+      if (sum == target) count++;
+      return;
+    }
+    recursive(sum + nums[i], i + 1);
+    recursive(sum - nums[i], i + 1);
+  }
+  recursive(0, 0);
+  return count;
+};
+// O(2^N) always
+
+// DP solution; vastly less runtime
+let findTargetSumWays = function (nums, target) {
+  let dp = Array(nums.length).fill(0);
+  dp[0] = {};
+  dp[0][nums[0]] = 1;
+  dp[0][-nums[0]] = nums[0] === 0 ? 2 : 1;
+  for (let i = 1; i < nums.length; i++) {
+    dp[i] = {};
+    for (let key in dp[i - 1]) {
+      let val1 = Number(key) + nums[i];
+      let val2 = Number(key) - nums[i];
+      if (!(val1 in dp[i])) dp[i][val1] = 0;
+      dp[i][val1] += dp[i - 1][key];
+      if (!(val2 in dp[i])) dp[i][val2] = 0;
+      dp[i][val2] += dp[i - 1][key];
+    }
+  }
+  if (target in dp[nums.length - 1]) return dp[nums.length - 1][target];
+  return 0;
+};
+// O(2^N) but still much more efficient because worst case arises very rarely; plus no recursive function calls
