@@ -21,6 +21,49 @@ var largestTriangleArea = function (points) {
   return max;
 };
 
+//819. Most Common Word
+
+/* Given a string paragraph and a string array of the banned words banned, return the most frequent word that is not banned. It is guaranteed there is at least one word that is not banned, and that the answer is unique.
+The words in paragraph are case-insensitive and the answer should be returned in lowercase.
+ */
+var mostCommonWord = function (paragraph, banned) {
+  paragraph = paragraph.toLowerCase();
+  let hash = {};
+  let bannedHash = {};
+  banned.forEach((str) => (bannedHash[str] = 1));
+  let max = 0;
+  let maxWord = "";
+  let char = "";
+  for (let i = 0; i < paragraph.length; i++) {
+    if (paragraph.charCodeAt(i) >= 97 && paragraph.charCodeAt(i) <= 122)
+      char += paragraph[i];
+    else if (char !== "") {
+      if (!(char in bannedHash)) {
+        if (!(char in hash)) hash[char] = 0;
+        hash[char]++;
+        if (hash[char] > max) {
+          max = hash[char];
+          maxWord = char;
+        }
+      }
+      char = "";
+    }
+  }
+  if (char !== "") {
+    if (!(char in bannedHash)) {
+      if (!(char in hash)) hash[char] = 0;
+      hash[char]++;
+      if (hash[char] > max) {
+        max = hash[char];
+        maxWord = char;
+      }
+    }
+  }
+  return maxWord;
+};
+
+// O(N+M), O(N+M)
+
 /*842. Split Array into Fibonacci Sequence
 
 Given a string S of digits, such as S = "123456579", we can split it into a Fibonacci-like sequence [123, 456, 579].
