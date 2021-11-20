@@ -64,6 +64,29 @@ var mostCommonWord = function (paragraph, banned) {
 
 // O(N+M), O(N+M)
 
+//821. Shortest Distance to a character
+/* Given a string s and a character c that occurs in s, return an array of integers answer where answer.length == s.length and answer[i] is the distance from index i to the closest occurrence of character c in s.
+The distance between two indices i and j is abs(i - j), where abs is the absolute value function.
+ */
+let shortestToChar = function (s, c) {
+  let array = Array(s.length).fill(0);
+  let right = +Infinity;
+  for (let i = s.length - 1; i >= 0; i--) {
+    if (s[i] == c) {
+      right = i;
+    }
+    array[i] = right - i;
+  }
+  let left = -Infinity;
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] == c) {
+      left = i;
+    }
+    array[i] = Math.min(array[i], i - left);
+  }
+  return array;
+};
+
 /*842. Split Array into Fibonacci Sequence
 
 Given a string S of digits, such as S = "123456579", we can split it into a Fibonacci-like sequence [123, 456, 579].
