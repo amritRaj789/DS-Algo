@@ -87,6 +87,36 @@ let shortestToChar = function (s, c) {
   return array;
 };
 
+//824. Goat Latin
+
+/* You are given a string sentence that consist of words separated by spaces. Each word consists of lowercase and uppercase letters only.
+We would like to convert the sentence to "Goat Latin" (a made-up language similar
+ */
+var toGoatLatin = function (sentence) {
+  let word = "";
+  let result = "";
+  let vowel = { a: 1, e: 1, i: 1, o: 1, u: 1, A: 1, E: 1, I: 1, O: 1, U: 1 };
+  let startWithVowel = Boolean(sentence[0] in vowel);
+  let wordCount = 0;
+  for (let i = 0; i < sentence.length; i++) {
+    if (sentence[i] !== " ") {
+      word += sentence[i];
+    } else {
+      if (!startWithVowel) word = word.slice(1) + word[0];
+      word += "ma";
+      word += "a".repeat(++wordCount);
+      result += word + " ";
+      startWithVowel = Boolean(sentence[i + 1] in vowel);
+      word = "";
+    }
+  }
+  if (!startWithVowel) word = word.slice(1) + word[0];
+  word += "ma";
+  word += "a".repeat(++wordCount);
+  result += word;
+  return result;
+};
+
 /*842. Split Array into Fibonacci Sequence
 
 Given a string S of digits, such as S = "123456579", we can split it into a Fibonacci-like sequence [123, 456, 579].
