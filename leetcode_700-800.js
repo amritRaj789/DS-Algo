@@ -17,6 +17,27 @@ var numSubarrayProductLessThanK = function (nums, k) {
   return result;
 };
 
+/* 739. Daily Temperatures
+Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.
+
+ */
+
+let dailyTemperatures = function (temperatures) {
+  let stack = [0];
+  let result = Array(temperatures.length).fill(0);
+  for (let i = 1; i < temperatures.length; i++) {
+    while (
+      stack.length !== 0 &&
+      temperatures[i] > temperatures[stack[stack.length - 1]]
+    ) {
+      result[stack[stack.length - 1]] = i - stack[stack.length - 1];
+      stack.pop();
+    }
+    stack.push(i);
+  }
+  return result;
+};
+
 /* 763. Partition Labels
 
 A string s of lowercase English letters is given. We want to partition this string into as many parts as possible so that each letter appears in at most one part, and return a list of integers representing the size of these parts. */
