@@ -141,6 +141,25 @@ var largeGroupPositions = function (s) {
   return result;
 };
 
+//832. Flipping an Image
+
+/* Given an n x n binary matrix image, flip the image horizontally, then invert it, and return the resulting image.
+To flip an image horizontally means that each row of the image is reversed.
+ */
+let flipAndInvertImage = function (image) {
+  let row = image.length;
+  let col = image[0].length;
+  let result = Array(row)
+    .fill(0)
+    .map(() => Array(col).fill(0));
+  for (let i = 0; i < row; i++) {
+    for (let j = col - 1; j >= 0; j--) {
+      result[i][col - 1 - j] = !image[i][j];
+    }
+  }
+  return result;
+};
+
 /*842. Split Array into Fibonacci Sequence
 
 Given a string S of digits, such as S = "123456579", we can split it into a Fibonacci-like sequence [123, 456, 579].
