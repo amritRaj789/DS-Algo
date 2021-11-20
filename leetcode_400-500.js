@@ -379,6 +379,25 @@ var repeatedSubstringPattern = function (s) {
   return s.repeat(2).slice(1, -1).includes(s);
 };
 
+//461. Hamming Distance
+
+/* The Hamming distance between two integers is the number of positions at which the corresponding bits are different.
+Given two integers x and y, return the Hamming distance between them.
+ */
+
+var hammingDistance = function (x, y) {
+  let a = x ^ y;
+  let count = 0;
+  while (a != 0) {
+    a = a & (a - 1);
+    count++;
+  }
+  return count;
+};
+
+// Not my solution, but very clever
+let hammingDistance = (x, y) => (x ^ y).toString(2).replace(/0/g, "").length;
+
 /* 473. Matchsticks to Square
 
 You are given an integer array matchsticks where matchsticks[i] is the length of the ith matchstick. You want to use all the matchsticks to make one square. You should not break any stick, but you can link them up, and each matchstick must be used exactly one time.
