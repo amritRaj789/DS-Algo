@@ -352,6 +352,33 @@ function find_next_index(array, dir, pointer) {
   }
 }
 
+/* 459. Repeated Substrings
+
+Given a string s, check if it can be constructed by taking a substring of it and appending multiple copies of the substring together.
+ */
+// My solution, pretty good as it is
+var repeatedSubstringPattern = function (s) {
+  for (let i = 1; i < s.length; i++) {
+    if (s.length % i === 0) {
+      let str = s.substr(0, i);
+      let found = true;
+      for (let j = i; j < s.length; j += i) {
+        if (s.substr(j, i) !== str) {
+          found = false;
+          break;
+        }
+      }
+      if (found) return true;
+    }
+  }
+  return false;
+};
+
+//The below solution is on another level all together. So clever
+var repeatedSubstringPattern = function (s) {
+  return s.repeat(2).slice(1, -1).includes(s);
+};
+
 /* 473. Matchsticks to Square
 
 You are given an integer array matchsticks where matchsticks[i] is the length of the ith matchstick. You want to use all the matchsticks to make one square. You should not break any stick, but you can link them up, and each matchstick must be used exactly one time.
