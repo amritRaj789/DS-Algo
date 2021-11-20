@@ -223,6 +223,53 @@ var isPerfectSquare = function (num) {
   return false;
 };
 
+/* 374. Guess Number Higher or Lower
+
+We are playing the Guess Game. The game is as follows:
+I pick a number from 1 to n. You have to guess which number I picked.
+Every time you guess wrong, I will tell you whether the number I picked is higher or lower than your guess.
+You call a pre-defined API int guess(int num), which returns 3 possible results:
+-1: The number I picked is lower than your guess (i.e. pick < num).
+1: The number I picked is higher than your guess (i.e. pick > num).
+0: The number I picked is equal to your guess (i.e. pick == num).
+Return the number that I picked. */
+
+// binary search
+var guessNumber = function (n) {
+  let left = 1;
+  let right = n;
+  let mid;
+  while (left <= right) {
+    mid = ~~((left + right) / 2);
+    if (guess(mid) == 0) return mid;
+    else if (guess(mid) == -1) right = mid - 1;
+    else left = mid + 1;
+  }
+};
+
+// ternary search
+let guessNumber = function (n) {
+  let left = 1;
+  let right = n;
+  let mid1;
+  let mid2;
+  while (left <= right) {
+    mid1 = left + ~~((right - left) / 3);
+    mid2 = right - ~~((right - left) / 3);
+    res1 = guess(mid1);
+    res2 = guess(mid2);
+    if (res1 == 0) return mid1;
+    if (res2 == 0) return mid2;
+    else if (res1 < 0) right = mid1 - 1;
+    else if (res2 > 0) left = mid2 + 1;
+    else {
+      left = mid1 + 1;
+      right = mid2 - 1;
+    }
+  }
+  return -1;
+};
+
 /*375. Guess Number Higher or Lower II
 We are playing the Guessing Game. The game will work as follows:
 I pick a number between 1 and n.
@@ -233,28 +280,29 @@ Every time you guess a wrong number x, you will pay x dollars. If you run out of
 Given a particular n, return the minimum amount of money you need to guarantee a win regardless of what number I pick.
 */
 
-let getMoneyAmount = function (n){
-  if(n <= 3) return n-1;
-  let dp = Array(n+1).fill(0).map(() => Array(n+1).fill(0));
-  for(let i = 1; i <= n-1; i++){
-    dp[i][i+1]= i;
+let getMoneyAmount = function (n) {
+  if (n <= 3) return n - 1;
+  let dp = Array(n + 1)
+    .fill(0)
+    .map(() => Array(n + 1).fill(0));
+  for (let i = 1; i <= n - 1; i++) {
+    dp[i][i + 1] = i;
   }
-  for(let i = 2; i <= n-1; i++){
-    dp[i-1][i+1] = i;
+  for (let i = 2; i <= n - 1; i++) {
+    dp[i - 1][i + 1] = i;
   }
   // for length of 4 and onwards
-  for(let len = 4; len <= n; len++){
-    for(let i = 1; i <= n-len+1; i++){
+  for (let len = 4; len <= n; len++) {
+    for (let i = 1; i <= n - len + 1; i++) {
       let min = +Infinity;
-      for(let j = i+1; j < i+len-1; j++){
-        min = Math.min(min, j+ Math.max(dp[i][j-1], dp[j+1][i+len-1]))
+      for (let j = i + 1; j < i + len - 1; j++) {
+        min = Math.min(min, j + Math.max(dp[i][j - 1], dp[j + 1][i + len - 1]));
       }
-      dp[i][i+len-1] = min;
+      dp[i][i + len - 1] = min;
     }
   }
   return dp[1][n];
-}
-
+};
 
 /* 383. Ransom Note
 
