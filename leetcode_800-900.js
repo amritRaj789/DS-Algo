@@ -247,6 +247,36 @@ let peakIndexInMountainArray = function (arr) {
   return left;
 };
 
+//859. Buddy Strings
+
+//Given two strings s and goal, return true if you can swap two letters in s so the result is equal to goal, otherwise, return false.
+
+var buddyStrings = function (s, goal) {
+  if (s.length !== goal.length) return false;
+  let hash = {};
+  let count = 0;
+  let index1 = -1;
+  let index2 = -1;
+  let hasRepeat = false;
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] !== goal[i]) {
+      count++;
+      if (count > 2) return false;
+      if (index1 == -1) index1 = i;
+      else index2 = i;
+    }
+    if (!(s[i] in hash)) hash[s[i]] = 0;
+    else hasRepeat = true;
+  }
+  if (count == 0) {
+    if (hasRepeat) return true;
+    return false;
+  }
+  if (count == 1) return false;
+  if (s[index1] == goal[index2] && s[index2] == goal[index1]) return true;
+  return false;
+};
+
 // 876. Middle of the Linked List
 // Given a non-empty, singly linked list with head node, return a middle node of linked list.
 // If there are two middle nodes, return the second middle node.
