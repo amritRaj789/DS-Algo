@@ -429,3 +429,30 @@ let stoneGame = function (piles) {
 let stoneGame = function (piles) {
   return true;
 };
+
+
+//883. Projection Area of 3D shapes
+
+/* You are given an n x n grid where we place some 1 x 1 x 1 cubes that are axis-aligned with the x, y, and z axes.
+Each value v = grid[i][j] represents a tower of v cubes placed on top of the cell (i, j).
+We view the projection of these cubes onto the xy, yz, and zx planes.
+Return the total area of all three projections.
+ */
+var projectionArea = function (grid) {
+  let n = grid.length;
+  let p1 = 0;
+  let p2 = 0;
+  let p3 = 0;
+  for (let i = 0; i < n; i++) {
+    let max1 = 0;
+    let max2 = 0;
+    for (let j = 0; j < n; j++) {
+      p1 += grid[i][j] === 0 ? 0 : 1;
+      max1 = Math.max(max1, grid[i][j]);
+      max2 = Math.max(max2, grid[j][i]);
+    }
+    p2 += max1;
+    p3 += max2;
+  }
+  return p1 + p2 + p3;
+};
