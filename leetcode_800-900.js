@@ -192,6 +192,32 @@ var splitIntoFibonacci = function (S) {
   return result;
 };
 
+//844. Backspace String Compare
+
+/* Given two strings s and t, return true if they are equal when both are typed into empty text editors. '#' means a backspace character.
+Note that after backspacing an empty text, the text will continue empty.
+ */
+
+var backspaceCompare = function (s, t) {
+  let stack1 = [];
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] == "#") {
+      if (stack1.length) stack1.pop();
+    } else stack1.push(s[i]);
+  }
+  let stack2 = [];
+  for (let i = 0; i < t.length; i++) {
+    if (t[i] == "#") {
+      if (stack2.length) stack2.pop();
+    } else stack2.push(t[i]);
+  }
+  if (stack1.length !== stack2.length) return false;
+  for (let i = 0; i < stack1.length; i++) {
+    if (stack1[i] !== stack2[i]) return false;
+  }
+  return true;
+};
+
 // 876. Middle of the Linked List
 // Given a non-empty, singly linked list with head node, return a middle node of linked list.
 // If there are two middle nodes, return the second middle node.
