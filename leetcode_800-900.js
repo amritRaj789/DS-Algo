@@ -336,6 +336,23 @@ let lemonadeChange = function (bills) {
   return true;
 };
 
+//867. Transpose a Matrix
+
+/* Given a 2D integer array matrix, return the transpose of matrix.
+The transpose of a matrix is the matrix flipped over its main diagonal, switching the matrix's row and column indices.
+ */
+var transpose = function (matrix) {
+  let newMatrix = Array(matrix[0].length)
+    .fill(0)
+    .map(() => Array(matrix.length));
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      newMatrix[j][i] = matrix[i][j];
+    }
+  }
+  return newMatrix;
+};
+
 // 876. Middle of the Linked List
 // Given a non-empty, singly linked list with head node, return a middle node of linked list.
 // If there are two middle nodes, return the second middle node.
