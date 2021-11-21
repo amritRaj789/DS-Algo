@@ -308,6 +308,34 @@ var buddyStrings = function (s, goal) {
   return false;
 };
 
+//860 Lemonade Change
+
+/* At a lemonade stand, each lemonade costs $5. Customers are standing in a queue to buy from you, and order one at a time (in the order specified by bills). Each customer will only buy one lemonade and pay with either a $5, $10, or $20 bill. You must provide the correct change to each customer so that the net transaction is that the customer pays $5.
+Note that you don't have any change in hand at first.
+Given an integer array bills where bills[i] is the bill the ith customer pays, return true if you can provide every customer with correct change, or false otherwise.
+ */
+
+let lemonadeChange = function (bills) {
+  let count5 = 0;
+  let count10 = 0;
+  for (let i = 0; i < bills.length; i++) {
+    if (bills[i] == 5) count5++;
+    else if (bills[i] == 10) {
+      if (count5 > 0) count5--;
+      else return false;
+      count10++;
+    } else {
+      if (count10 > 0 && count5 > 0) {
+        count10--;
+        count5--;
+      } else if (count5 > 2) {
+        count5 -= 3;
+      } else return false;
+    }
+  }
+  return true;
+};
+
 // 876. Middle of the Linked List
 // Given a non-empty, singly linked list with head node, return a middle node of linked list.
 // If there are two middle nodes, return the second middle node.
