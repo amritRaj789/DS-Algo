@@ -430,7 +430,6 @@ let stoneGame = function (piles) {
   return true;
 };
 
-
 //883. Projection Area of 3D shapes
 
 /* You are given an n x n grid where we place some 1 x 1 x 1 cubes that are axis-aligned with the x, y, and z axes.
@@ -455,4 +454,53 @@ var projectionArea = function (grid) {
     p3 += max2;
   }
   return p1 + p2 + p3;
+};
+
+//884. Uncommon Words From Two sentences
+
+/* A sentence is a string of single-space separated words where each word consists only of lowercase letters.
+A word is uncommon if it appears exactly once in one of the sentences, and does not appear in the other sentence.
+Given two sentences s1 and s2, return a list of all the uncommon words. You may return the answer in any order. */
+
+var uncommonFromSentences = function (s1, s2) {
+  let result = [];
+  let hash = {};
+  let word = "";
+  for (let i = 0; i < s1.length; i++) {
+    if (s1[i] !== " ") word += s1[i];
+    else {
+      if (!(word in hash)) hash[word] = 0;
+      hash[word]++;
+      word = "";
+    }
+  }
+  if (!(word in hash)) hash[word] = 0;
+  hash[word]++;
+  word = "";
+  for (let i = 0; i < s2.length; i++) {
+    if (s2[i] !== " ") word += s2[i];
+    else {
+      if (!(word in hash)) hash[word] = 0;
+      hash[word]++;
+      word = "";
+    }
+  }
+  if (!(word in hash)) hash[word] = 0;
+  hash[word]++;
+
+  for (let key in hash) {
+    if (hash[key] == 1) result.push(key);
+  }
+  return result;
+};
+
+// using built-in JS methods to make life a lil easier, but reduces efficiency
+let uncommonFromSentences = function (s1, s2) {
+  let hash = {};
+  let array = [...s1.split(" "), ...s2.split(" ")];
+  for (let word of array) {
+    if (!(word in hash)) hash[word] = 0;
+    hash[word]++;
+  }
+  return Object.keys(hash).filter((key) => hash[key] === 1);
 };
