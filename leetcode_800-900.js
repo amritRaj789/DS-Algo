@@ -353,6 +353,32 @@ var transpose = function (matrix) {
   return newMatrix;
 };
 
+//872. Leaf-Similar Trees
+
+/* Consider all the leaves of a binary tree, from left to right order, the values of those leaves form a leaf value sequence.
+Two binary trees are considered leaf-similar if their leaf value sequence is the same.
+Return true if and only if the two given trees with head nodes root1 and root2 are leaf-similar.
+ */
+// DFS
+var leafSimilar = function (root1, root2) {
+  let stack1 = [];
+  let stack2 = [];
+  function traverse(node, stack) {
+    if (node.left == null && node.right == null) {
+      stack.push(node.val);
+    }
+    if (node.left != null) traverse(node.left, stack);
+    if (node.right != null) traverse(node.right, stack);
+  }
+  traverse(root1, stack1);
+  traverse(root2, stack2);
+  if (stack1.length !== stack2.length) return false;
+  for (let i = 0; i < stack1.length; i++) {
+    if (stack1[i] !== stack2[i]) return false;
+  }
+  return true;
+};
+
 // 876. Middle of the Linked List
 // Given a non-empty, singly linked list with head node, return a middle node of linked list.
 // If there are two middle nodes, return the second middle node.
