@@ -218,6 +218,35 @@ var backspaceCompare = function (s, t) {
   return true;
 };
 
+//852. Peak Index in a Mountain Array
+
+/* Let's call an array arr a mountain if the following properties hold:
+arr.length >= 3
+There exists some i with 0 < i < arr.length - 1 such that:
+arr[0] < arr[1] < ... arr[i-1] < arr[i]
+arr[i] > arr[i+1] > ... > arr[arr.length - 1]
+Find the index of the peak element of the mountain. It is guaranteed there is a peak
+ */
+// O(n) solution
+var peakIndexInMountainArray = function (arr) {
+  for (let i = 1; i < arr.length - 1; i++) {
+    if (arr[i] > arr[i - 1] && arr[i] > arr[i + 1]) return i;
+  }
+};
+
+// O(log(n))
+let peakIndexInMountainArray = function (arr) {
+  let left = 0;
+  let right = arr.length - 1;
+  let mid;
+  while (left < right) {
+    mid = ~~((left + right) / 2);
+    if (arr[mid] < arr[mid + 1]) left = mid + 1;
+    else right = mid;
+  }
+  return left;
+};
+
 // 876. Middle of the Linked List
 // Given a non-empty, singly linked list with head node, return a middle node of linked list.
 // If there are two middle nodes, return the second middle node.
