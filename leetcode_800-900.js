@@ -504,3 +504,18 @@ let uncommonFromSentences = function (s1, s2) {
   }
   return Object.keys(hash).filter((key) => hash[key] === 1);
 };
+
+//888. Fair Candy Swap
+
+/* Alice and Bob have a different total number of candies. You are given two integer arrays aliceSizes and bobSizes where aliceSizes[i] is the number of candies of the ith box of candy that Alice has and bobSizes[j] is the number of candies of the jth box of candy that Bob has.
+Return an integer array answer where answer[0] is the number of candies in the box that Alice must exchange, and answer[1] is the number of candies in the box that Bob must exchange. If there are multiple answers, you may return any one of them. It is guaranteed that at least one answer exists.
+ */
+let fairCandySwap = function (aliceSizes, bobSizes) {
+  let set = new Set(aliceSizes);
+  let aliceTotal = aliceSizes.reduce((a, b) => a + b);
+  let bobTotal = bobSizes.reduce((a, b) => a + b);
+  for (let val of bobSizes) {
+    if (set.has(val - (bobTotal - aliceTotal) / 2))
+      return [val - (bobTotal - aliceTotal) / 2, val];
+  }
+};
