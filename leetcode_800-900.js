@@ -519,3 +519,27 @@ let fairCandySwap = function (aliceSizes, bobSizes) {
       return [val - (bobTotal - aliceTotal) / 2, val];
   }
 };
+
+//892. Surface Area of 3D Shapes
+
+/* You are given an n x n grid where you have placed some 1 x 1 x 1 cubes. Each value v = grid[i][j] represents a tower of v cubes placed on top of cell (i, j).
+After placing these cubes, you have decided to glue any directly adjacent cubes to each other, forming several irregular 3D shapes.
+Return the total surface area of the resulting shapes.
+ */
+var surfaceArea = function (grid) {
+  let surfaceArea = 0;
+  let n = grid.length;
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (grid[i][j] == 0) continue;
+      surfaceArea += grid[i][j] * 4 + 2;
+      if (j > 0) {
+        surfaceArea -= 2 * Math.min(grid[i][j], grid[i][j - 1]);
+      }
+      if (i > 0) {
+        surfaceArea -= 2 * Math.min(grid[i][j], grid[i - 1][j]);
+      }
+    }
+  }
+  return surfaceArea;
+};
