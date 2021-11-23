@@ -673,6 +673,31 @@ let partition = function (s) {
   return result;
 };
 
+//134. Gas Station
+
+/* There are n gas stations along a circular route, where the amount of gas at the ith station is gas[i].
+You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from the ith station to its next (i + 1)th station. You begin the journey with an empty tank at one of the gas stations.
+Given two integer arrays gas and cost, return the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return -1. If there exists a solution, it is guaranteed to be unique
+ */
+let canCompleteCircuit = function (gas, cost) {
+  let totalDelta = 0;
+  let gasTotal = 0;
+  let costTotal = 0;
+  let start = 0;
+  for (let i = 0; i < gas.length; i++) {
+    gasTotal += gas[i];
+    costTotal += cost[i];
+    totalDelta += gas[i] - cost[i];
+    if (gasTotal < costTotal) {
+      gasTotal = 0;
+      costTotal = 0;
+      start = i + 1;
+    }
+  }
+  if (totalDelta < 0) return -1;
+  return start;
+};
+
 /* 136. Single Number
 
 Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
