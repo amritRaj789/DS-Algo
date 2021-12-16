@@ -399,6 +399,28 @@ let flatten = function (root) {
   if (root) convert(root);
 };
 
+/* 115. Distinct Subsequences
+Given two strings s and t, return the number of distinct subsequences of s which equals t.
+A string's subsequence is a new string formed from the original string by deleting some (can be none) of the characters without disturbing the remaining characters' relative positions. (i.e., "ACE" is a subsequence of "ABCDE" while "AEC" is not).
+ */
+var numDistinct = function (s, t) {
+  let indices = {};
+  for (let i = 0; i < t.length; i++) {
+    if (!(t[i] in indices)) indices[t[i]] = [];
+    indices[t[i]].push(i);
+  }
+  let dp = Array(t.length + 1).fill(0);
+  dp[0] = 1;
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] in indices) {
+      for (let j = indices[s[i]].length - 1; j >= 0; j--) {
+        dp[indices[s[i]][j] + 1] += dp[indices[s[i]][j]];
+      }
+    }
+  }
+  return dp[t.length];
+};
+
 /*116. Populating Next Right Pointers in Each Node
 You are given a perfect binary tree where all leaves are on the same level, and every parent has two children.
 Populate each next pointer to point to its next right node. If there is no next right node, 
