@@ -191,6 +191,26 @@ let isRectangleOverlap = function (rec1, rec2) {
   return true;
 };
 
+/* 841. Keys and Rooms
+
+There are n rooms labeled from 0 to n - 1 and all the rooms are locked except for room 0. Your goal is to visit all the rooms. However, you cannot enter a locked room without having its key.
+When you visit a room, you may find a set of distinct keys in it. Each key has a number on it, denoting which room it unlocks, and you can take all of them with you to unlock the other rooms.
+Given an array rooms where rooms[i] is the set of keys that you can obtain if you visited room i, return true if you can visit all the rooms, or false otherwise.
+ */
+
+var canVisitAllRooms = function (rooms) {
+  let visited = { 0: true };
+  let stack = [...rooms[0]];
+  while (stack.length) {
+    let temp = stack.pop();
+    if (!(temp in visited)) {
+      visited[temp] = true;
+      stack.push(...rooms[temp]);
+    }
+  }
+  return Object.keys(visited).length == rooms.length;
+};
+
 /*842. Split Array into Fibonacci Sequence
 
 Given a string S of digits, such as S = "123456579", we can split it into a Fibonacci-like sequence [123, 456, 579].
