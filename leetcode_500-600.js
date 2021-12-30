@@ -215,6 +215,26 @@ let convertBST = function (root) {
   return root;
 };
 
+/* 539. Minimum Time Difference
+
+Given a list of 24-hour clock time points in "HH:MM" format, return the minimum minutes difference between any two time-points in the list.
+ */
+var findMinDifference = function (timePoints) {
+  let mins = [];
+  let minDiff = +Infinity;
+  for (let i = 0; i < timePoints.length; i++) {
+    let time = Number(timePoints[i].slice(0, 2)) * 60;
+    time += Number(timePoints[i].slice(3));
+    mins.push(time);
+  }
+  mins.sort((a, b) => a - b);
+  for (let i = 0; i < mins.length - 1; i++) {
+    minDiff = Math.min(minDiff, mins[i + 1] - mins[i]);
+  }
+  minDiff = Math.min(minDiff, 24 * 60 - (mins[mins.length - 1] - mins[0]));
+  return minDiff;
+};
+
 /* 543. Diameter of a Binary Tree
 
 Given the root of a binary tree, return the length of the diameter of the tree.
