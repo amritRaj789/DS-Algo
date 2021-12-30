@@ -17,6 +17,51 @@ var numSubarrayProductLessThanK = function (nums, k) {
   return result;
 };
 
+/* 718. Maximum Length of Repeated Subarray
+
+Given two integer arrays nums1 and nums2, return the maximum length of a subarray that appears in both arrays.
+ */
+// Brute force with hash map
+var findLength = function (nums1, nums2) {
+  let max = 0;
+  let hash = {};
+  for (let i = 0; i < nums2.length; i++) {
+    if (!(nums2[i] in hash)) hash[nums2[i]] = [];
+    hash[nums2[i]].push(i);
+  }
+  for (let i = 0; i < nums1.length; i++) {
+    if (nums1[i] in hash) {
+      for (let k = 0; k < hash[nums1[i]].length; k++) {
+        let len = 0;
+        let start1 = i;
+        let start2 = hash[nums1[i]][k];
+        while (start1 < nums1.length && start2 < nums2.length) {
+          if (nums1[start1++] == nums2[start2++]) len++;
+          else break;
+        }
+        max = Math.max(max, len);
+      }
+    }
+  }
+  return max;
+};
+// DP Solution
+let findLength = function (nums1, nums2) {
+  let dp = Array(nums1.length + 1)
+    .fill(0)
+    .map(() => Array(nums2.length + 1).fill(0));
+  let max = 0;
+  for (let i = nums1.length - 1; i >= 0; i--) {
+    for (let j = nums2.length - 1; j >= 0; j--) {
+      if (nums1[i] == nums2[j]) {
+        dp[i][j] = dp[i + 1][j + 1] + 1;
+        max = Math.max(max, dp[i][j]);
+      }
+    }
+  }
+  return max;
+};
+
 /* 739. Daily Temperatures
 Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.
 
