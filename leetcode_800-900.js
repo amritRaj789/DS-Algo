@@ -298,6 +298,31 @@ let peakIndexInMountainArray = function (arr) {
   return left;
 };
 
+/* 853. Car Fleet
+
+There are n cars going to the same destination along a one-lane road. The destination is target miles away.
+You are given two integer array position and speed, both of length n, where position[i] is the position of the ith car and speed[i] is the speed of the ith car (in miles per hour).
+ */
+
+var carFleet = function (target, position, speed) {
+  let arr = Array(speed.length).fill(0);
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = [position[i], speed[i]];
+  }
+  arr.sort((a, b) => b[0] - a[0]);
+  let fleets = 0;
+  let timeToReach = (target - arr[0][0]) / arr[0][1];
+  let time;
+  for (let i = 1; i < arr.length; i++) {
+    time = (target - arr[i][0]) / arr[i][1];
+    if (timeToReach < time) {
+      fleets++;
+      timeToReach = time;
+    }
+  }
+  return fleets + 1;
+};
+
 //859. Buddy Strings
 
 //Given two strings s and goal, return true if you can swap two letters in s so the result is equal to goal, otherwise, return false.
