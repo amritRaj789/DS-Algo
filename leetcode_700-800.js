@@ -104,6 +104,53 @@ var partitionLabels = function (s) {
   return result;
 };
 
+/* 764. Largest Plus Sign
+
+You are given an integer n. You have an n x n binary grid grid with all values initially 1's except for some indices given in the array mines. The ith element of the array mines is defined as mines[i] = [xi, yi] where grid[xi][yi] == 0.
+Return the order of the largest axis-aligned plus sign of 1's contained in grid. If there is none, return 0
+ */
+
+var orderOfLargestPlusSign = function (n, mines) {
+  let grid = Array(n + 2)
+    .fill(0)
+    .map(() => Array(n + 2).fill(0)); // value, left, right, up, down
+  for (let i = 0; i < n + 2; i++) {
+    for (let j = 0; j < n + 2; j++) {
+      grid[i][j] = [1, 0, 0, 0, 0];
+    }
+  }
+  for (let i = 0; i < n + 2; i++) {
+    grid[i][0][0] = 0;
+    grid[0][i][0] = 0;
+    grid[i][n + 1][0] = 0;
+    grid[n + 1][i][0] = 0;
+  }
+  for (let i = 0; i < mines.length; i++) {
+    let [m, n] = mines[i];
+    grid[m + 1][n + 1][0] = 0;
+  }
+  let max = 0;
+  for (let i = 1; i < n + 1; i++) {
+    for (let j = 1; j < n + 1; j++) {
+      if (grid[i][j][0] == 1) grid[i][j][1] = grid[i][j - 1][1] + 1;
+      if (grid[i][n + 1 - j][0] == 1)
+        grid[i][n + 1 - j][2] = grid[i][n + 2 - j][2] + 1;
+      if (grid[j][i][0] == 1) grid[j][i][3] = grid[j - 1][i][3] + 1;
+      if (grid[n + 1 - j][i][0] == 1)
+        grid[n + 1 - j][i][4] = grid[n + 2 - j][i][4] + 1;
+    }
+  }
+  for (let i = 1; i < n + 1; i++) {
+    for (let j = 1; j < n + 1; j++) {
+      max = Math.max(
+        max,
+        Math.min(grid[i][j][1], grid[i][j][2], grid[i][j][3], grid[i][j][4])
+      );
+    }
+  }
+  return max;
+};
+
 /*784. Letter Case Permutation
 Given a string S, we can transform every letter individually to be lowercase or uppercase to create another string.
 Return a list of all possible strings we could create. You can return the output in any order.
