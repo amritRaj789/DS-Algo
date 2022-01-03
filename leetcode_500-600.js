@@ -153,6 +153,26 @@ let updateMatrix = function (mat) {
 };
 // BFS approach
 
+/* 513. Find Bottom Left Tree Value
+
+Given the root of a binary tree, return the leftmost value in the last row of the tree.
+ */
+var findBottomLeftValue = function (root) {
+  let leftMost;
+  let queue = [root];
+  while (queue.length) {
+    leftMost = queue[0].val;
+    count = queue.length;
+    while (count) {
+      node = queue.shift();
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+      count--;
+    }
+  }
+  return leftMost;
+};
+
 // 526. Beautiful Arrangement
 /*Suppose you have n integers labeled 1 through n. A permutation of those n integers perm (1-indexed) is considered a beautiful arrangement if for every i (1 <= i <= n), either of the following is true:
 perm[i] is divisible by i.
