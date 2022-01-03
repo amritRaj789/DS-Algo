@@ -33,6 +33,45 @@ let maxScore = function (cardPoints, k) {
 };
 //this is dynamic programming with O(2K) time
 
+/* 1417. Reformat the String
+
+You are given an alphanumeric string s. (Alphanumeric string is a string consisting of lowercase English letters and digits).
+You have to find a permutation of the string where no letter is followed by another letter and no digit is followed by another digit. That is, no two adjacent characters have the same type.
+Return the reformatted string or return an empty string if it is impossible to reformat the string.
+ */
+var reformat = function (s) {
+  let digits = [];
+  let number = [];
+  let result = "";
+  for (let i = 0; i < s.length; i++) {
+    let code = s.charCodeAt(i);
+    if (code >= 48 && code <= 57) number.push(i);
+    else digits.push(i);
+  }
+  if (digits.length != number.length) {
+    if (Math.abs(digits.length - number.length) !== 1) return "";
+    if (digits.length > number.length) {
+      for (let i = 0; i < number.length; i++) {
+        result += s[digits[i]];
+        result += s[number[i]];
+      }
+      result += s[digits[digits.length - 1]];
+    } else {
+      for (let i = 0; i < digits.length; i++) {
+        result += s[number[i]];
+        result += s[digits[i]];
+      }
+      result += s[number[number.length - 1]];
+    }
+    return result;
+  }
+  for (let i = 0; i < digits.length; i++) {
+    result += s[digits[i]];
+    result += s[number[i]];
+  }
+  return result;
+};
+
 /* 1461. Check If a string contains all binary codes of size k
 
 Given a binary string s and an integer k.
