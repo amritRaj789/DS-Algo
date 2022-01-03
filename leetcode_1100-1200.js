@@ -14,6 +14,35 @@ let longestCommonSubsequence = function (text1, text2) {
   return dp[text1.length][text2.length];
 };
 
+/* 1161. Maximum Level Sum of a Binary Tree
+
+Given the root of a binary tree, the level of its root is 1, the level of its children is 2, and so on.
+Return the smallest level x such that the sum of all the values of nodes at level x is maximal.
+ */
+var maxLevelSum = function (root) {
+  let maxSum = -Infinity;
+  let result = 1;
+  let level = 1;
+  let queue = [root];
+  while (queue.length) {
+    let count = queue.length;
+    let sum = 0;
+    while (count) {
+      temp = queue.shift();
+      sum += temp.val;
+      if (temp.left) queue.push(temp.left);
+      if (temp.right) queue.push(temp.right);
+      count--;
+    }
+    if (sum > maxSum) {
+      result = level;
+      maxSum = sum;
+    }
+    level++;
+  }
+  return result;
+};
+
 /* 1189. Maximum Number of Balloons
 
 Given a string text, you want to use the characters of text to form as many instances of the word "balloon" as possible.
