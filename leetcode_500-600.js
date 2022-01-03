@@ -312,6 +312,32 @@ var findTilt = function (root) {
   return sum;
 };
 
+/* 566. Reshape the Matrix
+
+In MATLAB, there is a handy function called reshape which can reshape an m x n matrix into a new one with a different size r x c keeping its original data.
+You are given an m x n matrix mat and two integers r and c representing the number of rows and the number of columns of the wanted reshaped matrix.
+ */
+var matrixReshape = function (mat, r, c) {
+  let rows = mat.length;
+  let cols = mat[0].length;
+  if (rows * cols !== r * c) return mat;
+  let newMat = Array(r)
+    .fill(0)
+    .map(() => Array(c).fill(0));
+  let matr = 0;
+  let matc = 0;
+  for (let i = 0; i < r; i++) {
+    for (let j = 0; j < c; j++) {
+      newMat[i][j] = mat[matr][matc++];
+      if (matc == cols) {
+        matc = 0;
+        matr++;
+      }
+    }
+  }
+  return newMat;
+};
+
 /* 572. Subtree of Another Tree
 
 Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values of subRoot and false otherwise.
