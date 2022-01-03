@@ -137,6 +137,31 @@ let findSecondMinimumValue = function (root) {
   return secondMin === Infinity ? -1 : secondMin;
 };
 
+/* 690. Employee Importance
+
+You have a data structure of employee information, including the employee's unique ID, importance value, and direct subordinates' IDs.
+Given an integer id that represents an employee's ID, return the total importance value of this employee and all their direct and indirect subordinates.
+ */
+
+var GetImportance = function (employees, id) {
+  let hash = {};
+  let queue;
+  let total = 0;
+  for (let i = 0; i < employees.length; i++) {
+    hash[employees[i].id] = i;
+    if (employees[i].id == id) queue = [id];
+  }
+
+  while (queue.length) {
+    temp = queue.shift();
+    index = hash[temp];
+    total += employees[index].importance;
+    if (employees[index].subordinates.length !== 0)
+      queue.push(...employees[index].subordinates);
+  }
+  return total;
+};
+
 /* 700. Search in a BST
 
 You are given the root of a binary search tree (BST) and an integer val.
