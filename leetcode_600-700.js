@@ -119,6 +119,22 @@ let findTarget = function (root, k) {
   return found;
 };
 
+/* 657. Robot Return to Origin
+
+There is a robot starting at the position (0, 0), the origin, on a 2D plane. Given a sequence of its moves, judge if this robot ends up at (0, 0) after it completes its moves.
+ */
+var judgeCircle = function (moves) {
+  let vertical = 0;
+  let horizontal = 0;
+  for (let i = 0; i < moves.length; i++) {
+    if (moves[i] == "U") vertical++;
+    else if (moves[i] == "D") vertical--;
+    else if (moves[i] == "L") horizontal++;
+    else horizontal--;
+  }
+  return vertical == 0 && horizontal == 0;
+};
+
 /* 671. Second Minimum Node in a Binary tree
 
 Given a non-empty special binary tree consisting of nodes with the non-negative value, where each node in this tree has exactly two or zero sub-node. If the node has two sub-nodes, then this node's value is the smaller value among its two sub-nodes. More formally, the property root.val = min(root.left.val, root.right.val) always holds.
