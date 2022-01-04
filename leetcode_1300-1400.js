@@ -14,3 +14,29 @@ var countNegatives = function (grid) {
   }
   return total;
 };
+
+/* 1338. Reduce Array Size to the Half
+
+You are given an integer array arr. You can choose a set of integers and remove all the occurrences of these integers in the array.
+Return the minimum size of the set so that at least half of the integers of the array are removed. */
+
+var minSetSize = function (arr) {
+  let hash = {};
+  let required = arr.length / 2;
+  for (let num of arr) {
+    if (!(num in hash)) hash[num] = 0;
+    hash[num]++;
+  }
+  let stack = [];
+  for (let key in hash) {
+    stack.push(hash[key]);
+  }
+  stack.sort((a, b) => b - a);
+  let count = 1;
+  let total = 0;
+  for (let i = 0; i < stack.length; i++) {
+    total += stack[i];
+    if (total >= required) return count;
+    count++;
+  }
+};
