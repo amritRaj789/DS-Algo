@@ -18,3 +18,26 @@ var maxCoins = function (piles) {
   }
   return max;
 };
+
+/* 1566. Detect Pattern of Length M Repeated K or More times
+
+Given an array of positive integers arr, find a pattern of length m that is repeated k or more times.
+A pattern is a subarray (consecutive sub-sequence) that consists of one or more values, repeated multiple times consecutively without overlapping. A pattern is defined by its length and the number of repetitions.
+Return true if there exists a pattern of length m that is repeated k or more times, otherwise return false. */
+
+var containsPattern = function (arr, m, k) {
+  if (arr.length < m * k) return false;
+  let str = arr.join("");
+  for (let i = 0; i <= str.length - m; i++) {
+    let pattern = str.slice(i, i + m);
+    let count = 1;
+    let j = i + m;
+    while (j < str.length && j + m <= str.length) {
+      if (str.slice(j, j + m) != pattern) break;
+      count++;
+      j += m;
+      if (count == k) return true;
+    }
+  }
+  return false;
+};
