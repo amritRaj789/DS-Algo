@@ -280,6 +280,38 @@ var arrangeCoins = function (n) {
   }
 };
 
+/* 454. 4Sum II
+
+Given four integer arrays nums1, nums2, nums3, and nums4 all of length n, return the number of tuples (i, j, k, l) such that:
+0 <= i, j, k, l < n
+nums1[i] + nums2[j] + nums3[k] + nums4[l] == 0
+ */
+
+let fourSumCount = function (nums1, nums2, nums3, nums4) {
+  let hash1 = {};
+  let hash2 = {};
+  let count = 0;
+  for (let num1 of nums1) {
+    for (let num2 of nums2) {
+      sum = num1 + num2;
+      if (!(sum in hash1)) hash1[sum] = 0;
+      hash1[sum]++;
+    }
+  }
+  for (let num3 of nums3) {
+    for (let num4 of nums4) {
+      sum = num3 + num4;
+      if (!(sum in hash2)) hash2[sum] = 0;
+      hash2[sum]++;
+    }
+  }
+  for (let key in hash1) {
+    num = -Number(key);
+    if (num in hash2) count += hash1[key] * hash2[num];
+  }
+  return count;
+};
+
 /* 455. Assign Cookies
 
 Assume you are an awesome parent and want to give your children some cookies. But, you should give each child at most one cookie.
