@@ -1,3 +1,43 @@
+/* 923. 3Sum with Multiplicity
+
+Given an integer array arr, and an integer target, return the number of tuples i, j, k such that i < j < k and arr[i] + arr[j] + arr[k] == target.
+As the answer can be very large, return it modulo 10^9 + 7.
+ */
+
+var threeSumMulti = function (arr, target) {
+  arr.sort((a, b) => a - b);
+  let total = 0;
+  let MOD = 1000000007;
+  for (let i = 0; i < arr.length - 2; i++) {
+    let left = i + 1;
+    let right = arr.length - 1;
+    while (left < right) {
+      sum = arr[left] + arr[right] + arr[i];
+      if (sum == target) {
+        if (arr[left] == arr[right]) {
+          total += ((right - left + 1) * (right - left)) / 2;
+          break;
+        }
+        left++;
+        let lc = 1;
+        let rc = 1;
+        while (arr[left] == arr[left - 1] && left < right) {
+          lc++;
+          left++;
+        }
+        right--;
+        while (arr[right] == arr[right + 1] && right >= left) {
+          rc++;
+          right--;
+        }
+        total += lc * rc;
+      } else if (sum < target) left++;
+      else right--;
+    }
+  }
+  return total % MOD;
+};
+
 /*967. Numbers with Same consecutive differences
 
 Return all non-negative integers of length n such that the absolute difference between every two consecutive digits is k.
@@ -30,35 +70,33 @@ An integer is powerful if it can be represented as xi + yj for some integers i >
 You may return the answer in any order. In your answer, each value should occur at most once.
 */
 
-let powerfulIntegers = function (x, y, bound){
-  let xMax = x == 1 ? 0 : Math.floor(Math.log(bound)/Math.log(x));
-  let yMax = y == 1 ? 0 : Math.floor(Math.log(bound)/Math.log(y));
+let powerfulIntegers = function (x, y, bound) {
+  let xMax = x == 1 ? 0 : Math.floor(Math.log(bound) / Math.log(x));
+  let yMax = y == 1 ? 0 : Math.floor(Math.log(bound) / Math.log(y));
   let result = new Set();
-  for(let i = 0 ; i <= xMax; i++){
-    for(let j = 0; j <= yMax; j++){
-      sum = x**i + y**j;
-      if(sum <= bound) result.add(sum);
+  for (let i = 0; i <= xMax; i++) {
+    for (let j = 0; j <= yMax; j++) {
+      sum = x ** i + y ** j;
+      if (sum <= bound) result.add(sum);
       else break;
     }
   }
   return Array.from(result);
-}
-
+};
 
 // Trick here would be to check 2^20 is just greater than 10^6.
 // So we can have the bounds of power of x and y as 20
-let powerfulIntegers = function (x, y, bound){
+let powerfulIntegers = function (x, y, bound) {
   let result = new Set();
-  for(let i = 0; i < 20; i++){
-    for(let j = 0; j < 20; j++){
-      let sum = x**i + y**j;
-      if(sum <= bound) result.add(sum);
+  for (let i = 0; i < 20; i++) {
+    for (let j = 0; j < 20; j++) {
+      let sum = x ** i + y ** j;
+      if (sum <= bound) result.add(sum);
       else break;
     }
   }
   return Array.from(result);
-}
-
+};
 
 /* 971. Flip Binary Tree to Match Preorder Traversal
 
@@ -89,21 +127,21 @@ The distance between two points on the X-Y plane is the Euclidean distance (i.e.
 You may return the answer in any order. The answer is guaranteed to be unique (except for the order that it is in).
 */
 
-var kClosest = function(points, k) {
-    let result = [];
-    for(let point of points){
-      let [x, y] = point;
-      let distance = x**2 + y**2;
-      result.push([distance, point]);
-    }
-    result.sort((a, b) => a[0] - b[0]);
-    let finalResult = [];
-    for(let i = 1; i <= k; i++){
-      finalResult.push(result[i-1][1]);
-    }
-    return finalResult;
+var kClosest = function (points, k) {
+  let result = [];
+  for (let point of points) {
+    let [x, y] = point;
+    let distance = x ** 2 + y ** 2;
+    result.push([distance, point]);
+  }
+  result.sort((a, b) => a[0] - b[0]);
+  let finalResult = [];
+  for (let i = 1; i <= k; i++) {
+    finalResult.push(result[i - 1][1]);
+  }
+  return finalResult;
 };
- 
+
 /*
 978. Longest Turbulent SubArray
 
