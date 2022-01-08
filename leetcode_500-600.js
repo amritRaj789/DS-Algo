@@ -255,6 +255,49 @@ var findMinDifference = function (timePoints) {
   return minDiff;
 };
 
+/* 541. Reverse String III
+
+Given a string s and an integer k, reverse the first k characters for every 2k characters counting from the start of the string.
+If there are fewer than k characters left, reverse all of them. If there are less than 2k but greater than or equal to k characters, then reverse the first k characters and left the other as original
+ */
+var reverseStr = function (s, k) {
+  if (k == 1) return s;
+  let result = "";
+  let i = 0;
+  let end = s.length;
+  while (i < end) {
+    if (end - i >= 2 * k) {
+      word = "";
+      for (let j = i; j < i + k; j++) {
+        word = s[j] + word;
+      }
+      for (let j = i + k; j < i + 2 * k; j++) {
+        word += s[j];
+      }
+      result += word;
+      i = i + 2 * k;
+    } else if (end - i < k) {
+      word = "";
+      for (let j = i; j < end; j++) {
+        word = s[j] + word;
+      }
+      result += word;
+      i = end;
+    } else {
+      word = "";
+      for (let j = i; j < i + k; j++) {
+        word = s[j] + word;
+      }
+      for (let j = i + k; j < end; j++) {
+        word += s[j];
+      }
+      result += word;
+      i = end;
+    }
+  }
+  return result;
+};
+
 /* 543. Diameter of a Binary Tree
 
 Given the root of a binary tree, return the length of the diameter of the tree.
