@@ -398,6 +398,31 @@ var transpose = function (matrix) {
   return newMatrix;
 };
 
+/* 868. Binary Gap
+
+Given a positive integer n, find and return the longest distance between any two adjacent 1's in the binary representation of n. If there are no two adjacent 1's, return 0.
+Two 1's are adjacent if there are only 0's separating them (possibly no 0's). The distance between two 1's is the absolute difference between their bit positions. For example, the two 1's in "1001" have a distance of 3.
+ */
+
+let binaryGap = function (n) {
+  let last = null;
+  let max = 0;
+  let i = 1;
+  while (n > 0) {
+    if (n & 1) {
+      if (last == null) {
+        last = i;
+      } else {
+        max = Math.max(max, i - last);
+        last = i;
+      }
+    }
+    n = n >> 1;
+    i++;
+  }
+  return max;
+};
+
 //872. Leaf-Similar Trees
 
 /* Consider all the leaves of a binary tree, from left to right order, the values of those leaves form a leaf value sequence.
