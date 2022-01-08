@@ -430,6 +430,34 @@ var hammingDistance = function (x, y) {
 // Not my solution, but very clever
 let hammingDistance = (x, y) => (x ^ y).toString(2).replace(/0/g, "").length;
 
+/* 463. Island Perimeter
+
+You are given row x col grid representing a map where grid[i][j] = 1 represents land and grid[i][j] = 0 represents water.
+Grid cells are connected horizontally/vertically (not diagonally). The grid is completely surrounded by water, and there is exactly one island (i.e., one or more connected land cells).
+The island doesn't have "lakes", meaning the water inside isn't connected to the water around the island. One cell is a square with side length 1. The grid is rectangular, width and height don't exceed 100. Determine the perimeter of the island.
+ */
+
+var islandPerimeter = function (grid) {
+  let perimeter = 0;
+  let rows = grid.length;
+  let cols = grid[0].length;
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      if (grid[i][j]) {
+        //top
+        if (i == 0 || grid[i - 1][j] == 0) perimeter++;
+        //bottom
+        if (i == rows - 1 || grid[i + 1][j] == 0) perimeter++;
+        // left
+        if (j == 0 || grid[i][j - 1] == 0) perimeter++;
+        //right
+        if (j == cols - 1 || grid[i][j + 1] == 0) perimeter++;
+      }
+    }
+  }
+  return perimeter;
+};
+
 /* 473. Matchsticks to Square
 
 You are given an integer array matchsticks where matchsticks[i] is the length of the ith matchstick. You want to use all the matchsticks to make one square. You should not break any stick, but you can link them up, and each matchstick must be used exactly one time.
