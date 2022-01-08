@@ -188,6 +188,17 @@ var detectCapitalUse = function (word) {
   return false;
 };
 
+/* 521. Longest Uncommon Subsequence I
+
+Given two strings a and b, return the length of the longest uncommon subsequence between a and b. If the longest uncommon subsequence does not exist, return -1.
+An uncommon subsequence between two strings is a string that is a subsequence of one but not the other.
+A subsequence of a string s is a string that can be obtained after deleting any number of characters from s
+ */
+var findLUSlength = function (a, b) {
+  if (a == b) return -1;
+  else return Math.max(a.length, b.length);
+};
+
 // 526. Beautiful Arrangement
 /*Suppose you have n integers labeled 1 through n. A permutation of those n integers perm (1-indexed) is considered a beautiful arrangement if for every i (1 <= i <= n), either of the following is true:
 perm[i] is divisible by i.
