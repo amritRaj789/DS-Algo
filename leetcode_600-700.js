@@ -153,6 +153,24 @@ let findSecondMinimumValue = function (root) {
   return secondMin === Infinity ? -1 : secondMin;
 };
 
+/* 682. Baseball Game
+
+You are keeping score for a baseball game with strange rules. The game consists of several rounds, where the scores of past rounds may affect future rounds' scores.
+ */
+var calPoints = function (ops) {
+  let stack = [];
+  for (let i = 0; i < ops.length; i++) {
+    if (ops[i] == "+") {
+      num1 = stack[stack.length - 1];
+      num2 = stack[stack.length - 2];
+      stack.push(num1 + num2);
+    } else if (ops[i] == "D") stack.push(2 * stack[stack.length - 1]);
+    else if (ops[i] == "C") stack.pop();
+    else stack.push(Number(ops[i]));
+  }
+  return stack.reduce((a, b) => a + b);
+};
+
 /* 690. Employee Importance
 
 You have a data structure of employee information, including the employee's unique ID, importance value, and direct subordinates' IDs.
