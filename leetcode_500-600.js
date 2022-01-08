@@ -274,6 +274,25 @@ var diameterOfBinaryTree = function (root) {
   return diameter - 1;
 };
 
+/* 557. Reverse Words in a String III
+
+Given a string s, reverse the order of characters in each word within a sentence while still preserving whitespace and initial word order.
+ */
+var reverseWords = function (s) {
+  let word = "";
+  let result = "";
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] !== " ") {
+      word = s[i] + word;
+    } else {
+      result += word + " ";
+      word = "";
+    }
+  }
+  if (word.length > 0) result += word;
+  return result;
+};
+
 /* 559. Maximum Depth of N-ary Tree
 
 The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
