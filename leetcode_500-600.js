@@ -173,6 +173,21 @@ var findBottomLeftValue = function (root) {
   return leftMost;
 };
 
+/* 520. Detect Capital
+
+We define the usage of capitals in a word to be right when one of the following cases holds:
+All letters in this word are capitals, like "USA".
+All letters in this word are not capitals, like "leetcode".
+Only the first letter in this word is capital, like "Google".
+Given a string word, return true if the usage of capitals in it is right.
+ */
+
+var detectCapitalUse = function (word) {
+  if (word.toUpperCase() == word) return true;
+  if (word.slice(1).toLowerCase() == word.slice(1)) return true;
+  return false;
+};
+
 // 526. Beautiful Arrangement
 /*Suppose you have n integers labeled 1 through n. A permutation of those n integers perm (1-indexed) is considered a beautiful arrangement if for every i (1 <= i <= n), either of the following is true:
 perm[i] is divisible by i.
