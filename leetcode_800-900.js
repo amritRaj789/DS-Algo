@@ -613,3 +613,22 @@ var surfaceArea = function (grid) {
   }
   return surfaceArea;
 };
+
+/* 897. Increasing Order Search Tree
+
+Given the root of a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the tree, and every node has no left child and only one right child.
+ */
+var increasingBST = function (root) {
+  let newRoot = new TreeNode(undefined);
+  let cur = newRoot;
+  function dfs(node) {
+    if (!node) return;
+    dfs(node.left);
+    node.left = null;
+    cur.right = node;
+    cur = node;
+    dfs(node.right);
+  }
+  dfs(root);
+  return newRoot.right;
+};
