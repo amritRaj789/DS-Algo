@@ -196,6 +196,22 @@ var GetImportance = function (employees, id) {
   return total;
 };
 
+/* 693. Binary Number with Alternating Bits
+
+Given a positive integer, check whether it has alternating bits: namely, if two adjacent bits will always have different values.
+ */
+
+var hasAlternatingBits = function (n) {
+  let prev = n & 1;
+  n = n >> 1;
+  while (n > 0) {
+    if ((n & 1) == prev) return false;
+    prev = n & 1;
+    n = n >> 1;
+  }
+  return true;
+};
+
 /* 700. Search in a BST
 
 You are given the root of a binary search tree (BST) and an integer val.
