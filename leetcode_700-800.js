@@ -62,6 +62,46 @@ let findLength = function (nums1, nums2) {
   return max;
 };
 
+/* 733. Flood Fill
+
+An image is represented by an m x n integer grid image where image[i][j] represents the pixel value of the image.
+You are also given three integers sr, sc, and newColor. You should perform a flood fill on the image starting from the pixel image[sr][sc].
+To perform a flood fill, consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of the same color as the starting pixel, plus any pixels connected 4-directionally to those pixels (also with the same color), and so on. Replace the color of all of the aforementioned pixels with newColor.
+Return the modified image after performing the flood fill.
+ */
+var floodFill = function (image, sr, sc, newColor) {
+  let m = image.length;
+  let n = image[0].length;
+  if (image[sr][sc] == newColor) return image;
+  let color = image[sr][sc];
+  let queue = [[sr, sc]];
+  image[sr][sc] = newColor;
+  while (queue.length) {
+    let [r, c] = queue.shift();
+    // top
+    if (r != 0 && image[r - 1][c] == color) {
+      image[r - 1][c] = newColor;
+      queue.push([r - 1, c]);
+    }
+    // bottom
+    if (r != m - 1 && image[r + 1][c] == color) {
+      image[r + 1][c] = newColor;
+      queue.push([r + 1, c]);
+    }
+    // left
+    if (c != 0 && image[r][c - 1] == color) {
+      image[r][c - 1] = newColor;
+      queue.push([r, c - 1]);
+    }
+    // right
+    if (c != n - 1 && image[r][c + 1] == color) {
+      image[r][c + 1] = newColor;
+      queue.push([r, c + 1]);
+    }
+  }
+  return image;
+};
+
 /* 739. Daily Temperatures
 Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.
 
