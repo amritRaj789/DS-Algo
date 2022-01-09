@@ -595,3 +595,23 @@ let findTargetSumWays = function (nums, target) {
   return 0;
 };
 // O(2^N) but still much more efficient because worst case arises very rarely; plus no recursive function calls
+
+/* 495. Teemo Attacking
+
+Our hero Teemo is attacking an enemy Ashe with poison attacks! When Teemo attacks Ashe, Ashe gets poisoned for a exactly duration seconds. More formally, an attack at second t will mean Ashe is poisoned during the inclusive time interval [t, t + duration - 1]. If Teemo attacks again before the poison effect ends, the timer for it is reset, and the poison effect will end duration seconds after the new attack.
+You are given a non-decreasing integer array timeSeries, where timeSeries[i] denotes that Teemo attacks Ashe at second timeSeries[i], and an integer duration.
+Return the total number of seconds that Ashe is poisoned. */
+
+var findPoisonedDuration = function (timeSeries, duration) {
+  let total = 0;
+  let left = timeSeries[0];
+  for (let i = 0; i < timeSeries.length - 1; i++) {
+    if (timeSeries[i] + duration >= timeSeries[i + 1]) continue;
+    else {
+      total += timeSeries[i] + duration - left;
+      left = timeSeries[i + 1];
+    }
+  }
+  total += timeSeries[timeSeries.length - 1] + duration - left;
+  return total;
+};
