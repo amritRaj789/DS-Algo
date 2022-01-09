@@ -497,3 +497,28 @@ var postorder = function (root) {
   dfs(root);
   return result;
 };
+
+/* 599. Minimum Index Sum of Two Lists
+
+Suppose Andy and Doris want to choose a restaurant for dinner, and they both have a list of favorite restaurants represented by strings.
+You need to help them find out their common interest with the least list index sum. If there is a choice tie between answers, output all of them with no order requirement. You could assume there always exists an answer. */
+
+var findRestaurant = function (list1, list2) {
+  let hash = {};
+  let leastSum = +Infinity;
+  let result = [];
+  for (let i = 0; i < list1.length; i++) {
+    hash[list1[i]] = i;
+  }
+  for (let i = 0; i < list2.length; i++) {
+    if (list2[i] in hash) {
+      if (i + hash[list2[i]] < leastSum) {
+        result = [list2[i]];
+        leastSum = i + hash[list2[i]];
+      } else if (i + hash[list2[i]] == leastSum) {
+        result.push(list2[i]);
+      }
+    }
+  }
+  return result;
+};
