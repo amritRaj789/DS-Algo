@@ -542,6 +542,15 @@ let findSubsequences = function (nums) {
   return result;
 };
 
+/* 492. Construct the Rectangle
+A web developer needs to know how to design a web page's size. So, given a specific rectangular web page’s area, your job by now is to design a rectangular web page, whose length L and width W satisfy the following requirements:
+ */
+
+var constructRectangle = function (area) {
+  for (let i = ~~Math.sqrt(area); i >= 1; i--) {
+    if (area % i == 0) return [area / i, i];
+  }
+};
 /* 494. Target Sum
 You are given an integer array nums and an integer target.
 You want to build an expression out of nums by adding one of the symbols '+' and '-' before each integer in nums and then concatenate all the integers.
