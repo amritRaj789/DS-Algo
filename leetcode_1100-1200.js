@@ -43,6 +43,32 @@ var maxLevelSum = function (root) {
   return result;
 };
 
+/* 1184. Distance Between Bus Stops
+
+A bus has n stops numbered from 0 to n - 1 that form a circle. We know the distance between all pairs of neighboring stops where distance[i] is the distance between the stops number i and (i + 1) % n.
+The bus goes along both directions i.e. clockwise and counterclockwise.
+Return the shortest distance between the given start and destination stops.
+ */
+var findRestaurant = function (list1, list2) {
+  let hash = {};
+  let leastSum = +Infinity;
+  let result = [];
+  for (let i = 0; i < list1.length; i++) {
+    hash[list1[i]] = i;
+  }
+  for (let i = 0; i < list2.length; i++) {
+    if (list2[i] in hash) {
+      if (i + hash[list2[i]] < leastSum) {
+        result = [list2[i]];
+        leastSum = i + hash[list2[i]];
+      } else if (i + hash[list2[i]] == leastSum) {
+        result.push(list2[i]);
+      }
+    }
+  }
+  return result;
+};
+
 /* 1189. Maximum Number of Balloons
 
 Given a string text, you want to use the characters of text to form as many instances of the word "balloon" as possible.
