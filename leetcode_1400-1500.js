@@ -33,6 +33,25 @@ let maxScore = function (cardPoints, k) {
 };
 //this is dynamic programming with O(2K) time
 
+/* 1408. String Matching in an Array
+
+Given an array of string words. Return all strings in words which is substring of another word in any order. 
+String words[i] is substring of words[j], if can be obtained removing some characters to left and/or right side of words[j].
+ */
+var stringMatching = function (words) {
+  let result = [];
+  words.sort((a, b) => a.length - b.length);
+  for (let i = 0; i < words.length - 1; i++) {
+    for (let j = i + 1; j < words.length; j++) {
+      if (words[j].includes(words[i])) {
+        result.push(words[i]);
+        break;
+      }
+    }
+  }
+  return result;
+};
+
 /* 1417. Reformat the String
 
 You are given an alphanumeric string s. (Alphanumeric string is a string consisting of lowercase English letters and digits).
