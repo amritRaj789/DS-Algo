@@ -23,3 +23,16 @@ let isSameAfterReversals = function (num) {
   if (num == 0) return true;
   return !(num % 10 == 0);
 };
+
+/* 2124. Check if all A's appears before all B's
+
+Given a string s consisting of only the characters 'a' and 'b', return true if every 'a' appears before every 'b' in the string. Otherwise, return false. */
+
+var checkString = function (s) {
+  let sAppeared = false;
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] == "b") sAppeared = true;
+    if (s[i] == "a" && sAppeared == true) return false;
+  }
+  return true;
+};
