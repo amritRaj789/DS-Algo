@@ -77,6 +77,33 @@ var minSetSize = function (arr) {
   }
 };
 
+/* 1373. Maximum Sum BST in Binary Tree
+Given a binary tree root, return the maximum sum of all keys of any sub-tree which is also a Binary Search Tree (BST).
+Assume a BST is defined as follows:
+The left subtree of a node contains only nodes with keys less than the node's key.
+The right subtree of a node contains only nodes with keys greater than the node's key.
+Both the left and right subtrees must also be binary search trees.
+ */
+var maxSumBST = function (root) {
+  let result = -Infinity;
+  function dfs(node) {
+    if (!node) return [+Infinity, -Infinity, 0, true];
+    let [leftMin, leftMax, leftSum, leftIsBST] = dfs(node.left);
+    let [rightMin, rightMax, rightSum, rightIsSBST] = dfs(node.right);
+    if (leftIsBST && rightIsSBST && leftMax < node.val && rightMin > node.val) {
+      result = Math.max(result, leftSum + rightSum + node.val);
+      return [
+        leftMin == +Infinity ? node.val : leftMin,
+        rightMax == -Infinity ? node.val : rightMax,
+        leftSum + node.val + rightSum,
+        true,
+      ];
+    } else return [leftMin, rightMax, leftSum + node.val + rightSum, false];
+  }
+  dfs(root);
+  return result <= 0 ? 0 : result;
+};
+
 /* 1382. Balance a Binary Search Tree
 
 Given the root of a binary search tree, return a balanced binary search tree with the same node values. If there is more than one answer, return any of them.
