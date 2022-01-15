@@ -1,3 +1,39 @@
+/* 1305. All Elements in Two Binary Search Trees
+
+Given two binary search trees root1 and root2, return a list containing all the integers from both trees sorted in ascending order.
+ */
+var getAllElements = function (root1, root2) {
+  let arr1 = [];
+  let arr2 = [];
+  function inOrder(node) {
+    if (node.left) inOrder(node.left);
+    arr1.push(node.val);
+    if (node.right) inOrder(node.right);
+  }
+  if (root1) inOrder(root1);
+  function inOrder2(node) {
+    if (node.left) inOrder2(node.left);
+    arr2.push(node.val);
+    if (node.right) inOrder2(node.right);
+  }
+  if (root2) inOrder2(root2);
+  let result = [];
+  let i = 0;
+  let j = 0;
+  while (i < arr1.length && j < arr2.length) {
+    if (arr1[i] <= arr2[j]) {
+      result.push(arr1[i]);
+      i++;
+    } else {
+      result.push(arr2[j]);
+      j++;
+    }
+  }
+  while (i < arr1.length) result.push(arr1[i++]);
+  while (j < arr2.length) result.push(arr2[j++]);
+  return result;
+};
+
 /* 1351. Count Negative Numbers in a Sorted Matrix
 
 Given a m x n matrix grid which is sorted in non-increasing order both row-wise and column-wise, return the number of negative numbers in grid. */
