@@ -1,3 +1,27 @@
+/* 701. Insert into a Binary Search Tree
+
+You are given the root node of a binary search tree (BST) and a value to insert into the tree. Return the root node of the BST after the insertion. It is guaranteed that the new value does not exist in the original BST.
+Notice that there may exist multiple valid ways for the insertion, as long as the tree remains a BST after insertion. You can return any of them.
+ */
+
+var insertIntoBST = function (root, val) {
+  if (!root) return new TreeNode(val);
+  let curr = root;
+  let parent = null;
+  while (curr) {
+    if (val > curr.val) {
+      parent = curr;
+      curr = curr.right;
+    } else {
+      parent = curr;
+      curr = curr.left;
+    }
+  }
+  if (val < parent.val) parent.left = new TreeNode(val);
+  else parent.right = new TreeNode(val);
+  return root;
+};
+
 /* 713. Subarray product less than K
 
 Given an array of integers nums and an integer k, return the number of contiguous subarrays where the product of all the elements in the subarray is strictly less than k. */
