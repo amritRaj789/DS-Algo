@@ -191,6 +191,45 @@ var orderOfLargestPlusSign = function (n, mines) {
   return max;
 };
 
+/* 783. Minimum Distance between BST Nodes
+
+Given the root of a Binary Search Tree (BST), return the minimum difference between the values of any two different nodes in the tree.
+ */
+
+// Pure recursive
+var minDiffInBST = function (root) {
+  let result = +Infinity;
+  function dfs(node) {
+    if (!node) return [+Infinity, -Infinity];
+    let [leftMin, leftMax] = dfs(node.left);
+    let [rightMin, rightMax] = dfs(node.right);
+    result = Math.min(result, node.val - leftMax);
+    result = Math.min(result, rightMin - node.val);
+    return [
+      leftMin == +Infinity ? node.val : leftMin,
+      rightMax == -Infinity ? node.val : rightMax,
+    ];
+  }
+  dfs(root);
+  return result;
+};
+
+// Recursive + linear
+var minDiffInBST = function (root) {
+  let list = [];
+  let result = +Infinity;
+  function inOrder(node) {
+    if (node.left) inOrder(node.left);
+    list.push(node.val);
+    if (node.right) inOrder(node.right);
+  }
+  inOrder(root);
+  for (let i = 0; i < list.length - 1; i++) {
+    result = Math.min(result, list[i + 1] - list[i]);
+  }
+  return result;
+};
+
 /*784. Letter Case Permutation
 Given a string S, we can transform every letter individually to be lowercase or uppercase to create another string.
 Return a list of all possible strings we could create. You can return the output in any order.
