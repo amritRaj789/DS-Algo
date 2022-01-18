@@ -606,6 +606,51 @@ var maxPathSum = function (root) {
   return max;
 };
 
+/* 128. Longest Consecutive Sequence
+
+Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+You must write an algorithm that runs in O(n) time.
+ */
+
+// O(NLogN)
+var longestConsecutive = function (nums) {
+  if (nums.length == 0) return 0;
+  nums.sort((a, b) => a - b);
+  let max = 0;
+  let curr = 1;
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] == nums[i - 1]) continue;
+    if (nums[i] == 1 + nums[i - 1]) curr++;
+    else {
+      max = Math.max(max, curr);
+      curr = 1;
+    }
+  }
+  max = Math.max(max, curr);
+  return max;
+};
+
+// O(N)
+let longestConsecutive = function (nums) {
+  let max = 0;
+  let hash = {};
+  for (let num of nums) {
+    hash[num] = 1;
+  }
+  for (let i = 0; i < nums.length; i++) {
+    if (!(nums[i] - 1 in hash)) {
+      let curr = nums[i];
+      let streak = 1;
+      while (curr + 1 in hash) {
+        curr++;
+        streak++;
+      }
+      max = Math.max(max, streak);
+    }
+  }
+  return max;
+};
+
 /* 129. Sum Root to Leaf Numbers
 
 You are given the root of a binary tree containing digits from 0 to 9 only. Each root-to-leaf path in the tree represents a number.
