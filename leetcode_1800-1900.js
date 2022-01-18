@@ -129,3 +129,30 @@ var rotateTheBox = function (box) {
   return rotatedBox;
 };
 // I think it can still be made more efficient
+
+/* 1881. Maximum Value after Insertion
+
+You are given a very large integer n, represented as a string,​​​​​​ and an integer digit x. The digits in n and the digit x are in the inclusive range [1, 9], and n may represent a negative number.
+You want to maximize n's numerical value by inserting x anywhere in the decimal representation of n​​​​​​. You cannot insert x to the left of the negative sign.
+ */
+
+var maxValue = function (n, x) {
+  let result = "";
+  if (n[0] == "-") {
+    result += "-";
+    let i = 1;
+    while (i < n.length) {
+      if (Number(n[i]) > x) break;
+      i++;
+    }
+    result += n.slice(1, i) + String(x) + n.slice(i);
+  } else {
+    let i = 0;
+    while (i < n.length) {
+      if (Number(n[i]) < x) break;
+      i++;
+    }
+    result += n.slice(0, i) + String(x) + n.slice(i);
+  }
+  return result;
+};
