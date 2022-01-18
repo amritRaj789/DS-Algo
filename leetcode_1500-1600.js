@@ -1,3 +1,40 @@
+/* 1545. Find Kth Bit in Nth Binary String
+
+Given two positive integers n and k, the binary string Sn is formed as follows:
+S1 = "0"
+Si = Si - 1 + "1" + reverse(invert(Si - 1)) for i > 1
+Where + denotes the concatenation operation, reverse(x) returns the reversed string x, and invert(x) inverts all the bits in x (0 changes to 1 and 1 changes to 0).
+For example, the first four strings in the above sequence are:
+S1 = "0"
+S2 = "011"
+S3 = "0111001"
+S4 = "011100110110001"
+Return the kth bit in Sn. It is guaranteed that k is valid for the given n.
+ */
+
+var findKthBit = function (n, k) {
+  function reverse(s) {
+    let result = "";
+    for (let char of s) {
+      result = char + result;
+    }
+    return result;
+  }
+  function invert(s) {
+    let result = "";
+    for (let char of s) {
+      if (char == "0") result += "1";
+      else result += "0";
+    }
+    return result;
+  }
+  let string = "0";
+  for (let i = 2; i <= n; i++) {
+    string = string.slice(0) + "1" + reverse(invert(string.slice(0)));
+  }
+  return string[k - 1];
+};
+
 /* 1561. Maximum Number of Coins you Can get
 
 There are 3n piles of coins of varying size, you and your friends will take piles of coins as follows:
