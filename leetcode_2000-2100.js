@@ -21,3 +21,23 @@ var countVowels = function (word) {
   }
   return total;
 };
+
+/* 2095. Delete the Middle Node of a Linked List
+
+You are given the head of a linked list. Delete the middle node, and return the head of the modified linked list.
+The middle node of a linked list of size n is the ⌊n / 2⌋th node from the start using 0-based indexing, where ⌊x⌋ denotes the largest integer less than or equal to x.
+ */
+
+var deleteMiddle = function (head) {
+  if (head.next == null) return head.next;
+  let parent = null;
+  let slow = head;
+  let fast = head;
+  while (fast && fast.next) {
+    parent = slow;
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+  parent.next = slow.next;
+  return head;
+};
