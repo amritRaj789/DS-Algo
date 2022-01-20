@@ -298,6 +298,43 @@ let letterCasePermutation = function (S) {
   return result;
 };
 
+/* 788. Rotated Digits
+
+An integer x is a good if after rotating each digit individually by 180 degrees, we get a valid number that is different from x. Each digit must be rotated - we cannot choose to leave it alone.
+A number is valid if each digit remains a digit after rotation. For example:
+0, 1, and 8 rotate to themselves,
+2 and 5 rotate to each other (in this case they are rotated in a different direction, in other words, 2 or 5 gets mirrored),
+6 and 9 rotate to each other, and
+the rest of the numbers do not rotate to any other number and become invalid.
+Given an integer n, return the number of good integers in the range [1, n].
+ */
+
+var rotatedDigits = function (n) {
+  let hash = {};
+  hash[0] = "A";
+  hash[1] = "A";
+  hash[8] = "A";
+  hash[2] = "B";
+  hash[5] = "B";
+  hash[6] = "B";
+  hash[9] = "B";
+  function check(num) {
+    let hasBType = false;
+    while (num) {
+      digit = num % 10;
+      if (!(digit in hash)) return false;
+      if (hash[digit] == "B") hasBType = true;
+      num = ~~(num / 10);
+    }
+    return hasBType > 0 ? true : false;
+  }
+  let result = 0;
+  for (let i = 1; i <= n; i++) {
+    if (check(i)) result++;
+  }
+  return result;
+};
+
 /*797. All Paths From Source to Target
 
 Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1, find all possible paths 
