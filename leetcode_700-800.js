@@ -335,6 +335,40 @@ var rotatedDigits = function (n) {
   return result;
 };
 
+/* 792. Number of Matching Subsequences
+
+Given a string s and an array of strings words, return the number of words[i] that is a subsequence of s.
+A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
+ */
+
+var numMatchingSubseq = function (s, words) {
+  function check(wrd1, wrd2) {
+    if (wrd2.length < wrd1.length) return false;
+    let j = 0;
+    for (let i = 0; i < wrd2.length; i++) {
+      if (wrd2[i] == wrd1[j]) j++;
+      if (j == wrd1.length) return true;
+    }
+    return false;
+  }
+  let result = 0;
+  let present = {};
+  let absent = {};
+
+  for (let word of words) {
+    if (word in present) {
+      result++;
+      continue;
+    }
+    if (word in absent) continue;
+    if (check(word, s)) {
+      result++;
+      present[word] = true;
+    } else absent[word] = true;
+  }
+  return result;
+};
+
 /*797. All Paths From Source to Target
 
 Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1, find all possible paths 
