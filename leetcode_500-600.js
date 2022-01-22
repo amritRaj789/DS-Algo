@@ -463,6 +463,38 @@ let isSubtree = function (root, subRoot) {
   return dfs(root);
 };
 
+/* 575. Distribute Candies
+
+Alice has n candies, where the ith candy is of type candyType[i]. Alice noticed that she started to gain weight, so she visited a doctor.
+The doctor advised Alice to only eat n / 2 of the candies she has (n is always even). Alice likes her candies very much, and she wants to eat the maximum number of different types of candies while still following the doctor's advice.
+Given the integer array candyType of length n, return the maximum number of different types of candies she can eat if she only eats n / 2 of them.
+ */
+
+var distributeCandies = function (candyType) {
+  let max = candyType.length / 2;
+  let count = 1;
+  candyType.sort((a, b) => a - b);
+  for (let i = 1; i < candyType.length; i++) {
+    if (candyType[i] !== candyType[i - 1]) count++;
+    if (count > max) return max;
+  }
+  return count;
+};
+
+var distributeCandies = function (candyType) {
+  let max = candyType.length / 2;
+  let count = 0;
+  let visited = {};
+  for (let i = 0; i < candyType.length; i++) {
+    if (!(candyType[i] in visited)) {
+      visited[candyType[i]] = true;
+      count++;
+      if (count == max) return max;
+    }
+  }
+  return count;
+};
+
 /* 589. N-ary Tree Preorder traversal
 
 Given the root of an n-ary tree, return the preorder traversal of its nodes' values.
