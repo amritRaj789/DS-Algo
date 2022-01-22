@@ -154,6 +154,69 @@ var judgeCircle = function (moves) {
   return vertical == 0 && horizontal == 0;
 };
 
+/* 661. Image Smoother
+
+An image smoother is a filter of the size 3 x 3 that can be applied to each cell of an image by rounding down the average of the cell and the eight surrounding cells (i.e., the average of the nine cells in the blue smoother). If one or more of the surrounding cells of a cell is not present, we do not consider it in the average (i.e., the average of the four cells in the red smoother). */
+
+var imageSmoother = function (img) {
+  let m = img.length;
+  let n = img[0].length;
+  function findAvg(r, c) {
+    let sum = img[r][c];
+    let count = 1;
+    // up
+    if (r > 0) {
+      sum += img[r - 1][c];
+      count++;
+    }
+    // left
+    if (c > 0) {
+      sum += img[r][c - 1];
+      count++;
+    }
+    // right
+    if (c < n - 1) {
+      sum += img[r][c + 1];
+      count++;
+    }
+    // bottom
+    if (r < m - 1) {
+      sum += img[r + 1][c];
+      count++;
+    }
+    // up-left
+    if (r > 0 && c > 0) {
+      sum += img[r - 1][c - 1];
+      count++;
+    }
+    // up-right
+    if (r > 0 && c < n - 1) {
+      sum += img[r - 1][c + 1];
+      count++;
+    }
+    // bottom-left
+    if (r < m - 1 && c > 0) {
+      sum += img[r + 1][c - 1];
+      count++;
+    }
+    // bottom-right
+    if (r < m - 1 && c < n - 1) {
+      sum += img[r + 1][c + 1];
+      count++;
+    }
+    return Math.floor(sum / count);
+  }
+  let result = Array(m)
+    .fill(0)
+    .map(() => Array(n).fill(0));
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      result[i][j] = findAvg(i, j);
+    }
+  }
+  return result;
+};
+
 /* 671. Second Minimum Node in a Binary tree
 
 Given a non-empty special binary tree consisting of nodes with the non-negative value, where each node in this tree has exactly two or zero sub-node. If the node has two sub-nodes, then this node's value is the smaller value among its two sub-nodes. More formally, the property root.val = min(root.left.val, root.right.val) always holds.
