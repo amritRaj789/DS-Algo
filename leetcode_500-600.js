@@ -551,6 +551,24 @@ let findLHS = function (nums) {
   }
   return max;
 };
+
+/* 598. Range Addition II
+
+You are given an m x n matrix M initialized with all 0's and an array of operations ops, where ops[i] = [ai, bi] means M[x][y] should be incremented by one for all 0 <= x < ai and 0 <= y < bi.
+Count and return the number of maximum integers in the matrix after performing all the operations.
+ */
+
+var maxCount = function (m, n, ops) {
+  if (ops.length == 0) return m * n;
+  let minRow = ops[0][0];
+  let minCol = ops[0][1];
+  for (let i = 1; i < ops.length; i++) {
+    minRow = Math.min(minRow, ops[i][0]);
+    minCol = Math.min(minCol, ops[i][1]);
+  }
+  return minRow * minCol;
+};
+
 /* 599. Minimum Index Sum of Two Lists
 
 Suppose Andy and Doris want to choose a restaurant for dinner, and they both have a list of favorite restaurants represented by strings.
