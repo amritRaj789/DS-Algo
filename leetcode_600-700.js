@@ -346,6 +346,39 @@ var maxAreaOfIsland = function (grid) {
   return max;
 };
 
+/* 697. Degree of an Array
+
+Given a non-empty array of non-negative integers nums, the degree of this array is defined as the maximum frequency of any one of its elements.
+Your task is to find the smallest possible length of a (contiguous) subarray of nums, that has the same degree as nums.
+ */
+
+var findShortestSubArray = function (nums) {
+  let freq = {};
+
+  for (let i = 0; i < nums.length; i++) {
+    if (!(nums[i] in freq)) freq[nums[i]] = [0, i, i];
+    freq[nums[i]][0]++;
+    freq[nums[i]][2] = i;
+  }
+
+  let maxFreq = 0;
+  let candidates = [];
+  for (let key in freq) {
+    if (freq[key][0] > maxFreq) {
+      candidates = [Number(key)];
+      maxFreq = freq[key][0];
+    } else if (freq[key][0] == maxFreq) {
+      candidates.push(Number(key));
+    }
+  }
+  if (maxFreq == 1) return 1;
+  let shortest = +Infinity;
+  for (let candidate of candidates) {
+    shortest = Math.min(shortest, freq[candidate][2] - freq[candidate][1] + 1);
+  }
+  return shortest;
+};
+
 /* 700. Search in a BST
 
 You are given the root of a binary search tree (BST) and an integer val.
