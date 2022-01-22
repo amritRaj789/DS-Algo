@@ -530,6 +530,27 @@ var postorder = function (root) {
   return result;
 };
 
+/* 594. Longest Harmonius Subsequence
+
+We define a harmonious array as an array where the difference between its maximum value and its minimum value is exactly 1.
+Given an integer array nums, return the length of its longest harmonious subsequence among all its possible subsequences.
+ */
+
+let findLHS = function (nums) {
+  let hash = {};
+  for (let num of nums) {
+    if (!(num in hash)) hash[num] = 0;
+    hash[num]++;
+  }
+  let max = 0;
+  for (let key in hash) {
+    let next = Number(key) + 1;
+    if (next in hash) {
+      max = Math.max(max, hash[key] + hash[next]);
+    }
+  }
+  return max;
+};
 /* 599. Minimum Index Sum of Two Lists
 
 Suppose Andy and Doris want to choose a restaurant for dinner, and they both have a list of favorite restaurants represented by strings.
