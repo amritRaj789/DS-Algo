@@ -22,6 +22,20 @@ var insertIntoBST = function (root, val) {
   return root;
 };
 
+//704. Binary Search
+
+var search = function (nums, target) {
+  let left = 0;
+  let right = nums.length - 1;
+  while (left <= right) {
+    let mid = ~~((left + right) / 2);
+    if (nums[mid] == target) return mid;
+    if (nums[mid] < target) left = mid + 1;
+    else right = mid - 1;
+  }
+  return -1;
+};
+
 /* 713. Subarray product less than K
 
 Given an array of integers nums and an integer k, return the number of contiguous subarrays where the product of all the elements in the subarray is strictly less than k. */
