@@ -229,6 +229,23 @@ var orderOfLargestPlusSign = function (n, mines) {
   return max;
 };
 
+/* 771. Jewels and Stones
+
+You're given strings jewels representing the types of stones that are jewels, and stones representing the stones you have. Each character in stones is a type of stone you have. You want to know how many of the stones you have are also jewels.
+Letters are case sensitive, so "a" is considered a different type of stone from "A".
+ */
+var numJewelsInStones = function (jewels, stones) {
+  let hash = {};
+  for (let char of jewels) {
+    hash[char] = true;
+  }
+  let count = 0;
+  for (let i = 0; i < stones.length; i++) {
+    if (stones[i] in hash) count++;
+  }
+  return count;
+};
+
 /* 783. Minimum Distance between BST Nodes
 
 Given the root of a Binary Search Tree (BST), return the minimum difference between the values of any two different nodes in the tree.
