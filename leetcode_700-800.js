@@ -400,6 +400,21 @@ var numMatchingSubseq = function (s, words) {
   return result;
 };
 
+/* 796. Rotate String
+
+Given two strings s and goal, return true if and only if s can become goal after some number of shifts on s.
+A shift on s consists of moving the leftmost character of s to the rightmost position.
+ */
+
+var rotateString = function (s, goal) {
+  if (s.length !== goal.length) return false;
+  if (s == goal) return true;
+  for (let i = 1; i < s.length; i++) {
+    if (s.slice(i) + s.slice(0, i) == goal) return true;
+  }
+  return false;
+};
+
 /*797. All Paths From Source to Target
 
 Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1, find all possible paths 
