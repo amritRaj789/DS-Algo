@@ -107,3 +107,34 @@ var sequentialDigits = function (low, high) {
   }
   return result;
 };
+
+/* 1297. Maximum Number of Occurences of a Substring
+
+Given a string s, return the maximum number of ocurrences of any substring under the following rules:
+The number of unique characters in the substring must be less than or equal to maxLetters.
+The substring size must be between minSize and maxSize inclusive.
+ */
+
+// I just made a beautiful observation. We only need to check for substrings with min size
+let maxFreq = function (s, maxLetters, minSize, maxSize) {
+  let hash = {};
+  let result = {};
+  let max = 0;
+  let left = 0;
+  for (let i = 0; i < s.length; i++) {
+    if (!(s[i] in hash)) hash[s[i]] = 0;
+    hash[s[i]]++;
+    if (i >= minSize - 1) {
+      let substr = s.slice(i - minSize + 1, i + 1);
+      if (Object.keys(hash).length <= maxLetters) {
+        if (!(substr in result)) result[substr] = 0;
+        result[substr]++;
+        max = Math.max(max, result[substr]);
+      }
+      hash[s[left]]--;
+      if (hash[s[left]] == 0) delete hash[s[left]];
+      left++;
+    }
+  }
+  return max;
+};
