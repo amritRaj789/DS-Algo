@@ -59,6 +59,32 @@ function findAnagrams(s, p) {
   return result;
 }
 
+/* 500. Keyboard Row
+
+Given an array of strings words, return the words that can be typed using letters of the alphabet on only one row of American keyboard like the image below.
+ */
+
+var findWords = function (words) {
+  let hash = {};
+  let row1 = "qwertyuiop";
+  for (let char of row1) hash[char] = 1;
+  let row2 = "asdfghjkl";
+  for (let char of row2) hash[char] = 2;
+  let row3 = "zxcvbnm";
+  for (let char of row3) hash[char] = 3;
+  let result = [];
+  for (let i = 0; i < words.length; i++) {
+    let temp = words[i].toLowerCase();
+    let belongs = hash[temp[0]];
+    let j;
+    for (j = 1; j < words[i].length; j++) {
+      if (hash[temp[j]] !== belongs) break;
+    }
+    if (j == words[i].length) result.push(words[i]);
+  }
+  return result;
+};
+
 /* 501. Find Mode in a Binary Search Tree
 
 Given the root of a binary search tree (BST) with duplicates, return all the mode(s) (i.e., the most frequently occurred element) in it.
