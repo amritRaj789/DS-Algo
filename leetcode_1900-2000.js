@@ -62,6 +62,25 @@ var rotateGrid = function (grid, k) {
   return grid;
 };
 
+/* 1968. Array with Elements Not Equal to Average of Neighbors
+
+You are given a 0-indexed array nums of distinct integers. You want to rearrange the elements in the array such that every element in the rearranged array is not equal to the average of its neighbors.
+More formally, the rearranged array should have the property such that for every i in the range 1 <= i < nums.length - 1, (nums[i-1] + nums[i+1]) / 2 is not equal to nums[i].
+Return any rearrangement of nums that meets the requirements.
+ */
+
+let rearrangeArray = function (nums) {
+  nums.sort((a, b) => a - b);
+  let left = 0;
+  let right = nums.length - 1;
+  while (left < right) {
+    result.push(nums[left++]);
+    result.push(nums[right--]);
+  }
+  if (left == right) result.push(nums[left]);
+  return result;
+};
+
 /* 1991. Find the Middle Index in Array
 
 Given a 0-indexed integer array nums, find the leftmost middleIndex (i.e., the smallest amongst all the possible ones).
