@@ -87,6 +87,25 @@ var minDeletionSize = function (strs) {
   return result;
 };
 
+/* 953. Verifying an Alien Dictionary
+
+In an alien language, surprisingly, they also use English lowercase letters, but possibly in a different order. The order of the alphabet is some permutation of lowercase letters.
+Given a sequence of words written in the alien language, and the order of the alphabet, return true if and only if the given words are sorted lexicographically in this alien language.
+ */
+var isAlienSorted = function (words, order) {
+  for (let i = 1; i < words.length; i++) {
+    let p1 = 0;
+    let p2 = 0;
+    while (p1 < words[i - 1].length && p2 < words[i].length) {
+      if (order.indexOf(words[i - 1][p1]) < order.indexOf(words[i][p2])) break;
+      if (order.indexOf(words[i - 1][p1++]) > order.indexOf(words[i][p2++]))
+        return false;
+    }
+    if (p2 == words[i].length && p1 < words[i - 1].length) return false;
+  }
+  return true;
+};
+
 /*967. Numbers with Same consecutive differences
 
 Return all non-negative integers of length n such that the absolute difference between every two consecutive digits is k.
