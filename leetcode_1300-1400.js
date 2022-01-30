@@ -154,3 +154,33 @@ var balanceBST = function (root) {
   }
   return recursive(array);
 };
+
+/* 1387. Sort Integers by The Power Value
+
+The power of an integer x is defined as the number of steps needed to transform x into 1 using the following steps:
+if x is even then x = x / 2
+if x is odd then x = 3 * x + 1
+For example, the power of x = 3 is 7 because 3 needs 7 steps to become 1 (3 --> 10 --> 5 --> 16 --> 8 --> 4 --> 2 --> 1).
+Given three integers lo, hi and k. The task is to sort all integers in the interval [lo, hi] by the power value in ascending order, if two or more integers have the same power value sort them by ascending order.
+Return the kth integer in the range [lo, hi] sorted by the power value.
+ */
+
+var getKth = function (lo, hi, k) {
+  let powerArr = [];
+  for (let i = lo; i <= hi; i++) {
+    let num = i;
+    let count = 0;
+    while (num != 1) {
+      if (num % 2 == 0) num = num / 2;
+      else num = 3 * num + 1;
+      count++;
+    }
+    powerArr.push([i, count]);
+  }
+  powerArr.sort((a, b) => {
+    if (a[1] > b[1]) return 1;
+    else if (a[1] < b[1]) return -1;
+    else return a[0] - b[0];
+  });
+  return powerArr[k - 1][0];
+};
