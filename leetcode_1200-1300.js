@@ -69,6 +69,38 @@ var removeSubfolders = function (folder) {
   return result;
 };
 
+/* 1275. Find Winner of a Tic Tac Toe Game
+
+Tic-tac-toe is played by two players A and B on a 3 x 3 grid. The rules of Tic-Tac-Toe are:
+Find the winner
+ */
+var tictactoe = function (moves) {
+  if (moves.length <= 4) return "Pending";
+  let grid = Array(3)
+    .fill(0)
+    .map(() => Array(3).fill(false));
+  for (let i = moves.length - 1; i >= 0; i -= 2) {
+    let [row, col] = moves[i];
+    grid[row][col] = true;
+  }
+  function check(r, c) {
+    // check row
+    if (grid[r][0] && grid[r][1] && grid[r][2]) return true;
+    // check column
+    if (grid[0][c] && grid[1][c] && grid[2][c]) return true;
+    // check diagonal
+    if (grid[0][0] && grid[1][1] && grid[2][2]) return true;
+    if (grid[0][2] && grid[1][1] && grid[2][0]) return true;
+    return false;
+  }
+  let [row, col] = moves[moves.length - 1];
+  if (!check(row, col)) {
+    if (moves.length == 9) return "Draw";
+    return "Pending";
+  }
+  return moves.length % 2 ? "A" : "B";
+};
+
 /*1288 Remove Covered Intervals
 
 Given a list of intervals, remove all intervals that are covered by another interval in the list.
