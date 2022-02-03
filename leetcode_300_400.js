@@ -156,6 +156,37 @@ var reverseVowels = function (s) {
   for (let i = 0; i < s.length; i++) result += i in hash2 ? hash2[i] : s[i];
   return result;
 };
+
+/* 347. Top K Frequent Elements
+
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+ */
+
+var topKFrequent = function (nums, k) {
+  let hash = {};
+  let result = [];
+  for (let num of nums) {
+    if (!(num in hash)) hash[num] = 0;
+    hash[num]++;
+  }
+  let newArray = [];
+  for (let key in hash) {
+    let freq = hash[key];
+    let n = Number(key);
+    if (newArray[freq] == undefined) newArray[freq] = [];
+    newArray[freq].push(n);
+  }
+  for (let i = newArray.length - 1; i >= 0; i--) {
+    if (newArray[i] !== undefined) {
+      for (let n of newArray[i]) {
+        result.push(n);
+        k--;
+        if (k == 0) return result;
+      }
+    }
+  }
+};
+
 /* 349. Intersection of 2 arrays
 Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique and you may return the result in any order. */
 
