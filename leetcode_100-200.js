@@ -1149,6 +1149,23 @@ function getIntersectionNode(headA, headB) {
 }
 // Wow I am so amazed, the above code does exactly the same thing as the one above it. But this is so so so much shorter
 
+/* 162. Find Peak Element
+
+A peak element is an element that is strictly greater than its neighbors.
+Given an integer array nums, find a peak element, and return its index. If the array contains multiple peaks, return the index to any of the peaks.
+You may imagine that nums[-1] = nums[n] = -∞.
+You must write an algorithm that runs in O(log n) time.
+ */
+
+var findPeakElement = function (nums) {
+  if (nums.length == 1) return 0;
+  if (nums[0] > nums[1]) return 0;
+  if (nums[nums.length - 1] > nums[nums.length - 2]) return nums.length - 1;
+  for (let i = 1; i < nums.length - 1; i++) {
+    if (nums[i] > nums[i - 1] && nums[i] > nums[i + 1]) return i;
+  }
+};
+
 /* 168. Excel Sheet Column Title
 
 Given an integer columnNumber, return its corresponding column title as it appears in an Excel sheet.
