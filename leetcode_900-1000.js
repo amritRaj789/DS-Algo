@@ -106,6 +106,23 @@ var isAlienSorted = function (words, order) {
   return true;
 };
 
+/* 961. N-Repeated Element in Size 2N Array
+
+You are given an integer array nums with the following properties:
+nums.length == 2 * n.
+nums contains n + 1 unique elements.
+Exactly one element of nums is repeated n times.
+Return the element that is repeated n times.
+ */
+
+var repeatedNTimes = function (nums) {
+  let hash = {};
+  for (let num of nums) {
+    if (num in hash) return num;
+    hash[num] = 1;
+  }
+};
+
 /*967. Numbers with Same consecutive differences
 
 Return all non-negative integers of length n such that the absolute difference between every two consecutive digits is k.
