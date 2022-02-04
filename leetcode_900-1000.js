@@ -62,6 +62,26 @@ var threeSumMulti = function (arr, target) {
   return total % MOD;
 };
 
+/* 942. DI String Match
+
+A permutation perm of n + 1 integers of all the integers in the range [0, n] can be represented as a string s of length n where:
+s[i] == 'I' if perm[i] < perm[i + 1], and
+s[i] == 'D' if perm[i] > perm[i + 1].
+Given a string s, reconstruct the permutation perm and return it. If there are multiple valid permutations perm, return any of them.
+ */
+var diStringMatch = function (s) {
+  let right = s.length;
+  let left = 0;
+  let result = [];
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] == "I") {
+      result.push(left++);
+    } else result.push(right--);
+  }
+  result.push(left);
+  return result;
+};
+
 /* 944. Delete Columns to Make Sorted
 
 You are given an array of n strings strs, all of the same length.
