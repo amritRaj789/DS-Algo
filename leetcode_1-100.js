@@ -1063,6 +1063,33 @@ var merge = function (intervals) {
   return merged;
 };
 
+/* 54. Spiral Matrix
+
+Given an m x n matrix, return all elements of the matrix in spiral order.
+ */
+var spiralOrder = function (matrix) {
+  let result = [];
+  let level = 0;
+  let m = matrix.length;
+  let n = matrix[0].length;
+  while (result.length < m * n) {
+    for (let i = level; i < n - level; i++) {
+      result.push(matrix[level][i]);
+    }
+    for (let i = 1 + level; i < m - level; i++) {
+      result.push(matrix[i][n - 1 - level]);
+    }
+    for (let i = n - 2 - level; i >= level; i--) {
+      result.push(matrix[m - 1 - level][i]);
+    }
+    for (let i = m - 2 - level; i >= 1 + level; i--) {
+      result.push(matrix[i][level]);
+    }
+    level++;
+  }
+  return result.slice(0, m * n);
+};
+
 /*57. Insert Intervals
 Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if necessary).
 You may assume that the intervals were initially sorted according to their start times
