@@ -1003,6 +1003,36 @@ var postorderTraversal = function (root) {
   return result;
 };
 
+/* 147. Insertion Sort List
+
+Given the head of a singly linked list, sort the list using insertion sort, and return the sorted list's head.
+ */
+var insertionSortList = function (head) {
+  let curr = head.next;
+  let parent = head;
+  while (curr) {
+    let temp = curr.next;
+    let node = head;
+    let prev = null;
+    while (curr.val > node.val && node !== curr) {
+      prev = node;
+      node = node.next;
+    }
+    if (node !== curr) {
+      if (!prev) {
+        curr.next = node;
+        head = curr;
+      } else {
+        prev.next = curr;
+        curr.next = node;
+      }
+      parent.next = temp;
+    } else parent = curr;
+    curr = temp;
+  }
+  return head;
+};
+
 /*150 Evaluate Reverse Polish Notation
  */
 var evalRPN = function (tokens) {
