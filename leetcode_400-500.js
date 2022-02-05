@@ -263,6 +263,29 @@ var findRightInterval = function (intervals) {
   return result;
 };
 
+/* 437. Path Sum III
+
+Given the root of a binary tree and an integer targetSum, return the number of paths where the sum of the values along the path equals targetSum.
+The path does not need to start or end at the root or a leaf, but it must go downwards (i.e., traveling only from parent nodes to child nodes).
+ */
+function pathSum(root, targetSum) {
+  if (!root) return 0;
+  let paths = 0;
+  function dfs(node, path) {
+    path.push(node.val);
+    let sum = 0;
+    for (let i = path.length - 1; i >= 0; i--) {
+      sum += path[i];
+      if (sum == targetSum) paths++;
+    }
+    if (node.left) dfs(node.left, path);
+    if (node.right) dfs(node.right, path);
+    path.pop();
+  }
+  dfs(root, []);
+  return paths;
+}
+
 /* 441. Arranging Coins
 
 You have n coins and you want to build a staircase with these coins. The staircase consists of k rows where the ith row has exactly i coins. The last row of the staircase may be incomplete.
