@@ -740,6 +740,34 @@ let partition = function (s) {
   return result;
 };
 
+/* 133. Clone Graph
+
+Given a reference of a node in a connected undirected graph.
+Return a deep copy (clone) of the graph.
+Each node in the graph contains a value (int) and a list (List[Node]) of its neighbors.
+ */
+
+var cloneGraph = function (node) {
+  if (!node) return null;
+  let copyNode = new Node(1);
+  let hash = { 1: copyNode };
+  let queue = [[node, copyNode]];
+  while (queue.length) {
+    let val = queue.shift();
+    let tempNode = val[0];
+    let tempCopyNode = val[1];
+    for (let i = 0; i < tempNode.neighbors.length; i++) {
+      let neighbor = tempNode.neighbors[i];
+      if (!(neighbor.val in hash)) {
+        hash[neighbor.val] = new Node(neighbor.val);
+        queue.push([neighbor, hash[neighbor.val]]);
+      }
+      tempCopyNode.neighbors.push(hash[neighbor.val]);
+    }
+  }
+  return copyNode;
+};
+
 //134. Gas Station
 
 /* There are n gas stations along a circular route, where the amount of gas at the ith station is gas[i].
