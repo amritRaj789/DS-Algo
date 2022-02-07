@@ -477,6 +477,35 @@ var intervalIntersection = function (firstList, secondList) {
   return result;
 };
 
+/* 997. Find the Town Judge
+
+In a town, there are n people labeled from 1 to n. There is a rumor that one of these people is secretly the town judge.
+If the town judge exists, then:
+The town judge trusts nobody.
+Everybody (except for the town judge) trusts the town judge.
+There is exactly one person that satisfies properties 1 and 2.
+You are given an array trust where trust[i] = [ai, bi] representing that the person labeled ai trusts the person labeled bi.
+Return the label of the town judge if the town judge exists and can be identified, or return -1 otherwise.
+ */
+var findJudge = function (n, trust) {
+  if (trust.length < n - 1) return -1;
+  if (n == 1) return 1;
+  let arr1 = Array(n).fill(0);
+  let arr2 = Array(n).fill(0);
+  let candidates = [];
+  for (let i = 0; i < trust.length; i++) {
+    let [a, b] = trust[i];
+    arr1[a - 1]++;
+    arr2[b - 1]++;
+    if (arr2[b - 1] == n - 1 && arr1[b - 1] == 0) candidates.push(b - 1);
+  }
+  for (let i = 0; i < candidates.length; i++) {
+    if (arr2[candidates[i]] == n - 1 && arr1[candidates[i]] == 0)
+      return candidates[i] + 1;
+  }
+  return -1;
+};
+
 // 1052. Grumpy bookstore owner
 function maxSatisfied(customers, grumpy, X) {
   let sumTotal = 0;
