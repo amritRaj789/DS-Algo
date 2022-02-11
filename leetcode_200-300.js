@@ -164,6 +164,17 @@ let rob = function (nums) {
   return Math.max(dp1[dp1.length - 1], dp2[dp2.length - 1]);
 };
 
+/* 215. Kth Largest Element in an Array
+
+Given an integer array nums and an integer k, return the kth largest element in the array.
+Note that it is the kth largest element in the sorted order, not the kth distinct element.
+ */
+
+var findKthLargest = function (nums, k) {
+  nums.sort((a, b) => b - a);
+  return nums[k - 1];
+};
+
 /*216. Combination Sum III
 Find all valid combinations of k numbers that sum up to n such that the following conditions are true:
 Only numbers 1 through 9 are used.
