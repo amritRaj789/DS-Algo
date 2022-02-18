@@ -408,6 +408,28 @@ function deleteNode(node) {
   node.next = node.next.next;
 }
 
+/* 238. Product of Array except self
+
+Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+You must write an algorithm that runs in O(n) time and without using the division operation.
+ */
+
+var productExceptSelf = function (nums) {
+  let result = Array(nums.length).fill(1);
+  let prefix = 1,
+    suffix = 1,
+    p1 = 0,
+    p2 = nums.length - 1;
+  for (let i = 0; i < nums.length; i++) {
+    result[p1] *= prefix;
+    result[p2] *= suffix;
+    prefix *= nums[p1++];
+    suffix *= nums[p2--];
+  }
+  return result;
+};
+
 /* 242. Valid Anagram
 
 Given two strings s and t, return true if t is an anagram of s, and false otherwise.
@@ -565,6 +587,40 @@ var findDuplicate = function (nums) {
   }
   for (let i = 0; i < nums.length; i++) {
     if (nums[i] !== i + 1) return nums[i];
+  }
+};
+
+/* 289. Game of Life
+
+According to Wikipedia's article: "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970."
+The board is made up of an m x n grid of cells, where each cell has an initial state: live (represented by a 1) or dead (represented by a 0). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules (taken from the above Wikipedia article):
+ */
+var gameOfLife = function (board) {
+  let m = board.length,
+    n = board[0].length;
+  let neighbors = Array(m)
+    .fill(0)
+    .map(() => Array(n).fill(0));
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (j > 0 && board[i][j - 1] == 1) neighbors[i][j]++;
+      if (j < n - 1 && board[i][j + 1] == 1) neighbors[i][j]++;
+      if (i > 0 && board[i - 1][j] == 1) neighbors[i][j]++;
+      if (i < m - 1 && board[i + 1][j] == 1) neighbors[i][j]++;
+      if (i > 0 && j > 0 && board[i - 1][j - 1] == 1) neighbors[i][j]++;
+      if (i > 0 && j < n - 1 && board[i - 1][j + 1] == 1) neighbors[i][j]++;
+      if (i < m - 1 && j > 0 && board[i + 1][j - 1] == 1) neighbors[i][j]++;
+      if (i < m - 1 && j < n - 1 && board[i + 1][j + 1] == 1) neighbors[i][j]++;
+    }
+  }
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (board[i][j] == 0) {
+        if (neighbors[i][j] == 3) board[i][j] = 1;
+      } else {
+        if (!(neighbors[i][j] == 2 || neighbors[i][j] == 3)) board[i][j] = 0;
+      }
+    }
   }
 };
 
