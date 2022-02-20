@@ -129,3 +129,43 @@ let mergeNodes = function (head) {
   p1.next = null;
   return copyp1.next;
 };
+
+/* 2182. Construct String with Repeat Limit
+
+You are given a string s and an integer repeatLimit. Construct a new string repeatLimitedString using the characters of s such that no letter appears more than repeatLimit times in a row. You do not have to use all characters from s.
+Return the lexicographically largest repeatLimitedString possible.
+ */
+var repeatLimitedString = function (s, repeatLimit) {
+  let hash = {};
+  for (let char of s) {
+    if (!(char in hash)) hash[char] = 0;
+    hash[char]++;
+  }
+  let result = "";
+  loop1: for (let i = 122; i >= 97; i--) {
+    let char = String.fromCharCode(i);
+    if (char in hash) {
+      if (hash[char] > repeatLimit) {
+        result += char.repeat(repeatLimit);
+        hash[char] -= repeatLimit;
+        let j;
+        for (j = i - 1; j >= 97; j--) {
+          let char2 = String.fromCharCode(j);
+          if (char2 in hash) {
+            result += char2;
+            hash[char2]--;
+            if (hash[char2] == 0) delete hash[char2];
+            i = 123;
+            continue loop1;
+          }
+        }
+        return result;
+      } else {
+        result += char.repeat(hash[char]);
+        delete hash[char];
+        i = 123;
+      }
+    }
+  }
+  return result;
+};
