@@ -105,6 +105,28 @@ let findLonely = function (nums) {
   return result;
 };
 
+/* 2180. Count Integers with Even Digit Sum
+Given a positive integer num, return the number of positive integers less than or equal to num whose digit sums are even.
+ */
+
+var countEven = function (num) {
+  if (num <= 1) return 0;
+  let count = 0;
+  function findDigitSum(n) {
+    let sum = 0;
+    while (n) {
+      sum += n % 10;
+      n = ~~(n / 10);
+    }
+    if (sum % 2 == 0) return true;
+    return false;
+  }
+  for (let i = num; i >= 2; i--) {
+    if (findDigitSum(i)) count++;
+  }
+  return count;
+};
+
 /* 2181. Merge Nodes in Between Zeroes
 
 You are given the head of a linked list, which contains a series of integers separated by 0's. The beginning and end of the linked list will have Node.val == 0.
