@@ -105,6 +105,16 @@ let findLonely = function (nums) {
   return result;
 };
 
+/* 2177. Find Three Consecutive Integers that Sum to a Given Number
+
+Given an integer num, return three consecutive integers (as a sorted array) that sum to num. If num cannot be expressed as the sum of three consecutive integers, return an empty array.
+ */
+var sumOfThree = function (num) {
+  if (num % 3) return [];
+  let mid = num / 3;
+  return [mid - 1, mid, mid + 1];
+};
+
 /* 2178. Maximum Split of Positive Even Integers
 
 You are given an integer finalSum. Split it into a sum of a maximum number of unique positive even integers.
