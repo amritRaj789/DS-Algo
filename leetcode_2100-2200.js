@@ -105,6 +105,31 @@ let findLonely = function (nums) {
   return result;
 };
 
+/* 2178. Maximum Split of Positive Even Integers
+
+You are given an integer finalSum. Split it into a sum of a maximum number of unique positive even integers.
+For example, given finalSum = 12, the following splits are valid (unique positive even integers summing up to finalSum): (2 + 10), (2 + 4 + 6), and (4 + 8). Among them, (2 + 4 + 6) contains the maximum number of integers. Note that finalSum cannot be split into (2 + 2 + 4 + 4) as all the numbers should be unique.
+Return a list of integers that represent a valid split containing a maximum number of integers. If no valid split exists for finalSum, return an empty list. You may return the integers in any order.
+ */
+
+let maximumEvenSplit = function (finalSum) {
+  if (finalSum % 2) return [];
+  let result = [];
+  let sum = 0;
+  for (let i = 2; i <= finalSum; i += 2) {
+    if (sum + i == finalSum) {
+      result.push(i);
+      return result;
+    } else if (sum + i > finalSum) {
+      let prev = result.pop();
+      result.push(finalSum - sum + prev);
+      return result;
+    }
+    result.push(i);
+    sum += i;
+  }
+};
+
 /* 2180. Count Integers with Even Digit Sum
 Given a positive integer num, return the number of positive integers less than or equal to num whose digit sums are even.
  */
