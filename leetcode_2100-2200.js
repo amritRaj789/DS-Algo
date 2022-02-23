@@ -105,6 +105,29 @@ let findLonely = function (nums) {
   return result;
 };
 
+/* 2171. Removing Minimum Number of Magic Beans
+You are given an array of positive integers beans, where each integer represents the number of magic beans found in a particular magic bag.
+Remove any number of beans (possibly none) from each bag such that the number of beans in each remaining non-empty bag (still containing at least one bean) is equal. Once a bean has been removed from a bag, you are not allowed to return it to any of the bags.
+Return the minimum number of magic beans that you have to remove.
+ */
+
+var minimumRemoval = function (beans) {
+  let n = beans.length;
+  beans.sort((a, b) => a - b);
+  let diffSum = 0;
+  for (let i = 0; i < n; i++) {
+    diffSum += beans[i] - beans[0];
+  }
+  let result = diffSum;
+  let newDiffSum = 0;
+  for (let i = 0; i < n - 1; i++) {
+    newDiffSum += beans[i];
+    diffSum -= (n - i - 1) * (beans[i + 1] - beans[i]);
+    result = Math.min(result, newDiffSum + diffSum);
+  }
+  return result;
+};
+
 /* 2177. Find Three Consecutive Integers that Sum to a Given Number
 
 Given an integer num, return three consecutive integers (as a sorted array) that sum to num. If num cannot be expressed as the sum of three consecutive integers, return an empty array.
