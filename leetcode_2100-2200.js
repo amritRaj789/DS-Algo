@@ -250,6 +250,29 @@ var repeatLimitedString = function (s, repeatLimit) {
   return result;
 };
 
+/* 2186. Minimum Number of Steps to Make Two Strings Anagram II
+
+You are given two strings s and t. In one step, you can append any character to either s or t.
+Return the minimum number of steps to make s and t anagrams of each other.
+An anagram of a string is a string that contains the same characters with a different (or the same) ordering.
+ */
+
+let minSteps = function (s, t) {
+  let result = 0;
+  let arr = Array(26).fill(0);
+  let a = "a".charCodeAt(0);
+  for (let char of s) {
+    arr[char.charCodeAt(0) - a]++;
+  }
+  for (let char of t) {
+    arr[char.charCodeAt(0) - a]--;
+  }
+  for (let num of arr) {
+    result += Math.abs(num);
+  }
+  return result;
+};
+
 /* 2187. Minimum Time to Complete Trips
 
 You are given an array time where time[i] denotes the time taken by the ith bus to complete one trip.
