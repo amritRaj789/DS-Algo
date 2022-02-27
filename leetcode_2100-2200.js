@@ -250,6 +250,22 @@ var repeatLimitedString = function (s, repeatLimit) {
   return result;
 };
 
+/* 2185. Counting Words With a Given Prefix
+
+You are given an array of strings words and a string pref.
+Return the number of strings in words that contain pref as a prefix.
+A prefix of a string s is any leading contiguous substring of s.
+ */
+
+var prefixCount = function (words, pref) {
+  let len = pref.length;
+  let count = 0;
+  for (let i = 0; i < words.length; i++) {
+    if (words[i].slice(0, len) == pref) count++;
+  }
+  return count;
+};
+
 /* 2186. Minimum Number of Steps to Make Two Strings Anagram II
 
 You are given two strings s and t. In one step, you can append any character to either s or t.
