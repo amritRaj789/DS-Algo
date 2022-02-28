@@ -424,6 +424,24 @@ var maxDepth = function (root) {
   return dfs(root);
 };
 
+/* 560. SubArray Sum equals K
+
+Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
+ */
+var subarraySum = function (nums, k) {
+  let hash = {};
+  let count = 0;
+  let sum = 0;
+  hash[0] = 1;
+  for (let i = 0; i < nums.length; i++) {
+    sum += nums[i];
+    if (sum - k in hash) count += hash[sum - k];
+    if (!(sum in hash)) hash[sum] = 0;
+    hash[sum]++;
+  }
+  return count;
+};
+
 /* 563. Binary Tree Tilt
 
 Given the root of a binary tree, return the sum of every tree node's tilt.
