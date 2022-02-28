@@ -69,6 +69,21 @@ var removeSubfolders = function (folder) {
   return result;
 };
 
+/* 1266. Minimum Time Visiting All points
+
+On a 2D plane, there are n points with integer coordinates points[i] = [xi, yi]. Return the minimum time in seconds to visit all the points in the order given by points.
+ */
+var minTimeToVisitAllPoints = function (points) {
+  let result = 0;
+  for (let i = 1; i < points.length; i++) {
+    result += Math.max(
+      Math.abs(points[i][0] - points[i - 1][0]),
+      Math.abs(points[i][1] - points[i - 1][1])
+    );
+  }
+  return result;
+};
+
 /* 1275. Find Winner of a Tic Tac Toe Game
 
 Tic-tac-toe is played by two players A and B on a 3 x 3 grid. The rules of Tic-Tac-Toe are:
