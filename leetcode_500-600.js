@@ -216,6 +216,52 @@ var findBottomLeftValue = function (root) {
   return leftMost;
 };
 
+/* 516. Longest Palindromic Subsequence
+
+Given a string s, find the longest palindromic subsequence's length in s.
+A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.
+ */
+
+// This is my way of doing it
+var longestPalindromeSubseq = function (s) {
+  let n = s.length;
+  let dp = Array(n)
+    .fill(0)
+    .map(() => Array(n).fill(0));
+  for (let i = 0; i < n; i++) {
+    dp[i][i] = 1;
+  }
+  for (let i = 1; i < n; i++) {
+    for (let j = 0; j < n - i; j++) {
+      if (s[j] == s[i + j]) dp[j][i + j] = 2 + dp[j + 1][i + j - 1];
+      else dp[j][i + j] = Math.max(dp[j][i + j - 1], dp[j + 1][i + j]);
+    }
+  }
+  return dp[0][n - 1];
+};
+
+// The logic is same as above, just the sequence of filling of DP table is different
+var longestPalindromeSubseq = function (s) {
+  let n = s.length;
+  let dp = Array(n)
+    .fill(0)
+    .map(() => Array(n).fill(0));
+  for (let start = n - 1; start >= 0; start--) {
+    for (let end = 0; end < n; end++) {
+      if (start > end) {
+        dp[start][end] = 0;
+      } else if (start === end) {
+        dp[start][end] = 1;
+      } else if (s[start] === s[end]) {
+        dp[start][end] = 2 + dp[start + 1][end - 1];
+      } else {
+        dp[start][end] = Math.max(dp[start + 1][end], dp[start][end - 1]);
+      }
+    }
+  }
+  return dp[0][n - 1];
+};
+
 /* 520. Detect Capital
 
 We define the usage of capitals in a word to be right when one of the following cases holds:
