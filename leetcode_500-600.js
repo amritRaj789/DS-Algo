@@ -585,6 +585,29 @@ var distributeCandies = function (candyType) {
   return count;
 };
 
+/* 583. Delete Operation for Two Strings
+
+Given two strings word1 and word2, return the minimum number of steps required to make word1 and word2 the same.
+In one step, you can delete exactly one character in either string.
+ */
+let minDistance = function (word1, word2) {
+  let dp = Array(word1.length + 1)
+    .fill(0)
+    .map(() => Array(word2.length + 1).fill(0));
+  for (let i = 0; i <= word2.length; i++) dp[0][i] = i;
+  for (let i = 0; i <= word1.length; i++) dp[i][0] = i;
+  for (let i = 0; i < word1.length; i++) {
+    for (let j = 0; j < word2.length; j++) {
+      if (word1[i] == word2[j]) {
+        dp[i + 1][j + 1] = dp[i][j];
+      } else {
+        dp[i + 1][j + 1] = 1 + Math.min(dp[i + 1][j], dp[i][j + 1]);
+      }
+    }
+  }
+  return dp[word1.length][word2.length];
+};
+
 /* 589. N-ary Tree Preorder traversal
 
 Given the root of an n-ary tree, return the preorder traversal of its nodes' values.
