@@ -94,6 +94,32 @@ let findLongestChain = function (pairs) {
   return maxLength;
 };
 
+/* 647. Palindromic Substrings
+
+Given a string s, return the number of palindromic substrings in it.
+A string is a palindrome when it reads the same backward as forward.
+A substring is a contiguous sequence of characters within the string.
+ */
+
+var countSubstrings = function (s) {
+  let count = 0;
+  let dp = Array(s.length)
+    .fill(0)
+    .map(() => Array(s.length).fill(false));
+  for (let i = s.length - 1; i >= 0; i--) {
+    for (let j = i; j < s.length; j++) {
+      if (i == j) {
+        dp[i][j] = true;
+        count++;
+      } else if (s[i] == s[j] && (j - i == 1 || dp[i + 1][j - 1])) {
+        dp[i][j] = true;
+        count++;
+      }
+    }
+  }
+  return count;
+};
+
 /* 653. Two Sum IV - Input in a BST
 
 Given the root of a Binary Search Tree and a target number k, return true if there exist two elements in the BST such that their sum is equal to the given target.
