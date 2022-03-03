@@ -430,6 +430,35 @@ var productExceptSelf = function (nums) {
   return result;
 };
 
+/* 240. Search a 2D Matrix II
+
+Write an efficient algorithm that searches for a value target in an m x n integer matrix matrix. This matrix has the following properties:
+Integers in each row are sorted in ascending from left to right.
+Integers in each column are sorted in ascending from top to bottom.
+ */
+
+// Brilliant O(M+N) approach
+const searchMatrix = (matrix, target) => {
+  if (!matrix || matrix.length === 0 || matrix[0].length === 0) {
+    return false;
+  }
+  const rows = matrix.length;
+  const cols = matrix[0].length;
+  let row = 0,
+    col = cols - 1;
+  while (row < rows && col >= 0) {
+    if (matrix[row][col] === target) {
+      return true;
+    }
+    if (matrix[row][col] < target) {
+      row++;
+    } else {
+      col--;
+    }
+  }
+  return false;
+};
+
 /* 242. Valid Anagram
 
 Given two strings s and t, return true if t is an anagram of s, and false otherwise.
