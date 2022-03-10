@@ -373,3 +373,34 @@ var createBinaryTree = function (descriptions) {
     if (rootHash[key] == true) return hash[key];
   }
 };
+
+/* 2197. Replace Non-Coprimes
+
+You are given an array of integers nums. Perform the following steps:
+Find any two adjacent numbers in nums that are non-coprime.
+If no such numbers are found, stop the process.
+Otherwise, delete the two numbers and replace them with their LCM (Least Common Multiple).
+Repeat this process as long as you keep finding two adjacent non-coprime numbers. */
+
+var replaceNonCoprimes = function (nums) {
+  function gcd_two_numbers(x, y) {
+    x = Math.abs(x);
+    y = Math.abs(y);
+    while (y) {
+      var t = y;
+      y = x % y;
+      x = t;
+    }
+    return x;
+  }
+  for (let i = 0; i < nums.length; i++) {
+    if (i == 0) continue;
+    let gcd = gcd_two_numbers(nums[i], nums[i - 1]);
+    if (gcd == 1) continue;
+    else {
+      nums.splice(i - 1, 2, ~~((nums[i] * nums[i - 1]) / gcd));
+      i -= 2;
+    }
+  }
+  return nums;
+};
