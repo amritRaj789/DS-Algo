@@ -317,3 +317,31 @@ let minimumTime = function (time, totalTrips) {
   }
   return result;
 };
+
+/* 2191. Sort the Jumbled numbers
+
+You are given a 0-indexed integer array mapping which represents the mapping rule of a shuffled decimal system. mapping[i] = j means digit i should be mapped to digit j in this system.
+The mapped value of an integer is the new integer obtained by replacing each occurrence of digit i in the integer with mapping[i] for all 0 <= i <= 9.
+You are also given another integer array nums. Return the array nums sorted in non-decreasing order based on the mapped values of its elements.
+ */
+var sortJumbled = function (mapping, nums) {
+  function process(num) {
+    if (num == 0) return mapping[0];
+    let result = 0;
+    let pow10 = 1;
+    while (num) {
+      result = pow10 * mapping[num % 10] + result;
+      num = ~~(num / 10);
+      pow10 *= 10;
+    }
+    return result;
+  }
+  let arr = [];
+  for (let i = 0; i < nums.length; i++) {
+    arr.push([process(nums[i]), nums[i]]);
+  }
+  arr.sort((a, b) => {
+    return a[0] - b[0];
+  });
+  return arr.map((val) => val[1]);
+};
