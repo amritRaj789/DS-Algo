@@ -346,10 +346,9 @@ var sortJumbled = function (mapping, nums) {
   return arr.map((val) => val[1]);
 };
 
+/* 2196. Create Binary Tree from description.
 
-2196. Create Binary Tree from description.
-
-/* You are given a 2D integer array descriptions where descriptions[i] = [parenti, childi, isLefti] indicates that parenti is the parent of childi in a binary tree of unique values. Furthermore,
+You are given a 2D integer array descriptions where descriptions[i] = [parenti, childi, isLefti] indicates that parenti is the parent of childi in a binary tree of unique values. Furthermore,
 If isLefti == 1, then childi is the left child of parenti.
 If isLefti == 0, then childi is the right child of parenti.
 Construct the binary tree described by descriptions and return its root.
@@ -359,9 +358,12 @@ var createBinaryTree = function (descriptions) {
   let hash = {};
   let rootHash = {};
   for (let i = 0; i < descriptions.length; i++) {
-    if (!(descriptions[i][0] in hash)) hash[descriptions[i][0]] = new TreeNode(descriptions[i][0]);
-    if (!(descriptions[i][1] in hash)) hash[descriptions[i][1]] = new TreeNode(descriptions[i][1]);
-    if (descriptions[i][2] == 1) hash[descriptions[i][0]].left = hash[descriptions[i][1]];
+    if (!(descriptions[i][0] in hash))
+      hash[descriptions[i][0]] = new TreeNode(descriptions[i][0]);
+    if (!(descriptions[i][1] in hash))
+      hash[descriptions[i][1]] = new TreeNode(descriptions[i][1]);
+    if (descriptions[i][2] == 1)
+      hash[descriptions[i][0]].left = hash[descriptions[i][1]];
     else hash[descriptions[i][0]].right = hash[descriptions[i][1]];
     if (!(descriptions[i][0] in rootHash)) rootHash[descriptions[i][0]] = true;
     if (!(descriptions[i][1] in rootHash)) rootHash[descriptions[i][1]] = false;
