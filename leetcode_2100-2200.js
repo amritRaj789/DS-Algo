@@ -346,6 +346,33 @@ var sortJumbled = function (mapping, nums) {
   return arr.map((val) => val[1]);
 };
 
+/* 2195. Append K Integers with minimal sum
+
+You are given an integer array nums and an integer k. Append k unique positive integers that do not appear in nums to nums such that the resulting total sum is minimum.
+Return the sum of the k integers appended to nums.
+ */
+var minimalKSum = function (nums, k) {
+  let sum = 0;
+  nums.sort((a, b) => a - b);
+  let start = 1;
+  for (let i = 0; i < nums.length; i++) {
+    if (i > 0 && nums[i] == nums[i - 1]) continue;
+    if (k == 0) return sum;
+    if (nums[i] !== start) {
+      sum += start;
+      k--;
+      i--;
+    }
+    start++;
+  }
+  while (k > 0) {
+    sum += start;
+    start++;
+    k--;
+  }
+  return sum;
+};
+
 /* 2196. Create Binary Tree from description.
 
 You are given a 2D integer array descriptions where descriptions[i] = [parenti, childi, isLefti] indicates that parenti is the parent of childi in a binary tree of unique values. Furthermore,
