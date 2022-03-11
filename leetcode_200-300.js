@@ -1,3 +1,21 @@
+/* 201. Bitwise AND of Numbers Range
+
+Given two integers left and right that represent the range [left, right], return the bitwise AND of all numbers in this range, inclusive.
+ */
+
+var rangeBitwiseAnd = function (left, right) {
+  if (left == 0) return 0;
+  if (left == right) return left;
+  let pow2 = Math.floor(Math.log(left) / Math.log(2));
+  if (2 ** (pow2 + 1) <= right) return 0;
+  let result = left++;
+  while (left <= right) {
+    result = result & left++;
+    if (!result) return 0;
+  }
+  return result;
+};
+
 /* 202. Happy Number
 
 Write an algorithm to determine if a number n is happy. Sum of square of digits becomes 1 or loops endlessly in a cycle
