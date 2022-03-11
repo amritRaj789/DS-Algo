@@ -323,6 +323,61 @@ var arrangeCoins = function (n) {
   }
 };
 
+/* 445. Add Two Numbers II
+
+You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+ */
+var addTwoNumbers = function (l1, l2) {
+  let prev = null;
+  let node = l1;
+  while (node) {
+    temp = node.next;
+    node.next = prev;
+    prev = node;
+    node = temp;
+  }
+  l1 = prev;
+  node = l2;
+  prev = null;
+  while (node) {
+    temp = node.next;
+    node.next = prev;
+    prev = node;
+    node = temp;
+  }
+  l2 = prev;
+  let carry = 0;
+  let result = null;
+  let copyresult;
+  while (l1 || l2) {
+    let sum = carry;
+    if (l1) sum += l1.val;
+    if (l2) sum += l2.val;
+    if (sum > 9) {
+      sum -= 10;
+      carry = 1;
+    } else carry = 0;
+    if (!result) {
+      result = new ListNode(sum);
+      copyresult = result;
+    } else {
+      result.next = new ListNode(sum);
+      result = result.next;
+    }
+    l1 = l1 ? l1.next : null;
+    l2 = l2 ? l2.next : null;
+  }
+  if (carry) result.next = new ListNode(1);
+  prev = null;
+  while (copyresult) {
+    temp = copyresult.next;
+    copyresult.next = prev;
+    prev = copyresult;
+    copyresult = temp;
+  }
+  return prev;
+};
+
 /* 454. 4Sum II
 
 Given four integer arrays nums1, nums2, nums3, and nums4 all of length n, return the number of tuples (i, j, k, l) such that:
