@@ -81,6 +81,40 @@ let rearrangeArray = function (nums) {
   return result;
 };
 
+/* 1975. Maximum Matrix Sum
+
+You are given an n x n integer matrix. You can do the following operation any number of times:
+Choose any two adjacent elements of matrix and multiply each of them by -1.
+Two elements are considered adjacent if and only if they share a border.
+Your goal is to maximize the summation of the matrix's elements. Return the maximum sum of the matrix's elements using the operation mentioned above.
+ */
+
+var maxMatrixSum = function (matrix) {
+  let leastPos = +Infinity;
+  let maxNeg = -Infinity;
+  let countNeg = 0;
+  let sumNeg = 0;
+  let sumPos = 0;
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      if (matrix[i][j] >= 0) {
+        sumPos += matrix[i][j];
+        leastPos = Math.min(leastPos, matrix[i][j]);
+      } else {
+        maxNeg = Math.max(maxNeg, matrix[i][j]);
+        countNeg++;
+        sumNeg += matrix[i][j];
+      }
+    }
+  }
+  if (countNeg % 2 == 0) return sumPos + Math.abs(sumNeg);
+  else {
+    if (leastPos != +Infinity && Math.abs(maxNeg) > leastPos)
+      return Math.abs(sumNeg) + sumPos - 2 * leastPos;
+    return Math.abs(sumNeg) + sumPos + 2 * maxNeg;
+  }
+};
+
 /* 1991. Find the Middle Index in Array
 
 Given a 0-indexed integer array nums, find the leftmost middleIndex (i.e., the smallest amongst all the possible ones).
