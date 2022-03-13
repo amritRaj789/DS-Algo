@@ -1,3 +1,55 @@
+/* 2201. Count Artifacts That Can be Extracted
+
+There is an n x n 0-indexed grid with some artifacts buried in it. You are given the integer n and a 0-indexed 2D integer array artifacts describing the positions of the rectangular artifacts where artifacts[i] = [r1i, c1i, r2i, c2i] denotes that the ith artifact is buried in the subgrid where:
+ */
+var digArtifacts = function (n, artifacts, dig) {
+  let count = 0;
+  let grid = Array(n)
+    .fill(0)
+    .map(() => Array(n).fill(false));
+  for (let i = 0; i < dig.length; i++) {
+    let [row, col] = dig[i];
+    grid[row][col] = true;
+  }
+  for (let i = 0; i < artifacts.length; i++) {
+    // same row
+    if (artifacts[i][0] == artifacts[i][2]) {
+      let col = artifacts[i][1];
+      let found = true;
+      while (col <= artifacts[i][3]) {
+        if (grid[artifacts[i][0]][col] == false) {
+          found = false;
+          break;
+        }
+        col++;
+      }
+      if (found) count++;
+    }
+    // same col
+    else if (artifacts[i][1] == artifacts[i][3]) {
+      let row = artifacts[i][0];
+      let found = true;
+      while (row <= artifacts[i][2]) {
+        if (grid[row][artifacts[i][1]] == false) {
+          found = false;
+          break;
+        }
+        row++;
+      }
+      if (found) count++;
+    }
+    // diagonal
+    else {
+      if (grid[artifacts[i][0]][artifacts[i][1]] == false) continue;
+      if (grid[artifacts[i][0]][artifacts[i][1] + 1] == false) continue;
+      if (grid[artifacts[i][2]][artifacts[i][3]] == false) continue;
+      if (grid[artifacts[i][2]][artifacts[i][3] - 1] == false) continue;
+      count++;
+    }
+  }
+  return count;
+};
+
 /* 2202. Maximize the topmost element after K moves
 
 You are given a 0-indexed integer array nums representing the contents of a pile, where nums[0] is the topmost element of the pile.
