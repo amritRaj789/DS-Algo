@@ -69,6 +69,31 @@ var removeSubfolders = function (folder) {
   return result;
 };
 
+/* 1249. Minimum remove to make valid parentheses
+
+Given a string s of '(' , ')' and lowercase English characters.
+Your task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) so that the resulting parentheses string is valid and return any valid string
+ */
+
+var minRemoveToMakeValid = function (s) {
+  let stack = [];
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] == "(") stack.push(["(", i]);
+    else if (s[i] == ")") {
+      if (stack.length && stack[stack.length - 1][0] == "(") stack.pop();
+      else stack.push([")", i]);
+    }
+  }
+  let indices = stack.map((element) => element[1]);
+  let p1 = 0;
+  let result = "";
+  for (let i = 0; i < s.length; i++) {
+    if (i !== indices[p1]) result += s[i];
+    else p1++;
+  }
+  return result;
+};
+
 /* 1266. Minimum Time Visiting All points
 
 On a 2D plane, there are n points with integer coordinates points[i] = [xi, yi]. Return the minimum time in seconds to visit all the points in the order given by points.
