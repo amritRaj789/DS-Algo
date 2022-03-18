@@ -31,6 +31,29 @@ let isAdditiveNumber = function (num) {
 };
 // this absolutely works but the runtime is slow. like very slow. how do we optimize it?
 
+/* 316. Remove Duplicate Letters
+
+Given a string s, remove duplicate letters so that every letter appears once and only once. You must make sure your result is the smallest in lexicographical order among all possible results.
+ */
+var removeDuplicateLetters = function (s) {
+  let hash = {};
+  for (let i = 0; i < s.length; i++) {
+    hash[s[i]] = i;
+  }
+  let stack = [];
+  for (let i = 0; i < s.length; i++) {
+    if (stack.indexOf(s[i]) > -1) continue;
+    while (
+      stack.length > 0 &&
+      stack[stack.length - 1] > s[i] &&
+      hash[stack[stack.length - 1]] > i
+    )
+      stack.pop();
+    stack.push(s[i]);
+  }
+  return stack.join("");
+};
+
 /* 328. Odd Even Linked List
 
 Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.
