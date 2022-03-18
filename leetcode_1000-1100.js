@@ -96,6 +96,29 @@ let numTilePossibilities = function (tiles) {
   return count;
 };
 // not very fast, but this works
+
+/* 1081.
+
+Given a string s, return the lexicographically smallest subsequence of s that contains all the distinct characters of s exactly once.
+ */
+
+var smallestSubsequence = function (s) {
+  let stack = [];
+  let hash = {};
+  for (let i = 0; i < s.length; i++) hash[s[i]] = i;
+  for (let i = 0; i < s.length; i++) {
+    if (stack.indexOf(s[i]) > -1) continue;
+    while (
+      stack.length &&
+      stack[stack.length - 1] > s[i] &&
+      hash[stack[stack.length - 1]] > i
+    )
+      stack.pop();
+    stack.push(s[i]);
+  }
+  return stack.join("");
+};
+
 /*1092. Shortest Common Supersequence
 Given two strings str1 and str2, return the shortest string that has both str1 and str2 as subsequences.  
 If multiple answers exist, you may return any of them.
