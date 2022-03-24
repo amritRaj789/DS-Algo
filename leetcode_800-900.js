@@ -500,6 +500,27 @@ let stoneGame = function (piles) {
   return true;
 };
 
+/* 881. Boats to Save People
+
+You are given an array people where people[i] is the weight of the ith person, and an infinite number of boats where each boat can carry a maximum weight of limit. Each boat carries at most two people at the same time, provided the sum of the weight of those people is at most limit.
+
+Return the minimum number of boats to carry every given person.
+ */
+var numRescueBoats = function (people, limit) {
+  people.sort((a, b) => a - b);
+  let count = 0;
+  let left = 0;
+  let right = people.length - 1;
+  while (left <= right) {
+    if (people[left] + people[left + 1] > limit)
+      return count + (right - left + 1);
+    if (people[left] + people[right] <= limit) left++;
+    count++;
+    right--;
+  }
+  return count;
+};
+
 //883. Projection Area of 3D shapes
 
 /* You are given an n x n grid where we place some 1 x 1 x 1 cubes that are axis-aligned with the x, y, and z axes.
