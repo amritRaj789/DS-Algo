@@ -34,6 +34,32 @@ var getAllElements = function (root1, root2) {
   return result;
 };
 
+/* 1337. The K weakest Rows in a Matrix
+
+You are given an m x n binary matrix mat of 1's (representing soldiers) and 0's (representing civilians). The soldiers are positioned in front of the civilians. That is, all the 1's will appear to the left of all the 0's in each row.
+A row i is weaker than a row j if one of the following is true:
+The number of soldiers in row i is less than the number of soldiers in row j.
+Both rows have the same number of soldiers and i < j.
+Return the indices of the k weakest rows in the matrix ordered from weakest to strongest.
+ */
+
+var kWeakestRows = function (mat, k) {
+  let result = [];
+  for (let i = 0; i < mat.length; i++) {
+    let sum = 0;
+    for (let j = 0; j < mat[0].length; j++) {
+      if (mat[i][j] == 0) break;
+      sum++;
+    }
+    result.push([sum, i]);
+  }
+  result.sort((a, b) => {
+    if (a[0] == b[0]) return a[1] - b[1];
+    return a[0] - b[0];
+  });
+  return result.map((ele) => ele[1]).slice(0, k);
+};
+
 /* 1351. Count Negative Numbers in a Sorted Matrix
 
 Given a m x n matrix grid which is sorted in non-increasing order both row-wise and column-wise, return the number of negative numbers in grid. */
