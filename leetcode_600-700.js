@@ -261,6 +261,31 @@ let findSecondMinimumValue = function (root) {
   return secondMin === Infinity ? -1 : secondMin;
 };
 
+/* 680. Valid Palindrome II
+
+Given a string s, return true if the s can be palindrome after deleting at most one character from it.
+ */
+
+var validPalindrome = function (s) {
+  function check(str, count) {
+    if (count == 2) return false;
+    let left = 0;
+    let right = str.length - 1;
+    while (left <= right) {
+      if (str[left] != str[right]) {
+        return (
+          check(str.slice(left + 1, right + 1), count + 1) ||
+          check(str.slice(left, right), count + 1)
+        );
+      }
+      left++;
+      right--;
+    }
+    return true;
+  }
+  return check(s, 0);
+};
+
 /* 682. Baseball Game
 
 You are keeping score for a baseball game with strange rules. The game consists of several rounds, where the scores of past rounds may affect future rounds' scores.
