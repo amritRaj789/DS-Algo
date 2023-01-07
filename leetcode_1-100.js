@@ -1790,6 +1790,28 @@ var numTrees = function (n) {
   }
   return G[n];
 };
+
+/* 98. Validate BST
+Given the root of a binary tree, determine if it is a valid binary search tree (BST).
+A valid BST is defined as follows:
+The left subtree of a node contains only nodes with keys less than the node's key.
+The right subtree of a node contains only nodes with keys greater than the node's key.
+Both the left and right subtrees must also be binary search trees.
+ */
+var isValidBST = function (root) {
+  let list = [];
+  function inorder(node) {
+    if (node.left) inorder(node.left);
+    list.push(node.val);
+    if (node.right) inorder(node.right);
+  }
+  inorder(root);
+  for (let i = 1; i < list.length; i++) {
+    if (list[i] <= list[i - 1]) return false;
+  }
+  return true;
+};
+
 // We just have to arrange different no. of nodes on each side of the root node
 // The value of the nodes doesn't matter. Suppose we select 4 as root node, then 1 to 3 goes to left and 5 to n goes to right
 
