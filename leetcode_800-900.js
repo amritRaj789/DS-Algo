@@ -449,6 +449,27 @@ var leafSimilar = function (root1, root2) {
   return true;
 };
 
+// 875. Koko eating Bananas
+
+// Koko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas. The guards have gone and will come back in h hours.
+// Koko can decide her bananas-per-hour eating speed of k. Each hour, she chooses some pile of bananas and eats k bananas from that pile. If the pile has less than k bananas, she eats all of them instead and will not eat any more bananas during this hour.
+// Koko likes to eat slowly but still wants to finish eating all the bananas before the guards return.
+// Return the minimum integer k such that she can eat all the bananas within h hours.
+
+var minEatingSpeed = function(piles, h) {
+    piles.sort((a, b) => a-b);
+    let total = piles.reduce((a, b) => a+b, 0);
+    let min = Math.ceil(total/h);
+    while(true){
+        let sum = 0;
+        for(let i = 0; i < piles.length; i++){
+            sum += Math.ceil(piles[i]/min);
+        }
+        if(sum <= h) return min
+        min++;
+    }
+};
+
 // 876. Middle of the Linked List
 // Given a non-empty, singly linked list with head node, return a middle node of linked list.
 // If there are two middle nodes, return the second middle node.
