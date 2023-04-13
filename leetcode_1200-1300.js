@@ -51,6 +51,32 @@ let getMaximumGold = function (grid) {
   return maximumGold;
 };
 
+/* 1221. Split a String in balanced strings
+Balanced strings are those that have an equal quantity of 'L' and 'R' characters.
+Given a balanced string s, split it into some number of substrings such that:
+Each substring is balanced.
+Return the maximum number of balanced strings you can obtain.
+*/
+
+var balancedStringSplit = function(s) {
+    if(s.length%2) return 0;
+    let count = 0;
+    let LCount = 0;
+    let RCount = 0;
+    let found = -1;
+    for(let i = 0; i < s.length; i++){
+        if(s[i] == 'L') LCount++;
+        else RCount++;
+        if(LCount == RCount){
+            count++;
+            LCount = RCount = 0;
+            found = i;
+        }
+    }
+    return (found != s.length-1 ? 0 : count)
+};
+
+
 /* 1233. Remove Sub-folders from the filesystem
 
 Given a list of folders, remove all sub-folders in those folders and return in any order the folders after removing.
